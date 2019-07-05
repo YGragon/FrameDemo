@@ -3,7 +3,7 @@ package com.example.lib_common.utils
 import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import java.util.*
 

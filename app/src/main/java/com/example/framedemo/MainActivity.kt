@@ -1,17 +1,20 @@
 package com.example.framedemo
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
+import com.example.lib_common.utils.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+    override fun initView() {
         ToastUtils.show(this,"你好")
+
+    }
+
+    override fun initData() {
         LogUtils.ee("tag","==tag==")
     }
 }
