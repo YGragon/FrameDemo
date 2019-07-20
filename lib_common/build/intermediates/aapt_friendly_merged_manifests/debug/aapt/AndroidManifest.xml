@@ -8,9 +8,4 @@
         android:minSdkVersion="21"
         android:targetSdkVersion="28" />
 
-    <application>
-        <activity android:name="com.example.lib_common.utils.base.BaseActivity" >
-        </activity>
-    </application>
-
 </manifest>

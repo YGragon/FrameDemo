@@ -5,10 +5,32 @@ import java.lang.System;
 /**
  * * Activity 基类
  */
-@kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u00008\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\b&\u0018\u00002\u00020\u0001:\u0001\u0014B\u0005\u00a2\u0006\u0002\u0010\u0002J\b\u0010\u0005\u001a\u00020\u0006H&J\b\u0010\u0007\u001a\u00020\bH\u0002J\b\u0010\t\u001a\u00020\bH&J\b\u0010\n\u001a\u00020\bH&J\u0012\u0010\u000b\u001a\u00020\b2\b\u0010\f\u001a\u0004\u0018\u00010\rH\u0014J\b\u0010\u000e\u001a\u00020\bH\u0014J\u0018\u0010\u000f\u001a\u00020\u00102\u0006\u0010\u0011\u001a\u00020\u00062\u0006\u0010\u0012\u001a\u00020\u0013H\u0016R\u0012\u0010\u0003\u001a\u00060\u0004R\u00020\u0000X\u0082\u0004\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0015"}, d2 = {"Lcom/example/lib_common/utils/base/BaseActivity;", "Landroidx/appcompat/app/AppCompatActivity;", "()V", "exitReceiver", "Lcom/example/lib_common/utils/base/BaseActivity$ExitReceiver;", "getLayoutId", "", "initBroadcast", "", "initData", "initView", "onCreate", "savedInstanceState", "Landroid/os/Bundle;", "onDestroy", "onKeyDown", "", "keyCode", "event", "Landroid/view/KeyEvent;", "ExitReceiver", "lib_common_debug"})
-public abstract class BaseActivity extends androidx.appcompat.app.AppCompatActivity {
+@kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000T\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\b\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0004\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0010\u0007\n\u0002\b\u0002\b&\u0018\u00002\u00020\u00012\u00020\u0002:\u0001)B\u0005\u00a2\u0006\u0002\u0010\u0003J\b\u0010\u0012\u001a\u00020\u0013H&J\b\u0010\u0014\u001a\u00020\u0015H\u0002J\b\u0010\u0016\u001a\u00020\u0015H&J\b\u0010\u0017\u001a\u00020\u0015H\u0002J\b\u0010\u0018\u001a\u00020\u0015H&J\b\u0010\u0019\u001a\u00020\u001aH\u0016J\b\u0010\u001b\u001a\u00020\u0015H\u0016J\u0012\u0010\u001c\u001a\u00020\u00152\b\u0010\u001d\u001a\u0004\u0018\u00010\u001eH\u0014J\b\u0010\u001f\u001a\u00020\u0015H\u0014J\u0018\u0010 \u001a\u00020\u001a2\u0006\u0010!\u001a\u00020\u00132\u0006\u0010\"\u001a\u00020#H\u0016J\b\u0010$\u001a\u00020\u0015H\u0016J\b\u0010%\u001a\u00020\u0015H\u0016J\u0010\u0010&\u001a\u00020\u00152\u0006\u0010\'\u001a\u00020(H\u0016R\u0012\u0010\u0004\u001a\u00060\u0005R\u00020\u0000X\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u001c\u0010\u0006\u001a\u0004\u0018\u00010\u0007X\u0084\u000e\u00a2\u0006\u000e\n\u0000\u001a\u0004\b\b\u0010\t\"\u0004\b\n\u0010\u000bR\u001c\u0010\f\u001a\u0004\u0018\u00010\rX\u0084\u000e\u00a2\u0006\u000e\n\u0000\u001a\u0004\b\u000e\u0010\u000f\"\u0004\b\u0010\u0010\u0011\u00a8\u0006*"}, d2 = {"Lcom/example/lib_common/utils/base/BaseActivity;", "Landroidx/appcompat/app/AppCompatActivity;", "Lcn/bingoogolapple/swipebacklayout/BGASwipeBackHelper$Delegate;", "()V", "exitReceiver", "Lcom/example/lib_common/utils/base/BaseActivity$ExitReceiver;", "mSwipeBackHelper", "Lcn/bingoogolapple/swipebacklayout/BGASwipeBackHelper;", "getMSwipeBackHelper", "()Lcn/bingoogolapple/swipebacklayout/BGASwipeBackHelper;", "setMSwipeBackHelper", "(Lcn/bingoogolapple/swipebacklayout/BGASwipeBackHelper;)V", "mToolbar", "Landroid/widget/Toolbar;", "getMToolbar", "()Landroid/widget/Toolbar;", "setMToolbar", "(Landroid/widget/Toolbar;)V", "getLayoutId", "", "initBroadcast", "", "initData", "initSwipeBackFinish", "initView", "isSupportSwipeBack", "", "onBackPressed", "onCreate", "savedInstanceState", "Landroid/os/Bundle;", "onDestroy", "onKeyDown", "keyCode", "event", "Landroid/view/KeyEvent;", "onSwipeBackLayoutCancel", "onSwipeBackLayoutExecuted", "onSwipeBackLayoutSlide", "slideOffset", "", "ExitReceiver", "lib_common_debug"})
+public abstract class BaseActivity extends androidx.appcompat.app.AppCompatActivity implements cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper.Delegate {
+    @org.jetbrains.annotations.Nullable()
+    private cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper mSwipeBackHelper;
+    @org.jetbrains.annotations.Nullable()
+    private android.widget.Toolbar mToolbar;
     private final com.example.lib_common.utils.base.BaseActivity.ExitReceiver exitReceiver = null;
     private java.util.HashMap _$_findViewCache;
+    
+    @org.jetbrains.annotations.Nullable()
+    protected final cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper getMSwipeBackHelper() {
+        return null;
+    }
+    
+    protected final void setMSwipeBackHelper(@org.jetbrains.annotations.Nullable()
+    cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper p0) {
+    }
+    
+    @org.jetbrains.annotations.Nullable()
+    protected final android.widget.Toolbar getMToolbar() {
+        return null;
+    }
+    
+    protected final void setMToolbar(@org.jetbrains.annotations.Nullable()
+    android.widget.Toolbar p0) {
+    }
     
     @java.lang.Override()
     protected void onCreate(@org.jetbrains.annotations.Nullable()
@@ -25,6 +47,49 @@ public abstract class BaseActivity extends androidx.appcompat.app.AppCompatActiv
      * * 退出 App 的广播
      */
     private final void initBroadcast() {
+    }
+    
+    /**
+     * * 初始化滑动返回。在 super.onCreate(savedInstanceState) 之前调用该方法
+     */
+    private final void initSwipeBackFinish() {
+    }
+    
+    /**
+     * * 是否支持滑动返回。这里在父类中默认返回 true 来支持滑动返回，如果某个界面不想支持滑动返回则重写该方法返回 false 即可
+     *     *
+     *     * @return
+     */
+    @java.lang.Override()
+    public boolean isSupportSwipeBack() {
+        return false;
+    }
+    
+    /**
+     * * 正在滑动返回
+     *     *
+     *     * @param slideOffset 从 0 到 1
+     */
+    @java.lang.Override()
+    public void onSwipeBackLayoutSlide(float slideOffset) {
+    }
+    
+    /**
+     * * 没达到滑动返回的阈值，取消滑动返回动作，回到默认状态
+     */
+    @java.lang.Override()
+    public void onSwipeBackLayoutCancel() {
+    }
+    
+    /**
+     * * 滑动返回执行完毕，销毁当前 Activity
+     */
+    @java.lang.Override()
+    public void onSwipeBackLayoutExecuted() {
+    }
+    
+    @java.lang.Override()
+    public void onBackPressed() {
     }
     
     @java.lang.Override()

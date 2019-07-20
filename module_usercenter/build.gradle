@@ -45,6 +45,16 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            if (!isNeedUserCenterModule.toBoolean()) {
+                manifest.srcFile 'src/main/module_usercenter/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+
 }
 
 dependencies {

@@ -44,6 +44,8 @@ dependencies {
     api rootProject.ext.dependencies["constraintlayout"]
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["event_bus"]
+    api rootProject.ext.dependencies["statusbarutil"]
+    api rootProject.ext.dependencies["swipebacklayout"]
     api rootProject.ext.dependencies["arouter-api"]
     kapt rootProject.ext.dependencies["arouter-compiler"]
     api rootProject.ext.dependencies["permissionsdispatcher"]
