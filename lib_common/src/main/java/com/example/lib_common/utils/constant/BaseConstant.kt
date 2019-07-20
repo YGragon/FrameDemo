@@ -1,4 +1,4 @@
-package com.example.lib_common.utils
+package com.example.lib_common.utils.constant
 
 object BaseConstant {
 

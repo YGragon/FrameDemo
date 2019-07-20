@@ -3,7 +3,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     defaultConfig {
@@ -12,6 +16,11 @@ android {
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -35,6 +44,7 @@ dependencies {
     api rootProject.ext.dependencies["constraintlayout"]
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["arouter-api"]
+    kapt rootProject.ext.dependencies["arouter-compiler"]
     api rootProject.ext.dependencies["permissionsdispatcher"]
     kapt rootProject.ext.dependencies["permissions-processor"]
     testImplementation rootProject.ext.dependencies["junit"]

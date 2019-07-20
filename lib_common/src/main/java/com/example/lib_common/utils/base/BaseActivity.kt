@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import com.example.lib_common.utils.AppManager
 import android.view.KeyEvent.KEYCODE_BACK
-import com.example.lib_common.utils.BaseConstant
+import com.example.lib_common.utils.constant.BaseConstant
 
 
 /**
