@@ -16,14 +16,20 @@ object GlideUtils {
      */
 
     fun showImageView(context: Context, mImageView: ImageView, url: String) {
-        showImageView(context,mImageView,url,R.drawable.placeholder)
+        showImageView(context, mImageView, url, R.drawable.placeholder)
     }
 
     /**
      * 显示图片-placeholder 自定义占位图
      */
     fun showImageView(context: Context, mImageView: ImageView, url: String,placeholder:Int) {
-        showImageView(context,mImageView,url,placeholder,R.drawable.placeholder)
+        showImageView(
+            context,
+            mImageView,
+            url,
+            placeholder,
+            R.drawable.placeholder
+        )
     }
     /**
      * 显示图片-placeholder 自定义占位图 -error自定义异常占位图
@@ -49,14 +55,20 @@ object GlideUtils {
      */
 
     fun showCircleImage(context: Context , mImageView: ImageView, url: String) {
-        showCircleImage(context,mImageView,url, R.drawable.placeholder)
+        showCircleImage(context, mImageView, url, R.drawable.placeholder)
     }
 
     /**
      * 显示圆形图片-placeholder 自定义占位图
      */
     fun showCircleImage(context: Context, mImageView: ImageView, url: String,placeholder:Int) {
-        showCircleImage(context,mImageView,url,placeholder,R.drawable.placeholder)
+        showCircleImage(
+            context,
+            mImageView,
+            url,
+            placeholder,
+            R.drawable.placeholder
+        )
     }
     /**
      * 显示圆形图片-placeholder 自定义占位图 -error自定义异常占位图

@@ -1,6 +1,6 @@
 package com.longyi.module_usercenter
 
-import com.example.lib_common.utils.base.BaseApplication
+import com.example.lib_common.base.BaseApplication
 
 /**
  * Created by Aller on 2019/7/20.

@@ -35,6 +35,12 @@ android {
             dirs 'libs'
         }
     }
+
+//    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+//        kotlinOptions {
+//            jvmTarget = "1.8"
+//        }
+//    }
 }
 
 dependencies {
@@ -42,10 +48,18 @@ dependencies {
     api rootProject.ext.dependencies["kotlin"]
     api rootProject.ext.dependencies["appcompat-v7"]
     api rootProject.ext.dependencies["constraintlayout"]
+    api rootProject.ext.dependencies["retrofit2"]
+    api rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["logging-interceptor"]
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["adapter-rxjava2"]
+    api rootProject.ext.dependencies["converter_gson"]
+    api rootProject.ext.dependencies["rxandroid"]
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["event_bus"]
     api rootProject.ext.dependencies["statusbarutil"]
     api rootProject.ext.dependencies["swipebacklayout"]
+    api rootProject.ext.dependencies["bottom_navigation_bar"]
     api rootProject.ext.dependencies["arouter-api"]
     kapt rootProject.ext.dependencies["arouter-compiler"]
     api rootProject.ext.dependencies["permissionsdispatcher"]
