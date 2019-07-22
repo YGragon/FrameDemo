@@ -1,24 +1,27 @@
-package com.example.framedemo.ui.mine
+package com.example.framedemo.ui.course
 
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 import com.example.framedemo.R
 import com.example.lib_common.base.BaseFragment
 
-
 /**
- * A simple [Fragment] subclass.
+ * 各个库使用例子
  *
  */
-class MineFragment : BaseFragment() {
+class CourseFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = MineFragment()
+    companion object{
+        fun newInstance() = CourseFragment()
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_mine
+        return R.layout.fragment_course
     }
 
     override fun initData() {
@@ -32,6 +35,5 @@ class MineFragment : BaseFragment() {
 
     override fun fragmentHideToUser() {
     }
-
 
 }

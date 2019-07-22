@@ -3,11 +3,11 @@
 			 xmlns:tools="http://schemas.android.com/tools"
 			 android:layout_width="match_parent"
 			 android:layout_height="match_parent"
-			 tools:context=".ui.mine.MineFragment">
+			 tools:context=".ui.course.CourseFragment">
 
 	<TextView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:text="mine"/>
+			android:text="Course"/>
 
 </FrameLayout>
