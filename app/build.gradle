@@ -35,7 +35,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":lib_common")
-    if (isNeedUserCenterModule.toBoolean()) {
+    if (!isNeedUserCenterModule.toBoolean()) {
         implementation project(":module_usercenter")
     }
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

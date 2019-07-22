@@ -1,4 +1,4 @@
-if (!isNeedUserCenterModule.toBoolean()){
+if (isNeedUserCenterModule.toBoolean()){
     // 作为 app
     apply plugin: 'com.android.application'
 }else{
@@ -20,7 +20,7 @@ android {
 
 
     defaultConfig {
-        if (!isNeedUserCenterModule.toBoolean()){
+        if (isNeedUserCenterModule.toBoolean()){
             // 独立的 id
             applicationId "com.longyi.module_usercenter"
         }
@@ -36,6 +36,16 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+
+        sourceSets {
+            main {
+                if (isNeedUserCenterModule.toBoolean()) {
+                    manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+                } else {
+                    manifest.srcFile 'src/main/AndroidManifest.xml'
+                }
+            }
+        }
     }
 
     buildTypes {
@@ -45,15 +55,7 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            if (!isNeedUserCenterModule.toBoolean()) {
-                manifest.srcFile 'src/main/module_usercenter/AndroidManifest.xml'
-            } else {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-            }
-        }
-    }
+
 
 }
 
