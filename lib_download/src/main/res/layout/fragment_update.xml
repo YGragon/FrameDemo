@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:clipChildren="false"
+			  android:layout_gravity="center">
+
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="12dp"
+			android:background="#FFFFFF"
+			android:gravity="center">
+		<TextView
+				android:id="@+id/tv_desc"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="升级介绍信息"
+		/>
+
+		<Button
+				android:id="@+id/update_now_btn"
+				android:layout_width="200dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:layout_marginBottom="20dp"
+				android:layout_below="@id/tv_desc"
+				android:text="立刻升级"
+				android:textSize="16sp"
+				android:textColor="#FFFFFF"
+				android:background="@drawable/shape_btn_confirm"
+				android:layout_centerHorizontal="true"
+				style="?android:attr/borderlessButtonStyle"
+		/>
+	</RelativeLayout>
+
+</LinearLayout>
