@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+		  xmlns:tools="http://schemas.android.com/tools"
 		  package="com.longyi.module_usercenter">
 
-	<application
-			android:theme="@style/AppTheme">
+	<application android:theme="@style/AppTheme">
+		<activity android:name=".ui.register.RegisterActivity">
+		</activity>
+		<activity android:name=".ui.login.LoginActivity">
+		</activity>
 		<activity android:name=".UserMainActivity"/>
 	</application>
 

@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			 xmlns:tools="http://schemas.android.com/tools"
-			 android:layout_width="match_parent"
-			 android:layout_height="match_parent"
-			 tools:context=".ui.mine.MineFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  tools:context=".ui.mine.MineFragment">
 
 	<TextView
+			android:id="@+id/tv_login"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:text="mine"/>
+			android:layout_height="40dp"
+			android:background="@color/colorPrimary"
+			android:layout_margin="20dp"
+			android:text="点击登录"
+			android:layout_gravity="center"
+			android:gravity="center"
+			android:textColor="@color/colorWhite"/>
 
-</FrameLayout>
+</LinearLayout>

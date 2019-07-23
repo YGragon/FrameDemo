@@ -48,6 +48,7 @@ dependencies {
     api rootProject.ext.dependencies["kotlin"]
     api rootProject.ext.dependencies["appcompat-v7"]
     api rootProject.ext.dependencies["constraintlayout"]
+    api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["retrofit2"]
     api rootProject.ext.dependencies["okhttp3"]
     api rootProject.ext.dependencies["logging-interceptor"]

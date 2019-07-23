@@ -7,5 +7,5 @@ interface IBaseView {
 
     fun showLoading()
 
-    fun dismissLoading()
+    fun hideLoading()
 }

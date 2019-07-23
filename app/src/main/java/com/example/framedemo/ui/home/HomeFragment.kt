@@ -1,8 +1,6 @@
 package com.example.framedemo.ui.home
 
 
-import android.util.Log
-import androidx.fragment.app.Fragment
 
 import com.example.framedemo.R
 import com.example.framedemo.ui.home.contract.HomeContract
@@ -62,6 +60,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     override fun showLoading() {
     }
 
-    override fun dismissLoading() {
+    override fun hideLoading() {
+    }
+
+    override fun onDestroy() {
+        mPresenter.detachView()
+        super.onDestroy()
     }
 }
