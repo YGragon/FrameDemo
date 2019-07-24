@@ -10,6 +10,7 @@ import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.model.Banner
 import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 /**
@@ -39,6 +40,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun initView() {
+    }
+
+    override fun setTvTitleBackgroundColor() {
+        tv_title.setBackgroundColor(resources.getColor(R.color.colorAccent))
+        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
     }
 
     override fun fragmentShowToUser() {

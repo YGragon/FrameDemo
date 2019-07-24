@@ -1,7 +1,7 @@
 package com.example.framedemo
 
-import com.example.framedemo.ui.home.contract.HomeContract
-import com.example.framedemo.ui.home.presenter.HomePresenter
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.event.LoginEvent
@@ -14,16 +14,17 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.example.framedemo.ui.course.CourseFragment
 import com.example.framedemo.ui.home.HomeFragment
 import com.example.framedemo.ui.mine.MineFragment
-
+import androidx.fragment.app.FragmentPagerAdapter
+import com.jaeger.library.StatusBarUtil
 
 /**
  * 首页
  */
 class MainActivity : BaseActivity() {
-
-    private var mHomeFragment : HomeFragment ?= null
-    private var mCourseFragment : CourseFragment ?= null
-    private var mMineFragment : MineFragment ?= null
+    private val mFragmentList = ArrayList<Fragment>()
+    private var mHomeFragment =  HomeFragment.newInstance()
+    private var mCourseFragment = CourseFragment.newInstance()
+    private var mMineFragment = MineFragment.newInstance()
 
 
     override fun getLayoutId(): Int {
@@ -31,7 +32,10 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
-        setDefaultFragment()
+        mFragmentList.add(mHomeFragment)
+        mFragmentList.add(mCourseFragment)
+        mFragmentList.add(mMineFragment)
+
         bottom_navigation_bar
             .addItem(BottomNavigationItem(R.mipmap.home_select, "Home"))
             .addItem(BottomNavigationItem(R.mipmap.course_select, "Course"))
@@ -41,81 +45,39 @@ class MainActivity : BaseActivity() {
 
         bottom_navigation_bar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabSelected(position: Int) {
-                onBottomTabSelect(position)
+                vp_home.currentItem = position
             }
             override fun onTabUnselected(position: Int) {}
             override fun onTabReselected(position: Int) {}
         })
 
+        vp_home.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                bottom_navigation_bar.selectTab(position)
+            }
+
+        })
+        vp_home.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
+            override fun getItem(position: Int): Fragment {
+                return mFragmentList[position]
+            }
+
+            override fun getCount(): Int {
+                return mFragmentList.size
+            }
+        }
+    }
+
+     override fun setStatusBar() {
+        StatusBarUtil.setTranslucentForImageViewInFragment(this, null)
     }
 
     override fun initData() {}
-
-
-    /**
-     * 底部导航栏切换
-     */
-    private fun onBottomTabSelect(position: Int) {
-        hideFragment()
-        val fm = supportFragmentManager
-        val transaction = fm.beginTransaction()
-        when (position) {
-            0 -> {
-                if (null == mHomeFragment) {
-                    mHomeFragment = HomeFragment.newInstance()
-                    transaction.add(R.id.fragment_container, mHomeFragment!!)
-                } else {
-                    transaction.show(mHomeFragment!!)
-                }
-            }
-            1 -> {
-                if (null == mCourseFragment) {
-                    mCourseFragment = CourseFragment.newInstance()
-                    transaction.add(R.id.fragment_container, mCourseFragment!!)
-                } else {
-                    transaction.show(mCourseFragment!!)
-                }
-            }
-            2 -> {
-                if (null == mMineFragment) {
-                    mMineFragment = MineFragment.newInstance()
-                    transaction.add(R.id.fragment_container, mMineFragment!!)
-                } else {
-                    transaction.show(mMineFragment!!)
-                }
-            }
-        }
-        // 事务提交
-        transaction.commit()
-    }
-
-    /**
-     * 设置默认的
-     */
-    private fun setDefaultFragment() {
-        val fm = supportFragmentManager
-        val transaction = fm.beginTransaction()
-        mHomeFragment = HomeFragment.newInstance()
-        transaction.add(R.id.fragment_container, mHomeFragment!!)
-        transaction.commit()
-    }
-    /**
-     * 隐藏 fragment
-     */
-    private fun hideFragment() {
-        val fm = supportFragmentManager
-        val transaction = fm.beginTransaction()
-        if (mHomeFragment != null){
-            transaction.hide(mHomeFragment!!)
-        }
-        if (mCourseFragment != null){
-            transaction.hide(mCourseFragment!!)
-        }
-        if (mMineFragment != null){
-            transaction.hide(mMineFragment!!)
-        }
-        transaction.commit()
-    }
 
 
     override fun onStart() {

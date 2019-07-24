@@ -27,6 +27,7 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        setTvTitleBackgroundColor()
         initData()
     }
 
@@ -35,6 +36,7 @@ abstract class BaseFragment : Fragment() {
     abstract fun initData()
 
     abstract fun initView()
+    abstract fun setTvTitleBackgroundColor()
 
     abstract fun fragmentShowToUser()
 

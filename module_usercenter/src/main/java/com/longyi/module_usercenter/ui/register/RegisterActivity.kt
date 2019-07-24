@@ -6,6 +6,7 @@ import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.utils.ToastUtils
+import com.jaeger.library.StatusBarUtil
 import com.longyi.module_usercenter.R
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -40,6 +41,12 @@ class RegisterActivity : BaseActivity() ,RegisterContract.View{
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
+
+    }
+
+    override fun setStatusBar() {
+        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
+        StatusBarUtil.setTranslucentForImageView(this,null)
 
     }
 

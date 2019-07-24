@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			 xmlns:tools="http://schemas.android.com/tools"
 			 android:layout_width="match_parent"
 			 android:layout_height="match_parent"
+			  android:orientation="vertical"
 			 tools:context=".ui.home.HomeFragment">
+	<View
+			android:id="@+id/fake_status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/statusbar_view_height"
+			android:background="@color/colorPrimary"/>
+
+	<TextView
+			android:id="@+id/tv_title"
+			android:layout_width="match_parent"
+			android:layout_height="56dp"
+			android:background="@color/colorPrimary"
+			android:gravity="center"
+			android:text="首页"
+			android:textColor="@color/white"
+			android:textSize="24sp"/>
 
 	<TextView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:text="home"/>
 
-</FrameLayout>
+</LinearLayout>

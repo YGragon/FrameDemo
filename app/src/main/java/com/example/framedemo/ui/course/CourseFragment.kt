@@ -64,6 +64,10 @@ class CourseFragment : BaseFragment() {
             )
         }
     }
+    override fun setTvTitleBackgroundColor() {
+        tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+    }
 
     override fun fragmentShowToUser() {
     }

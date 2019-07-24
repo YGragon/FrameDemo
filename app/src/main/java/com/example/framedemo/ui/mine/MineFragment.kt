@@ -49,6 +49,11 @@ class MineFragment : BaseFragment(),MineContract.View {
         }
     }
 
+    override fun setTvTitleBackgroundColor() {
+        tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
+        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+    }
+
     override fun fragmentShowToUser() {
     }
 

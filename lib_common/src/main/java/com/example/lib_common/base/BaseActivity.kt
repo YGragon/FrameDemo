@@ -13,11 +13,13 @@ import android.view.KeyEvent.KEYCODE_BACK
 import android.widget.Toast
 import android.widget.Toolbar
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper
-import com.example.lib_common.R
 import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.utils.LogUtils
+import com.jaeger.library.StatusBarUtil
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
+
+
 
 
 /**
@@ -35,6 +37,7 @@ abstract class BaseActivity : AppCompatActivity(), BGASwipeBackHelper.Delegate, 
         if (getLayoutId() != 0) {
             setContentView(getLayoutId())
         }
+        setStatusBar()
         initView()
         initData()
 
@@ -57,6 +60,11 @@ abstract class BaseActivity : AppCompatActivity(), BGASwipeBackHelper.Delegate, 
     }
 
     /**
+     * 设置状态栏颜色
+     */
+    open fun setStatusBar() {}
+
+    /**
      * 初始化滑动返回。在 super.onCreate(savedInstanceState) 之前调用该方法
      */
     private fun initSwipeBackFinish() {
@@ -72,7 +80,7 @@ abstract class BaseActivity : AppCompatActivity(), BGASwipeBackHelper.Delegate, 
         // 设置是否是微信滑动返回样式。默认值为 true
         mSwipeBackHelper?.setIsWeChatStyle(true)
         // 设置阴影资源 id。默认值为 R.drawable.bga_sbl_shadow
-        mSwipeBackHelper?.setShadowResId(R.drawable.bga_sbl_shadow)
+        mSwipeBackHelper?.setShadowResId(com.example.lib_common.R.drawable.bga_sbl_shadow)
         // 设置是否显示滑动返回的阴影效果。默认值为 true
         mSwipeBackHelper?.setIsNeedShowShadow(true)
         // 设置阴影区域的透明度是否根据滑动的距离渐变。默认值为 true

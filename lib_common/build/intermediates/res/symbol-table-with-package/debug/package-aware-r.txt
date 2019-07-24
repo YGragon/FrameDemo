@@ -718,6 +718,7 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color tooltip_background_dark
 color tooltip_background_light
+color white
 color white_aaa
 color white_f4f5f6
 color white_fc
@@ -974,6 +975,7 @@ dimen shifting_no_title_icon_container_width
 dimen shifting_no_title_icon_height
 dimen shifting_no_title_icon_width
 dimen shifting_width_custom_padding
+dimen statusbar_view_height
 dimen subtitle_corner_radius
 dimen subtitle_outline_width
 dimen subtitle_shadow_offset
