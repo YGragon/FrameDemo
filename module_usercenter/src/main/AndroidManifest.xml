@@ -8,7 +8,6 @@
 		</activity>
 		<activity android:name=".ui.login.LoginActivity">
 		</activity>
-		<activity android:name=".UserMainActivity"/>
 	</application>
 
 </manifest>

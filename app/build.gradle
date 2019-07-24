@@ -39,6 +39,9 @@ dependencies {
     if (!isNeedUserCenterModule.toBoolean()) {
         implementation project(":module_usercenter")
     }
+    if (!isNeedShareModule.toBoolean()) {
+        implementation project(":module_share")
+    }
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt rootProject.ext.dependencies["arouter-compiler"]
 }

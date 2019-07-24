@@ -31,6 +31,7 @@ ext {
             swipebacklayout         : "1.2.0",
             bottom_navigation_bar   : "2.1.0",
             easypermissions         : "3.0.0",
+            BasePopup               : "2.2.1",
     ]
 
     dependencies = [
@@ -62,5 +63,6 @@ ext {
             "swipebacklayout"          : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}@aar",
             "bottom_navigation_bar"    : "com.ashokvarma.android:bottom-navigation-bar:${version["bottom_navigation_bar"]}",
             "easypermissions"          : "pub.devrel:easypermissions:${version["easypermissions"]}",
+            "BasePopup"          : "com.github.razerdp:BasePopup:${version["BasePopup"]}",
     ]
 }

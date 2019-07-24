@@ -2,10 +2,12 @@ package com.example.framedemo.ui.course
 
 
 import android.os.Bundle
+import com.alibaba.android.arouter.launcher.ARouter
 
 import com.example.framedemo.R
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.BaseConstant
+import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.utils.LogUtils
 import com.longyi.lib_download.app_upgrade.UpdateFragment
 import com.longyi.lib_download.file_download.DownloadHelper
@@ -62,6 +64,10 @@ class CourseFragment : BaseFragment() {
                 "http://wanandroid.com/blogimgs/fb2c1185-55a0-4598-b5b2-11d1381fa596.png",
                 BaseConstant.filePath, "测试_2019_7_24.png"
             )
+        }
+
+        tv_share.setOnClickListener {
+            ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
         }
     }
     override fun setTvTitleBackgroundColor() {

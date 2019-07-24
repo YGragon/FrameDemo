@@ -3,7 +3,7 @@ package com.longyi.module_usercenter
 import com.example.lib_common.base.BaseApplication
 
 /**
- * Created by Aller on 2019/7/20.
+ * 用户 app
  */
 class UserApplication : BaseApplication() {
     override fun initData() {

@@ -8,4 +8,9 @@ object RouterPath {
         const val LOGIN = "/user_center/login"
         const val REGISTER = "/user_center/register"
     }
+
+    object Share{
+        const val SHARE_APP = "/share/app"
+        const val SHARE_NATIVE = "/share/native"
+    }
 }
