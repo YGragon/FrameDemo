@@ -1,4 +1,4 @@
-package com.longyi.lib_download
+package com.longyi.lib_download.app_upgrade
 
 
 import android.Manifest
@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.utils.NetworkUtil
+import com.longyi.lib_download.R
+import kotlinx.android.synthetic.main.fragment_update.*
 
 
 /**
@@ -54,10 +55,8 @@ class UpdateFragment : DialogFragment() {
         val bundle = arguments
         descApp = bundle!!.getString("desc")
         urlApp = bundle.getString("url")
-        canCancel = bundle.getBoolean("canCancel", true)
-        if (!canCancel) {
-            dialog.setCanceledOnTouchOutside(false)
-        }
+
+        tv_desc.text = descApp
 
 
         val updateNowBtn = view.findViewById(R.id.update_now_btn) as Button
@@ -75,7 +74,8 @@ class UpdateFragment : DialogFragment() {
             this@UpdateFragment.requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
             // 首页升级弹窗
             downloadManager = AppDownloadManager(activity!!)
-            downloadManager!!.setUpdateListener(object : AppDownloadManager.OnUpdateListener {
+            downloadManager!!.setUpdateListener(object :
+                AppDownloadManager.OnUpdateListener {
                 override fun update(currentByte: Int, totalByte: Int) {
                     Log.e(TAG, "update: 当前进度------>"+currentByte );
                     Log.e(TAG, "update: 总的大小---------------------->"+totalByte );

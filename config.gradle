@@ -30,7 +30,7 @@ ext {
             statusbarutil           : "1.5.1",
             swipebacklayout         : "1.2.0",
             bottom_navigation_bar   : "2.1.0",
-            permissionsdispatcher   : "4.5.0",
+            easypermissions         : "3.0.0",
     ]
 
     dependencies = [
@@ -61,7 +61,6 @@ ext {
             "statusbarutil"            : "com.jaeger.statusbarutil:library:${version["statusbarutil"]}",
             "swipebacklayout"          : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}@aar",
             "bottom_navigation_bar"    : "com.ashokvarma.android:bottom-navigation-bar:${version["bottom_navigation_bar"]}",
-            "permissionsdispatcher"    : "org.permissionsdispatcher:permissionsdispatcher:${version["permissionsdispatcher"]}",
-            "permissions-processor"    : "org.permissionsdispatcher:permissionsdispatcher-processor:${version["permissionsdispatcher"]}",
+            "easypermissions"          : "pub.devrel:easypermissions:${version["easypermissions"]}",
     ]
 }

@@ -35,6 +35,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":lib_common")
+    implementation project(":lib_download")
     if (!isNeedUserCenterModule.toBoolean()) {
         implementation project(":module_usercenter")
     }

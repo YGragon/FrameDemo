@@ -1,4 +1,4 @@
-package com.longyi.lib_download
+package com.longyi.lib_download.app_upgrade
 
 import android.app.Activity
 import android.app.DownloadManager
@@ -117,18 +117,18 @@ class AppDownloadManager {
         var c: Cursor? = null
         try {
             c = mDownloadManager.query(query)
-            if (c != null && c!!.moveToFirst()) {
+            if (c != null && c.moveToFirst()) {
                 //已经下载的字节数
                 bytesAndStatus[0] =
-                    c!!.getInt(c!!.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+                    c.getInt(c.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
                 //总需下载的字节数
-                bytesAndStatus[1] = c!!.getInt(c!!.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+                bytesAndStatus[1] = c.getInt(c.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
                 //状态所在的列索引
-                bytesAndStatus[2] = c!!.getInt(c!!.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                bytesAndStatus[2] = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
             }
         } finally {
             if (c != null) {
-                c!!.close()
+                c.close()
             }
         }
         if (mUpdateListener != null) {
@@ -170,7 +170,8 @@ class AppDownloadManager {
                 haveInstallPermission = context.getPackageManager().canRequestPackageInstalls()
                 if (!haveInstallPermission) {
                     // 没有权限 弹窗，并去设置页面授权
-                    val listener = object : AndroidOInstallPermissionListener {
+                    val listener = object :
+                        AndroidOInstallPermissionListener {
                         override fun permissionSuccess() {
                             installApk(context, intent)
                         }

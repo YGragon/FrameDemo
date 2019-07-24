@@ -3,7 +3,7 @@
 		  package="com.longyi.lib_download">
 
 	<application>
-		<activity android:name=".AndroidOPermissionActivity">
+		<activity android:name=".app_upgrade.AndroidOPermissionActivity">
 		</activity>
 	</application>
 

@@ -13,6 +13,6 @@
     <color name="white_aaa">#ffaaaaaa</color>
     <color name="white_f4f5f6">#fff4f5f6</color>
     <color name="white_fc">#fffcfcfc</color>
-    <string name="app_name">lib_common</string>
+    <string name="app_name">FrameDemo</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

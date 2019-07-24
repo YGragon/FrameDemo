@@ -1,23 +1,17 @@
-package com.longyi.lib_download
+package com.longyi.lib_download.app_upgrade
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.provider.Settings
-import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.example.lib_common.base.BaseActivity
-import permissions.dispatcher.NeedsPermission
-import permissions.dispatcher.RuntimePermissions
+import com.longyi.lib_download.R
+import pub.devrel.easypermissions.EasyPermissions
 
-@RuntimePermissions
 class AndroidOPermissionActivity : BaseActivity() {
     private var mAlertDialog: AlertDialog? = null
     companion object{
@@ -44,47 +38,39 @@ class AndroidOPermissionActivity : BaseActivity() {
      * 6.0以下版本(系统自动申请) 不会弹框
      * 有些厂商修改了6.0系统申请机制，他们修改成系统自动申请权限了
      */
-    @NeedsPermission(Manifest.permission.REQUEST_INSTALL_PACKAGES)
     fun checkDownLoadPermission() {
-
-//        PermissionsDispatcherActivityPermissionsDispatcher.getSingleWithCheck(this)
-
+        val perms = arrayOf(
+            Manifest.permission.REQUEST_INSTALL_PACKAGES
+        )
+        EasyPermissions.requestPermissions(this, "应用需要以下权限，请允许", 0, *perms)
     }
-
-    @SuppressLint("NeedOnRequestPermissionsResult")
-    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        PermissionsDispatcherActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        if (requestCode == 0) {
+            if (perms.isNotEmpty()) {
+                if (perms.contains(Manifest.permission.READ_PHONE_STATE)
+                    && perms.contains(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    && perms.contains(Manifest.permission.CAMERA)
+                ) {
+                    // 拥有权限
+                    sListener?.permissionSuccess()
+                    finish()
+                }
+            }else{
+                showDialog()
+            }
+        }
     }
-
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-//        if (requestCode == 0) {
-//            if (perms.isNotEmpty()) {
-//                if (perms.contains(Manifest.permission.READ_PHONE_STATE)
-//                    && perms.contains(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                    && perms.contains(Manifest.permission.CAMERA)
-//                ) {
-//                    // 拥有权限
-//                    sListener?.permissionSuccess()
-//                    finish()
-//                }
-//            }else{
-//                //startInstallPermissionSettingActivity();
-//                showDialog();
-//            }
-//        }
-//    }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("配电运维管控App")
-        builder.setMessage("为了正常升级 配电运维管控APP，请点击设置按钮，允许安装未知来源应用，本功能只限用于" + R.string.app_name + "APP版本升级")
-        builder.setPositiveButton("设置") { dialogInterface, i ->
+        builder.setTitle(R.string.app_name)
+        builder.setMessage("为了正常升级"+ R.string.app_name +"，请点击设置按钮，允许安装未知来源应用，本功能只限用于" + R.string.app_name + "APP版本升级")
+        builder.setPositiveButton("设置") { _, _ ->
             startInstallPermissionSettingActivity()
             mAlertDialog?.dismiss()
         }
-        builder.setNegativeButton("取消") { dialogInterface, i ->
+        builder.setNegativeButton("取消") { _, _ ->
             sListener?.permissionFail()
             mAlertDialog?.dismiss()
             finish()
