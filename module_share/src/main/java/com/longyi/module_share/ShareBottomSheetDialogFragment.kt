@@ -25,7 +25,7 @@ class ShareBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
     private fun getData():MutableList<String>{
        val list = arrayListOf<String>()
         for (i in 0..20){
-            list.add("分享内容 "+i)
+            list.add("微信 "+i)
         }
         return list
     }
