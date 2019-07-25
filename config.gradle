@@ -32,6 +32,7 @@ ext {
             bottom_navigation_bar   : "2.1.0",
             easypermissions         : "3.0.0",
             BasePopup               : "2.2.1",
+            BRVAH                   : "2.9.30",
     ]
 
     dependencies = [
@@ -63,6 +64,7 @@ ext {
             "swipebacklayout"          : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}@aar",
             "bottom_navigation_bar"    : "com.ashokvarma.android:bottom-navigation-bar:${version["bottom_navigation_bar"]}",
             "easypermissions"          : "pub.devrel:easypermissions:${version["easypermissions"]}",
-            "BasePopup"          : "com.github.razerdp:BasePopup:${version["BasePopup"]}",
+            "BasePopup"                : "com.github.razerdp:BasePopup:${version["BasePopup"]}",
+            "BRVAH"                    : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version["BRVAH"]}",
     ]
 }

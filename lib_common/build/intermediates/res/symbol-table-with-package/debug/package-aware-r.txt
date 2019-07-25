@@ -819,6 +819,7 @@ dimen compat_button_padding_vertical_material
 dimen compat_control_corner_material
 dimen compat_notification_large_icon_max_height
 dimen compat_notification_large_icon_max_width
+dimen def_height
 dimen design_appbar_elevation
 dimen design_bottom_navigation_active_item_max_width
 dimen design_bottom_navigation_active_item_min_width
@@ -865,6 +866,10 @@ dimen design_tab_text_size_2line
 dimen design_textinput_caption_translate_y
 dimen disabled_alpha_material_dark
 dimen disabled_alpha_material_light
+dimen dp_10
+dimen dp_4
+dimen dp_40
+dimen dp_72
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
 dimen fastscroll_minimum_range
@@ -977,6 +982,9 @@ dimen shifting_no_title_icon_container_width
 dimen shifting_no_title_icon_height
 dimen shifting_no_title_icon_width
 dimen shifting_width_custom_padding
+dimen sp_12
+dimen sp_14
+dimen sp_16
 dimen statusbar_view_height
 dimen subtitle_corner_radius
 dimen subtitle_outline_width
@@ -1108,10 +1116,16 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable placeholder
+drawable sample_footer_loading
+drawable sample_footer_loading_progress
 drawable shape_btn_confirm
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
+id BaseQuickAdapter_databinding_support
+id BaseQuickAdapter_dragging_support
+id BaseQuickAdapter_swiping_support
+id BaseQuickAdapter_viewholder_support
 id CTRL
 id FUNCTION
 id META
@@ -1217,6 +1231,11 @@ id line1
 id line3
 id listMode
 id list_item
+id load_more_load_end_view
+id load_more_load_fail_view
+id load_more_loading_view
+id loading_progress
+id loading_text
 id masked
 id media_actions
 id message
@@ -1324,6 +1343,7 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id tv_prompt
 id uniform
 id unlabeled
 id up
@@ -1415,6 +1435,7 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout quick_view_load_more
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -1469,6 +1490,9 @@ string fab_transformation_sheet_behavior
 string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string icon
+string load_end
+string load_failed
+string loading
 string mtrl_chip_close_icon_content_description
 string password_toggle_content_description
 string path_password_eye

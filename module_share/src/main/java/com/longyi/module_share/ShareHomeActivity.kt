@@ -26,7 +26,7 @@ class ShareHomeActivity : BaseActivity() {
         }
 
         tv_share_sdk.setOnClickListener {
-
+            ShareBottomSheetDialogFragment().show(supportFragmentManager,"dialog")
         }
     }
 
