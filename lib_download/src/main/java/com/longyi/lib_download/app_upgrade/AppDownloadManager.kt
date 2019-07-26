@@ -220,7 +220,7 @@ class AppDownloadManager {
                 // Android 7.0 以上
                 uri = FileProvider.getUriForFile(
                     context,
-                    "com.meiqu.wehere.MyFileProvider",
+                    "com.longyi.lib_download.MyFileProvider",
                     File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), appFileName)
                 )
                 intentInstall.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
