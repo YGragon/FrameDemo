@@ -55,7 +55,17 @@
 					android:layout_height="40dp"
 					android:background="@color/colorPrimary"
 					android:layout_margin="20dp"
-					android:text="跳转分享组建"
+					android:text="跳转分享组件"
+					android:layout_gravity="center"
+					android:gravity="center"
+					android:textColor="@color/colorWhite"/>
+			<TextView
+					android:id="@+id/tv_map"
+					android:layout_width="match_parent"
+					android:layout_height="40dp"
+					android:background="@color/colorPrimary"
+					android:layout_margin="20dp"
+					android:text="跳转地图组件"
 					android:layout_gravity="center"
 					android:gravity="center"
 					android:textColor="@color/colorWhite"/>

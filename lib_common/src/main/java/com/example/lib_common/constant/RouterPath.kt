@@ -13,4 +13,8 @@ object RouterPath {
         const val SHARE_APP = "/share/app"
         const val SHARE_NATIVE = "/share/native"
     }
+
+    object Map{
+        const val MAP_APP = "/map/app"
+    }
 }

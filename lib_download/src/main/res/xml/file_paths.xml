@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+	<!--<files-path path="images" name="myimages" />-->
+	<!--代表外部存储区域的根目录下的文件 Environment.getExternalStorageDirectory()/DCIM/camerademo目录-->
+	<external-path name="apk_DCIM" path="DCIM/camerademo" />
+	<!--代表外部存储区域的根目录下的文件 Environment.getExternalStorageDirectory()/Pictures/camerademo目录-->
+	<external-path name="apk_Pictures" path="Pictures/camerademo" />
+	<!--代表app 私有的存储区域 Context.getFilesDir()目录下的images目录 /data/user/0/com.hm.camerademo/files/images-->
+	<files-path name="apk_private_files" path="images" />
+	<!--代表app 私有的存储区域 Context.getCacheDir()目录下的images目录 /data/user/0/com.hm.camerademo/cache/images-->
+	<cache-path name="apk_private_cache" path="images" />
+	<!--代表app 外部存储区域根目录下的文件 Context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)目录下的Pictures目录-->
+	<!--/storage/emulated/0/Android/data/com.hm.camerademo/files/Pictures-->
+	<external-files-path name="apk_external_files" path="Pictures" />
+	<!--代表app 外部存储区域根目录下的文件 Context.getExternalCacheDir目录下的images目录-->
+	<!--/storage/emulated/0/Android/data/com.hm.camerademo/cache/images-->
+	<external-cache-path name="apk_external_cache" path="apk_cache" />
+	<root-path name="apk_external_cache" path="" />
+	<!--path：需要临时授权访问的路径（.代表所有路径） name：就是你给这个访问路径起个名字-->
+	<external-path
+			name="external"
+			path="external" />
+	<external-files-path
+			name="Download"
+			path="file_download" />
+</paths>

@@ -69,6 +69,10 @@ class CourseFragment : BaseFragment() {
         tv_share.setOnClickListener {
             ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
         }
+
+        tv_map.setOnClickListener {
+            ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
+        }
     }
     override fun setTvTitleBackgroundColor() {
         tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimary))

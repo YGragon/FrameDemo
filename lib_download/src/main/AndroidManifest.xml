@@ -5,6 +5,17 @@
 	<application>
 		<activity android:name=".app_upgrade.AndroidOPermissionActivity">
 		</activity>
+
+		<!-- 拍照、下载适配7.0  -->
+		<provider
+				android:name="androidx.core.content.FileProvider"
+				android:authorities="com.longyi.lib_download.MyFileProvider"
+				android:exported="false"
+				android:grantUriPermissions="true">
+			<meta-data
+					android:name="android.support.FILE_PROVIDER_PATHS"
+					android:resource="@xml/file_paths" />
+		</provider>
 	</application>
 
 </manifest>

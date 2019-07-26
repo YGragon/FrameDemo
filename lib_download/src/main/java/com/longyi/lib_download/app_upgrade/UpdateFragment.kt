@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -56,21 +57,13 @@ class UpdateFragment : DialogFragment() {
         descApp = bundle!!.getString("desc")
         urlApp = bundle.getString("url")
 
-        tv_desc.text = descApp
+        val tvDesc = view.findViewById<TextView>(R.id.tv_desc)
+        tvDesc.text = descApp
 
 
         val updateNowBtn = view.findViewById(R.id.update_now_btn) as Button
         updateNowBtn.setOnClickListener {
-            // 点击立即升级后存储当前版本号在本地 sp 中
-//            val versionCodeSp = context!!.getSharedPreferences("versionCode", 0)
-//            val versionCodeEditor = versionCodeSp.edit()
-//            val updateApkInfo = DataCenter.getInstance().updateApkInfo
-//            if (updateApkInfo != null) {
-//                // 服务器最新版本代码
-//                val maxVersionCode = updateApkInfo!!.maxVersionCode
-//                versionCodeEditor.putInt("versionCode", maxVersionCode)
-//                versionCodeEditor.apply()
-//            }
+
             this@UpdateFragment.requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
             // 首页升级弹窗
             downloadManager = AppDownloadManager(activity!!)
@@ -93,7 +86,7 @@ class UpdateFragment : DialogFragment() {
                 }
             } else {
                 // 弹窗提示
-                AlertDialog.Builder(BaseApplication.context)
+                AlertDialog.Builder(activity!!)
                     .setTitle("提示信息")
                     .setMessage("当前不是 wifi 环境，确定下载吗？")
                     .setPositiveButton("确定") { dialog, which ->

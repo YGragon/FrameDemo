@@ -42,6 +42,9 @@ dependencies {
     if (!isNeedShareModule.toBoolean()) {
         implementation project(":module_share")
     }
+    if (!isNeedMapModule.toBoolean()) {
+        implementation project(":module_map")
+    }
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt rootProject.ext.dependencies["arouter-compiler"]
 }
