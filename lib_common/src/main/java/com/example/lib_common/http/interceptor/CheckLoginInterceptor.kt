@@ -23,8 +23,6 @@ class CheckLoginInterceptor : Interceptor {
         response = response.newBuilder().body(content?.toResponseBody(mediaType)).build()
         val baseResponse = Gson().fromJson(content, BaseResponse::class.java)
         if (baseResponse.errorMsg == "请先登录！" || baseResponse.errorCode == -1001){
-            // 清空所有 activity
-            ActivityManager.instance.finishAllActivity()
             // 跳转登录页面
             ARouter.getInstance()
                 .build(RouterPath.UserCenter.LOGIN)
