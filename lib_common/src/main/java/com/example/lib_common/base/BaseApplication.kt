@@ -5,6 +5,7 @@ import android.content.Context
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.BuildConfig
+import com.tencent.bugly.crashreport.CrashReport
 import kotlin.properties.Delegates
 
 /**
@@ -26,7 +27,7 @@ abstract class BaseApplication:Application() {
             ARouter.openDebug()   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(this)
-
+        CrashReport.initCrashReport(applicationContext, "0ec81c5e2d", true)
         // 侧滑返回
         BGASwipeBackHelper.init(this, null);
     }

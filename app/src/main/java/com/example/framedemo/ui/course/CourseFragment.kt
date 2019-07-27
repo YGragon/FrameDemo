@@ -12,6 +12,7 @@ import com.example.lib_common.utils.LogUtils
 import com.longyi.lib_download.app_upgrade.UpdateFragment
 import com.longyi.lib_download.file_download.DownloadHelper
 import com.longyi.lib_download.file_download.DownloadListener
+import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.android.synthetic.main.fragment_course.*
 import java.io.File
 
@@ -71,6 +72,7 @@ class CourseFragment : BaseFragment() {
         }
 
         tv_map.setOnClickListener {
+            CrashReport.testJavaCrash()
             ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
         }
     }
