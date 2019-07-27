@@ -4,6 +4,8 @@
 		  package="com.longyi.module_usercenter">
 
 	<application android:theme="@style/AppTheme">
+		<activity android:name=".ui.collect.CollectActivity">
+		</activity>
 		<activity android:name=".ui.register.RegisterActivity">
 		</activity>
 		<activity android:name=".ui.login.LoginActivity">

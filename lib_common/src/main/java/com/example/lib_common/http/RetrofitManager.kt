@@ -40,6 +40,7 @@ object RetrofitManager {
         return OkHttpClient.Builder()
             .addInterceptor(CacheInterceptor())
             .addInterceptor(LoggingInterceptor())
+            .addInterceptor(CheckLoginInterceptor())
             .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApplication.context)))
             .cache(cache)  //添加缓存
             .connectTimeout(60L, TimeUnit.SECONDS)

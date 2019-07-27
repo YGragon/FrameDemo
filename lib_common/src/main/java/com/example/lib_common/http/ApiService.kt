@@ -1,13 +1,11 @@
 package com.example.lib_common.http
 
 import com.example.lib_common.model.Banner
+import com.example.lib_common.model.CollectResult
 import com.example.lib_common.model.User
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * api 接口
@@ -34,4 +32,12 @@ interface ApiService {
      */
     @GET("banner/json")
     fun getBanners(): Observable<BaseResponse<MutableList<Banner>>>
+
+    /**
+     * 获取 收藏 列表
+     */
+    @GET("lg/collect/list/{page}/json")
+    fun getCollects(@Path("page") page:Int): Observable<BaseResponse<CollectResult>>
+
+
 }
