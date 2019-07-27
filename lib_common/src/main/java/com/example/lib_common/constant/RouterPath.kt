@@ -7,6 +7,7 @@ object RouterPath {
     object UserCenter{
         const val LOGIN = "/user_center/login"
         const val REGISTER = "/user_center/register"
+        const val COLLECT = "/user_center/collect"
     }
 
     object Share{

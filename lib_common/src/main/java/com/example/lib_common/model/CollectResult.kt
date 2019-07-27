@@ -4,14 +4,14 @@ package com.example.lib_common.model
  * 收藏对象
  */
 data class CollectResult(
-    val `data`: Data,
+    val data: CollectBean,
     val errorCode: Int,
     val errorMsg: String
 )
 
-data class Data(
+data class CollectBean(
     val curPage: Int,
-    val datas: List<Collect>,
+    val datas: MutableList<Collect>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,

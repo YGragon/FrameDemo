@@ -1,9 +1,11 @@
 package com.longyi.module_usercenter.ui.collect
 
 import com.example.lib_common.base.BasePresenter
+import com.example.lib_common.http.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.scheduler.SchedulerUtils
 import com.example.lib_common.model.UserControl
+import com.example.lib_common.utils.LogUtils
 import com.longyi.module_usercenter.ui.login.LoginContract
 
 /**
@@ -11,16 +13,21 @@ import com.longyi.module_usercenter.ui.login.LoginContract
  */
 class CollectPresenter : BasePresenter<CollectContract.View>(), CollectContract.Presenter {
 
-    override fun postLoginInfo(user_name: String, password: String) {
-
-        val disposable = RetrofitManager.service.login(user_name,password)
+    override fun getCollects(page: Int) {
+        val disposable = RetrofitManager.service.getCollects(page)
             .compose(SchedulerUtils.ioToMain())
             .subscribe({ res ->
-                mRootView?.showLoginSuccess(res.data.username+" 登录成功")
-                UserControl.setLogin(true)
-                UserControl.setUser(res.data)
+                if (res.data != null){
+                        if (res.data.curPage == res.data.pageCount) {
+                            mRootView?.showLoadEnd(res.data.datas)
+                        } else {
+                            mRootView?.showLoadComplete(res.data.datas)
+                        }
+                }
+
             }, { throwable ->
-                mRootView?.showError(throwable.message.toString())
+                val errorMsg = ExceptionHandle.handleException(throwable)
+                mRootView?.showError(errorMsg)
             })
         addSubscription(disposable)
     }

@@ -1,6 +1,7 @@
 package com.example.lib_common.http.interceptor
 
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.http.BaseResponse
 import com.example.lib_common.utils.ActivityManager
@@ -21,11 +22,14 @@ class CheckLoginInterceptor : Interceptor {
         val content = response.body?.string()
         response = response.newBuilder().body(content?.toResponseBody(mediaType)).build()
         val baseResponse = Gson().fromJson(content, BaseResponse::class.java)
-        if (baseResponse.errorMsg == "请先登录！" && baseResponse.errorCode == -1001){
+        if (baseResponse.errorMsg == "请先登录！" || baseResponse.errorCode == -1001){
             // 清空所有 activity
             ActivityManager.instance.finishAllActivity()
             // 跳转登录页面
-            ARouter.getInstance().build(RouterPath.UserCenter.LOGIN).navigation()
+            ARouter.getInstance()
+                .build(RouterPath.UserCenter.LOGIN)
+                .withBoolean(ParameterConstant.Login.isCheckLoginParameter,ParameterConstant.Login.isCheckLogin)
+                .navigation()
         }
         return response
     }

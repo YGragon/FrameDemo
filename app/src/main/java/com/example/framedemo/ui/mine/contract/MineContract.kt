@@ -18,6 +18,11 @@ interface MineContract {
          * 显示 用户名
          */
         fun showUserInfo()
+
+        /**
+         * 显示 退出成功
+         */
+        fun showLoginOutSuccess()
     }
 
     interface Presenter:IPresenter<View>{
@@ -25,5 +30,10 @@ interface MineContract {
          * 获取 用户信息
          */
         fun getUserInfo()
+
+        /**
+         * 退出登录
+         */
+        fun loginOut()
     }
 }

@@ -1,7 +1,7 @@
 package com.example.lib_common.http
 
 import com.example.lib_common.model.Banner
-import com.example.lib_common.model.CollectResult
+import com.example.lib_common.model.CollectBean
 import com.example.lib_common.model.User
 import io.reactivex.Observable
 import okhttp3.ResponseBody
@@ -27,6 +27,13 @@ interface ApiService {
     fun login(@Query("username") username:String,
               @Query("password") password:String): Observable<BaseResponse<User>>
 
+
+    /**
+     * 退出登录
+     */
+    @GET("user/logout/json")
+    fun logout(): Observable<BaseResponse<ResponseBody>>
+
     /**
      * 获取 banner 列表
      */
@@ -37,7 +44,7 @@ interface ApiService {
      * 获取 收藏 列表
      */
     @GET("lg/collect/list/{page}/json")
-    fun getCollects(@Path("page") page:Int): Observable<BaseResponse<CollectResult>>
+    fun getCollects(@Path("page") page:Int): Observable<BaseResponse<CollectBean>>
 
 
 }

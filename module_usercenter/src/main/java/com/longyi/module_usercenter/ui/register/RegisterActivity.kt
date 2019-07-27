@@ -68,4 +68,9 @@ class RegisterActivity : BaseActivity() ,RegisterContract.View{
     override fun hideLoading() {
     }
 
+    override fun onDestroy() {
+        mPresenter.detachView()
+        super.onDestroy()
+    }
+
 }

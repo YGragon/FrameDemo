@@ -2,6 +2,7 @@ package com.longyi.module_usercenter.ui.collect
 
 import com.example.lib_common.base.IBaseView
 import com.example.lib_common.base.IPresenter
+import com.example.lib_common.model.Collect
 
 /**
  * 注册
@@ -14,15 +15,20 @@ interface CollectContract {
         fun showError(errorMsg:String)
 
         /**
-         * 显示 注册成功
+         * 显示 收藏结果
          */
-        fun showLoginSuccess(successMsg:String)
+        fun showLoadComplete(collects:MutableList<Collect>)
+
+        /**
+         * 全部加载完成
+         */
+        fun showLoadEnd(collects:MutableList<Collect>)
     }
 
     interface Presenter: IPresenter<View> {
         /**
-         * 提交登录信息
+         * 获取收藏列表
          */
-        fun postLoginInfo(user_name:String, password:String)
+        fun getCollects(page:Int)
     }
 }

@@ -1,6 +1,7 @@
 package com.longyi.module_usercenter.ui.login
 
 import com.example.lib_common.base.BasePresenter
+import com.example.lib_common.http.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.scheduler.SchedulerUtils
 import com.example.lib_common.model.UserControl
@@ -19,7 +20,8 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
                 UserControl.setLogin(true)
                 UserControl.setUser(res.data)
             }, { throwable ->
-                mRootView?.showError(throwable.message.toString())
+                val errorMsg = ExceptionHandle.handleException(throwable)
+                mRootView?.showError(errorMsg)
             })
         addSubscription(disposable)
     }

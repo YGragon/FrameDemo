@@ -40,5 +40,15 @@
 			android:layout_gravity="center"
 			android:gravity="center"
 			android:textColor="@color/colorWhite"/>
+	<TextView
+			android:id="@+id/tv_login_out"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:background="@color/colorPrimary"
+			android:layout_margin="20dp"
+			android:text="退出登录"
+			android:layout_gravity="center"
+			android:gravity="center"
+			android:textColor="@color/colorWhite"/>
 
 </LinearLayout>

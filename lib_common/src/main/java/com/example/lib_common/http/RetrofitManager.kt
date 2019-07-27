@@ -38,10 +38,10 @@ object RetrofitManager {
         val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
 
         return OkHttpClient.Builder()
+            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApplication.context)))
             .addInterceptor(CacheInterceptor())
             .addInterceptor(LoggingInterceptor())
             .addInterceptor(CheckLoginInterceptor())
-            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApplication.context)))
             .cache(cache)  //添加缓存
             .connectTimeout(60L, TimeUnit.SECONDS)
             .readTimeout(60L, TimeUnit.SECONDS)

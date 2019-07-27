@@ -9,6 +9,7 @@ import com.example.framedemo.ui.mine.presenter.MinePresenter
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.http.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.scheduler.SchedulerUtils
 import com.example.lib_common.model.UserControl
@@ -52,14 +53,11 @@ class MineFragment : BaseFragment(),MineContract.View {
         }
 
         tv_collect.setOnClickListener {
-            val disposable = RetrofitManager.service.getCollects(0)
-                .compose(SchedulerUtils.ioToMain())
-                .subscribe({ res ->
-                    LogUtils.ee("222",res.errorMsg)
-                    LogUtils.ee("222",res.errorCode.toString())
-                    LogUtils.ee("222",res.data.data.toString())
-                }, { throwable ->
-                })
+            ARouter.getInstance().build(RouterPath.UserCenter.COLLECT).navigation()
+        }
+
+        tv_login_out.setOnClickListener {
+            mPresenter.loginOut()
         }
     }
 
@@ -79,6 +77,10 @@ class MineFragment : BaseFragment(),MineContract.View {
     }
 
     override fun showUserInfo() {
+    }
+
+    override fun showLoginOutSuccess(){
+        ToastUtils.show(BaseApplication.context,"已退出登录")
     }
 
     override fun showLoading() {
