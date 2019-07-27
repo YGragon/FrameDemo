@@ -5,6 +5,8 @@ import android.content.Context
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.BuildConfig
+import com.tencent.bugly.Bugly
+import com.tencent.bugly.beta.Beta
 import com.tencent.bugly.crashreport.CrashReport
 import kotlin.properties.Delegates
 
@@ -27,9 +29,11 @@ abstract class BaseApplication:Application() {
             ARouter.openDebug()   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(this)
-        CrashReport.initCrashReport(applicationContext, "0ec81c5e2d", true)
+        // Bugly 崩溃上传和升级
+        Beta.autoCheckUpgrade = true
+        Bugly.init(this, "app_id", false)
         // 侧滑返回
-        BGASwipeBackHelper.init(this, null);
+        BGASwipeBackHelper.init(this, null)
     }
 
     private fun isDebug(): Boolean {

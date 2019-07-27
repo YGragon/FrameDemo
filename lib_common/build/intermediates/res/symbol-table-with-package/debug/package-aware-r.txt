@@ -1503,6 +1503,30 @@ string rationale_ask
 string rationale_ask_again
 string search_menu_title
 string status_bar_notification_info_overflow
+string strNetworkTipsCancelBtn
+string strNetworkTipsConfirmBtn
+string strNetworkTipsMessage
+string strNetworkTipsTitle
+string strNotificationClickToContinue
+string strNotificationClickToInstall
+string strNotificationClickToRetry
+string strNotificationClickToView
+string strNotificationDownloadError
+string strNotificationDownloadSucc
+string strNotificationDownloading
+string strNotificationHaveNewVersion
+string strToastCheckUpgradeError
+string strToastCheckingUpgrade
+string strToastYourAreTheLatestVersion
+string strUpgradeDialogCancelBtn
+string strUpgradeDialogContinueBtn
+string strUpgradeDialogFeatureLabel
+string strUpgradeDialogFileSizeLabel
+string strUpgradeDialogInstallBtn
+string strUpgradeDialogRetryBtn
+string strUpgradeDialogUpdateTimeLabel
+string strUpgradeDialogUpgradeBtn
+string strUpgradeDialogVersionLabel
 string title_settings_dialog
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
@@ -2090,3 +2114,4 @@ styleable Toolbar android_gravity android_minHeight buttonGravity collapseConten
 styleable View android_focusable android_theme paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_inflatedId android_layout
+xml provider_paths
