@@ -12,7 +12,7 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
 
     override fun postLoginInfo(user_name: String, password: String) {
 
-        val disposable = RetrofitManager.service.login()
+        val disposable = RetrofitManager.service.login(user_name,password)
             .compose(SchedulerUtils.ioToMain())
             .subscribe({ res ->
                 mRootView?.showLoginSuccess(res.data.username+" 登录成功")

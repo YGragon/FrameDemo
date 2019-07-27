@@ -24,6 +24,8 @@ android {
         ndk {            // 设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_6 4', 'arm64-v8a'
         }
+
+
     }
 
     buildTypes {
@@ -39,11 +41,6 @@ android {
         }
     }
 
-//    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-//        kotlinOptions {
-//            jvmTarget = "1.8"
-//        }
-//    }
 }
 
 dependencies {
@@ -54,7 +51,7 @@ dependencies {
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["retrofit2"]
     api rootProject.ext.dependencies["okhttp3"]
-    api rootProject.ext.dependencies["logging-interceptor"]
+    api rootProject.ext.dependencies["PersistentCookieJar"]
     api rootProject.ext.dependencies["rxjava2"]
     api rootProject.ext.dependencies["adapter-rxjava2"]
     api rootProject.ext.dependencies["converter_gson"]

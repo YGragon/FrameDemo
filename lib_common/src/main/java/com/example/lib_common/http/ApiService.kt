@@ -17,13 +17,17 @@ interface ApiService {
      * 注册
      */
     @POST("user/register")
-    fun register(): Observable<BaseResponse<ResponseBody>>
+    fun register(@Query("username") username:String,
+                 @Query("password") password:String,
+                 @Query("repassword") repassword:String)
+            : Observable<BaseResponse<ResponseBody>>
 
     /**
      * 登录
      */
     @POST("user/login")
-    fun login(): Observable<BaseResponse<User>>
+    fun login(@Query("username") username:String,
+              @Query("password") password:String): Observable<BaseResponse<User>>
 
     /**
      * 获取 banner 列表

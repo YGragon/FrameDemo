@@ -10,7 +10,7 @@ import com.example.lib_common.http.scheduler.SchedulerUtils
 class RegisterPresenter : BasePresenter<RegisterContract.View>(),RegisterContract.Presenter {
     override fun postRegisterInfo(user_name: String, password: String, repassword: String) {
 
-        val disposable = RetrofitManager.service.register()
+        val disposable = RetrofitManager.service.register(user_name,password,repassword)
             .compose(SchedulerUtils.ioToMain())
             .subscribe({ res ->
                 mRootView?.showRegisterSuccess("注册成功")
