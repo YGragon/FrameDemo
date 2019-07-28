@@ -18,4 +18,8 @@ object RouterPath {
     object Map{
         const val MAP_APP = "/map/app"
     }
+
+    object Web{
+        const val WEB_DETAIL = "/web/detail"
+    }
 }

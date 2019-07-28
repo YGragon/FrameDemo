@@ -4,11 +4,14 @@ package com.example.framedemo.ui.home
 
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.framedemo.R
 import com.example.framedemo.ui.home.contract.HomeContract
 import com.example.framedemo.ui.home.presenter.HomePresenter
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
+import com.example.lib_common.constant.ParameterConstant
+import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
 import com.example.lib_common.utils.LogUtils
@@ -24,8 +27,6 @@ import com.youth.banner.Transformer
  *
  */
 class HomeFragment : BaseFragment(), HomeContract.View {
-
-
 
     private var mArticles = mutableListOf<Article>()
     private var mBanners = mutableListOf<Banner>()
@@ -64,13 +65,23 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         rv_home_list.adapter = mAdapter
 
         banner.setOnBannerListener {
-            ToastUtils.show(BaseApplication.context,mBanners[it].url)
+            ARouter.getInstance()
+                .build(RouterPath.Web.WEB_DETAIL)
+                .withString(ParameterConstant.Web.webUrl,mBanners[it].url)
+                .navigation()
         }
 
         mAdapter.setOnLoadMoreListener({
             mPage++
             mPresenter.getArticles(mPage)
         },rv_home_list)
+
+        mAdapter.setOnItemClickListener { _, _, position ->
+            ARouter.getInstance()
+                .build(RouterPath.Web.WEB_DETAIL)
+                .withString(ParameterConstant.Web.webUrl,mArticles[position].link)
+                .navigation()
+        }
 
     }
 

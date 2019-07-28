@@ -35,6 +35,7 @@ ext {
             BRVAH                   : "2.9.30",
             bugly                   : "latest.release",
             banner                  : "1.4.10",
+            agentweb                : "4.0.3-beta",
     ]
 
     dependencies = [
@@ -71,5 +72,6 @@ ext {
             "crashreport_upgrade"      : "com.tencent.bugly:crashreport_upgrade:${version["bugly"]}",
             "nativecrashreport"        : "com.tencent.bugly:nativecrashreport:${version["bugly"]}",
             "banner"                   : "com.youth.banner:banner:${version["banner"]}",
+            "agentweb"                 : "com.just.agentweb:agentweb:${version["agentweb"]}",
     ]
 }

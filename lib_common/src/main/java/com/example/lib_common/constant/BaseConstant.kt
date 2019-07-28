@@ -12,4 +12,7 @@ object BaseConstant {
     val EXIT_ACTION = "action.exit"
 
     var filePath = "${Environment.getExternalStorageDirectory()}${File.separator}FrameDemo${File.separator}"
+
+    // 定位权限
+    val CAMERA_REQUEST_CODE = 1000
 }

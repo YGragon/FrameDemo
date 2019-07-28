@@ -10,4 +10,8 @@ object ParameterConstant {
         const val isCheckLoginParameter = "unLogin"
         const val isCheckLogin = true
     }
+
+    object Web{
+        const val webUrl = "web_url"
+    }
 }

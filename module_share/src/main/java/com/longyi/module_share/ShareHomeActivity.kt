@@ -1,5 +1,6 @@
 package com.longyi.module_share
 
+import android.net.Uri
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication.Companion.context
@@ -19,7 +20,7 @@ class ShareHomeActivity : BaseActivity() {
         tv_share_native.setOnClickListener {
             ShareUtil.Builder(this)
                 .setContentType(ShareContentType.FILE)
-                .setShareFileUri(FileUtil.getShareFileUri(context,filePath)!!)
+                .setShareFileUri(FileUtil.getShareFileUri(context,filePath)?: Uri.parse(""))
                 .setTitle("Share File")
                 .build()
                 .shareBySystem()
@@ -30,8 +31,7 @@ class ShareHomeActivity : BaseActivity() {
         }
     }
 
-    override fun initData() {
-    }
+    override fun initData() {}
 
 
 }

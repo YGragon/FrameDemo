@@ -627,6 +627,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color black
 color black_333
 color black_61
 color black_86
@@ -728,6 +729,7 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color select_color
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -1172,6 +1174,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id agentweb_webview_id
 id alertTitle
 id all
 id always
@@ -1268,6 +1271,8 @@ id load_more_load_fail_view
 id load_more_loading_view
 id loading_progress
 id loading_text
+id mainframe_error_container_id
+id mainframe_error_viewsub_id
 id masked
 id matrix
 id media_actions
@@ -1386,6 +1391,7 @@ id up
 id useLogo
 id view_offset_helper
 id visible
+id web_parent_layout_id
 id withText
 id wrap
 id wrap_content
@@ -1437,6 +1443,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout agentweb_error_page
 layout banner
 layout bottom_navigation_bar_container
 layout design_bottom_navigation_item
@@ -1517,6 +1524,25 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string agentweb_camera
+string agentweb_cancel
+string agentweb_click_open
+string agentweb_coming_soon_download
+string agentweb_current_downloaded_length
+string agentweb_current_downloading_progress
+string agentweb_default_page_error
+string agentweb_download
+string agentweb_download_fail
+string agentweb_download_task_has_been_exist
+string agentweb_file_chooser
+string agentweb_file_download
+string agentweb_honeycomblow
+string agentweb_leave
+string agentweb_leave_app_and_go_other_page
+string agentweb_loading
+string agentweb_max_file_length_limit
+string agentweb_tips
+string agentweb_trickter
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
@@ -2073,6 +2099,7 @@ style Widget_MaterialComponents_TextInputLayout_OutlinedBox
 style Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense
 style Widget_MaterialComponents_Toolbar
 style Widget_Support_CoordinatorLayout
+style actionActivity
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth
@@ -2153,3 +2180,4 @@ styleable View android_focusable android_theme paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_inflatedId android_layout
 xml provider_paths
+xml web_files_public

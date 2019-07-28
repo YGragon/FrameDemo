@@ -72,7 +72,6 @@ class CourseFragment : BaseFragment() {
         }
 
         tv_map.setOnClickListener {
-            CrashReport.testJavaCrash()
             ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
         }
     }
