@@ -81,10 +81,8 @@ class CourseFragment : BaseFragment() {
         fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
     }
 
-    override fun fragmentShowToUser() {
-    }
+    override fun fragmentShowToUser() {}
 
-    override fun fragmentHideToUser() {
-    }
+    override fun fragmentHideToUser() {}
 
 }
