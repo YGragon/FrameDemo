@@ -21,4 +21,21 @@ class HomePresenter : BasePresenter<HomeContract.View>(),HomeContract.Presenter{
         addSubscription(disposable)
     }
 
+    override fun getArticles(page:Int) {
+        val disposable = RetrofitManager.service.getArticles(page)
+            .compose(SchedulerUtils.ioToMain())
+            .subscribe({ res ->
+                if (res.data != null){
+                    if (res.data.curPage == res.data.pageCount) {
+                        mRootView?.showLoadEndArticles(res.data.datas)
+                    } else {
+                        mRootView?.showLoadCompleteArticles(res.data.datas)
+                    }
+                }
+            }, { throwable ->
+                mRootView?.showError(throwable.message.toString())
+            })
+        addSubscription(disposable)
+    }
+
 }

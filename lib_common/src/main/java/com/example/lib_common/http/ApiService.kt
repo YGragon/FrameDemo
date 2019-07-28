@@ -1,5 +1,6 @@
 package com.example.lib_common.http
 
+import com.example.lib_common.model.ArticleResult
 import com.example.lib_common.model.Banner
 import com.example.lib_common.model.CollectBean
 import com.example.lib_common.model.User
@@ -46,5 +47,11 @@ interface ApiService {
     @GET("lg/collect/list/{page}/json")
     fun getCollects(@Path("page") page:Int): Observable<BaseResponse<CollectBean>>
 
+
+    /**
+     * 获取 首页文章 列表
+     */
+    @GET("article/list/{page}/json")
+    fun getArticles(@Path("page") page:Int): Observable<BaseResponse<ArticleResult>>
 
 }

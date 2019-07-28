@@ -34,6 +34,7 @@ ext {
             BasePopup               : "2.2.1",
             BRVAH                   : "2.9.30",
             bugly                   : "latest.release",
+            banner                  : "1.4.10",
     ]
 
     dependencies = [
@@ -69,5 +70,6 @@ ext {
             "BRVAH"                    : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version["BRVAH"]}",
             "crashreport_upgrade"      : "com.tencent.bugly:crashreport_upgrade:${version["bugly"]}",
             "nativecrashreport"        : "com.tencent.bugly:nativecrashreport:${version["bugly"]}",
+            "banner"                   : "com.youth.banner:banner:${version["banner"]}",
     ]
 }

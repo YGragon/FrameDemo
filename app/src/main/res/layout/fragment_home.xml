@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			 xmlns:tools="http://schemas.android.com/tools"
-			 android:layout_width="match_parent"
-			 android:layout_height="match_parent"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
 			  android:orientation="vertical"
-			 tools:context=".ui.home.HomeFragment">
+			  tools:context=".ui.home.HomeFragment">
 	<View
 			android:id="@+id/fake_status_bar"
 			android:layout_width="match_parent"
@@ -21,9 +21,10 @@
 			android:textColor="@color/white"
 			android:textSize="24sp"/>
 
-	<TextView
+	<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/rv_home_list"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:text="home"/>
+			android:layout_height="match_parent"/>
+
 
 </LinearLayout>

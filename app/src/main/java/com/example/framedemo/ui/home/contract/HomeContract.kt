@@ -2,6 +2,7 @@ package com.example.framedemo.ui.home.contract
 
 import com.example.lib_common.base.IBaseView
 import com.example.lib_common.base.IPresenter
+import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
 
 /**
@@ -18,6 +19,16 @@ interface HomeContract {
          * 显示 banner
          */
         fun showBanners(banners: MutableList<Banner>)
+
+        /**
+         * 加载完成显示 article
+         */
+        fun showLoadCompleteArticles(articles: MutableList<Article>)
+
+        /**
+         * 全部显示 article
+         */
+        fun showLoadEndArticles(articles: MutableList<Article>)
     }
 
     interface Presenter: IPresenter<View> {
@@ -25,5 +36,10 @@ interface HomeContract {
          * 获取 banner
          */
         fun getBanners()
+
+        /**
+         * 获取首页文章列表
+         */
+        fun getArticles(page:Int)
     }
 }

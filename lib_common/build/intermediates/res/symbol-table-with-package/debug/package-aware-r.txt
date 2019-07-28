@@ -33,6 +33,7 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+animator scale_with_alpha
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -87,6 +88,8 @@ attr backgroundSplit
 attr backgroundStacked
 attr backgroundTint
 attr backgroundTintMode
+attr banner_default_image
+attr banner_layout
 attr barLength
 attr barrierAllowsGoneWidgets
 attr barrierDirection
@@ -213,6 +216,7 @@ attr counterOverflowTextAppearance
 attr counterTextAppearance
 attr customNavigationLayout
 attr defaultQueryHint
+attr delay_time
 attr dialogCornerRadius
 attr dialogPreferredPadding
 attr dialogTheme
@@ -294,10 +298,17 @@ attr iconTint
 attr iconTintMode
 attr iconifiedByDefault
 attr imageButtonStyle
+attr image_scale_type
 attr indeterminateProgressStyle
+attr indicator_drawable_selected
+attr indicator_drawable_unselected
+attr indicator_height
+attr indicator_margin
+attr indicator_width
 attr initialActivityCount
 attr insetForeground
 attr isLightTheme
+attr is_auto_play
 attr itemBackground
 attr itemHorizontalPadding
 attr itemHorizontalTranslationEnabled
@@ -435,6 +446,7 @@ attr rippleColor
 attr scrimAnimationDuration
 attr scrimBackground
 attr scrimVisibleHeightTrigger
+attr scroll_time
 attr searchHintIcon
 attr searchIcon
 attr searchViewStyle
@@ -553,6 +565,10 @@ attr titleMargins
 attr titleTextAppearance
 attr titleTextColor
 attr titleTextStyle
+attr title_background
+attr title_height
+attr title_textcolor
+attr title_textsize
 attr toolbarId
 attr toolbarNavigationButtonStyle
 attr toolbarStyle
@@ -1091,18 +1107,21 @@ drawable avd_show_password_1
 drawable avd_show_password_2
 drawable avd_show_password_3
 drawable bga_sbl_shadow
+drawable black_background
 drawable design_bottom_navigation_item_background
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable gray_radius
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable mtrl_snackbar_background
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
+drawable no_banner
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -1121,6 +1140,7 @@ drawable sample_footer_loading_progress
 drawable shape_btn_confirm
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable white_radius
 id ALT
 id BaseQuickAdapter_databinding_support
 id BaseQuickAdapter_dragging_support
@@ -1160,6 +1180,10 @@ id auto
 id background_style_default
 id background_style_ripple
 id background_style_static
+id bannerContainer
+id bannerDefaultImage
+id bannerTitle
+id bannerViewPager
 id base_popup_content_root
 id beginning
 id blocking
@@ -1170,10 +1194,13 @@ id bottom_navigation_bar_overLay
 id buttonPanel
 id cancel_action
 id center
+id center_crop
 id center_horizontal
+id center_inside
 id center_vertical
 id checkbox
 id chronometer
+id circleIndicator
 id clip_horizontal
 id clip_vertical
 id collapseActionView
@@ -1203,6 +1230,10 @@ id fill
 id fill_horizontal
 id fill_vertical
 id filled
+id fit_center
+id fit_end
+id fit_start
+id fit_xy
 id fixed
 id fixed_bottom_navigation_badge
 id fixed_bottom_navigation_container
@@ -1220,6 +1251,7 @@ id icon
 id icon_group
 id ifRoom
 id image
+id indicatorInside
 id info
 id invisible
 id italic
@@ -1237,6 +1269,7 @@ id load_more_loading_view
 id loading_progress
 id loading_text
 id masked
+id matrix
 id media_actions
 id message
 id middle
@@ -1256,6 +1289,8 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
+id numIndicator
+id numIndicatorInside
 id outline
 id packed
 id parallax
@@ -1333,6 +1368,7 @@ id textinput_helper_text
 id time
 id title
 id titleDividerNoCustom
+id titleView
 id title_template
 id toolbar
 id top
@@ -1401,6 +1437,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout banner
 layout bottom_navigation_bar_container
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -2054,6 +2091,7 @@ styleable AppCompatSeekBar android_thumb tickMark tickMarkTint tickMarkTintMode
 styleable AppCompatTextHelper android_drawableBottom android_drawableEnd android_drawableLeft android_drawableRight android_drawableStart android_drawableTop android_textAppearance
 styleable AppCompatTextView android_textAppearance autoSizeMaxTextSize autoSizeMinTextSize autoSizePresetSizes autoSizeStepGranularity autoSizeTextType firstBaselineToTopHeight fontFamily lastBaselineToBottomHeight lineHeight textAllCaps
 styleable AppCompatTheme actionBarDivider actionBarItemBackground actionBarPopupTheme actionBarSize actionBarSplitStyle actionBarStyle actionBarTabBarStyle actionBarTabStyle actionBarTabTextStyle actionBarTheme actionBarWidgetTheme actionButtonStyle actionDropDownStyle actionMenuTextAppearance actionMenuTextColor actionModeBackground actionModeCloseButtonStyle actionModeCloseDrawable actionModeCopyDrawable actionModeCutDrawable actionModeFindDrawable actionModePasteDrawable actionModePopupWindowStyle actionModeSelectAllDrawable actionModeShareDrawable actionModeSplitBackground actionModeStyle actionModeWebSearchDrawable actionOverflowButtonStyle actionOverflowMenuStyle activityChooserViewStyle alertDialogButtonGroupStyle alertDialogCenterButtons alertDialogStyle alertDialogTheme android_windowAnimationStyle android_windowIsFloating autoCompleteTextViewStyle borderlessButtonStyle buttonBarButtonStyle buttonBarNegativeButtonStyle buttonBarNeutralButtonStyle buttonBarPositiveButtonStyle buttonBarStyle buttonStyle buttonStyleSmall checkboxStyle checkedTextViewStyle colorAccent colorBackgroundFloating colorButtonNormal colorControlActivated colorControlHighlight colorControlNormal colorError colorPrimary colorPrimaryDark colorSwitchThumbNormal controlBackground dialogCornerRadius dialogPreferredPadding dialogTheme dividerHorizontal dividerVertical dropDownListViewStyle dropdownListPreferredItemHeight editTextBackground editTextColor editTextStyle homeAsUpIndicator imageButtonStyle listChoiceBackgroundIndicator listDividerAlertDialog listMenuViewStyle listPopupWindowStyle listPreferredItemHeight listPreferredItemHeightLarge listPreferredItemHeightSmall listPreferredItemPaddingLeft listPreferredItemPaddingRight panelBackground panelMenuListTheme panelMenuListWidth popupMenuStyle popupWindowStyle radioButtonStyle ratingBarStyle ratingBarStyleIndicator ratingBarStyleSmall searchViewStyle seekBarStyle selectableItemBackground selectableItemBackgroundBorderless spinnerDropDownItemStyle spinnerStyle switchStyle textAppearanceLargePopupMenu textAppearanceListItem textAppearanceListItemSecondary textAppearanceListItemSmall textAppearancePopupMenuHeader textAppearanceSearchResultSubtitle textAppearanceSearchResultTitle textAppearanceSmallPopupMenu textColorAlertDialogListItem textColorSearchUrl toolbarNavigationButtonStyle toolbarStyle tooltipForegroundColor tooltipFrameBackground viewInflaterClass windowActionBar windowActionBarOverlay windowActionModeOverlay windowFixedHeightMajor windowFixedHeightMinor windowFixedWidthMajor windowFixedWidthMinor windowMinWidthMajor windowMinWidthMinor windowNoTitle
+styleable Banner banner_default_image banner_layout delay_time image_scale_type indicator_drawable_selected indicator_drawable_unselected indicator_height indicator_margin indicator_width is_auto_play scroll_time title_background title_height title_textcolor title_textsize
 styleable BottomAppBar backgroundTint fabAlignmentMode fabCradleMargin fabCradleRoundedCornerRadius fabCradleVerticalOffset hideOnScroll
 styleable BottomNavigationBar bnbActiveColor bnbAnimationDuration bnbAutoHideEnabled bnbBackgroundColor bnbBackgroundStyle bnbElevation bnbInactiveColor bnbMode
 styleable BottomNavigationView elevation itemBackground itemHorizontalTranslationEnabled itemIconSize itemIconTint itemTextAppearanceActive itemTextAppearanceInactive itemTextColor labelVisibilityMode menu

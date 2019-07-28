@@ -2,15 +2,21 @@ package com.example.framedemo.ui.home
 
 
 
+import android.view.LayoutInflater
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.framedemo.R
 import com.example.framedemo.ui.home.contract.HomeContract
 import com.example.framedemo.ui.home.presenter.HomePresenter
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
+import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
 import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.fragment_home.*
+import com.example.lib_common.utils.imageloader.GlideImageLoader
+import com.youth.banner.BannerConfig
+import com.youth.banner.Transformer
 
 
 /**
@@ -18,6 +24,14 @@ import kotlinx.android.synthetic.main.fragment_home.*
  *
  */
 class HomeFragment : BaseFragment(), HomeContract.View {
+
+
+
+    private var mArticles = mutableListOf<Article>()
+    private var mBanners = mutableListOf<Banner>()
+    private var mPage = 0
+    private lateinit var mAdapter:HomeAdapter
+    private lateinit var banner:com.youth.banner.Banner
 
     /**
      * 懒加载Presenter
@@ -37,9 +51,27 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     override fun initData() {
         mPresenter.getBanners()
+        mPresenter.getArticles(mPage)
     }
 
+
     override fun initView() {
+        rv_home_list.layoutManager = LinearLayoutManager(activity)
+        mAdapter = HomeAdapter(mArticles)
+        val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner,null)
+        banner = headBanner.findViewById(R.id.banner)
+        mAdapter.addHeaderView(headBanner)
+        rv_home_list.adapter = mAdapter
+
+        banner.setOnBannerListener {
+            ToastUtils.show(BaseApplication.context,mBanners[it].url)
+        }
+
+        mAdapter.setOnLoadMoreListener({
+            mPage++
+            mPresenter.getArticles(mPage)
+        },rv_home_list)
+
     }
 
     override fun setTvTitleBackgroundColor() {
@@ -55,19 +87,54 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         LogUtils.ee("222","fragmentHideToUser")
     }
 
+    override fun onStart() {
+        super.onStart()
+        banner.startAutoPlay()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        banner.stopAutoPlay()
+    }
+
     override fun showError(errorMsg: String) {
         ToastUtils.show(BaseApplication.context,errorMsg)
     }
 
     override fun showBanners(banners: MutableList<Banner>) {
-        LogUtils.ee("222","banners: "+banners.toString())
+        mBanners.clear()
+        mBanners.addAll(banners)
+        val imageUrls = mutableListOf<String>()
+        val titles = mutableListOf<String>()
+        for (i in banners){
+            imageUrls.add(i.imagePath)
+        }
+        for (i in banners){
+            titles.add(i.desc)
+        }
+        banner.setImages(imageUrls)
+            .setBannerTitles(titles)
+            .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
+            .setBannerAnimation(Transformer.DepthPage)
+            .setImageLoader(GlideImageLoader())
+            .start()
+    }
+    override fun showLoadCompleteArticles(articles: MutableList<Article>) {
+        mArticles.addAll(articles)
+        mAdapter.loadMoreComplete()
+        mAdapter.notifyDataSetChanged()
     }
 
-    override fun showLoading() {
+    override fun showLoadEndArticles(articles: MutableList<Article>) {
+        mArticles.addAll(articles)
+        mAdapter.loadMoreEnd()
+        mAdapter.notifyDataSetChanged()
     }
 
-    override fun hideLoading() {
-    }
+
+    override fun showLoading() {}
+
+    override fun hideLoading() {}
 
     override fun onDestroy() {
         mPresenter.detachView()
