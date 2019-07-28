@@ -17,7 +17,6 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
             .compose(SchedulerUtils.ioToMain())
             .subscribe({ res ->
                 mRootView?.showLoginSuccess(res.data.username+" 登录成功")
-                UserControl.setLogin(true)
                 UserControl.setUser(res.data)
             }, { throwable ->
                 val errorMsg = ExceptionHandle.handleException(throwable)

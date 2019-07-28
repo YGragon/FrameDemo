@@ -33,7 +33,7 @@
 				android:imeOptions="actionNext"
 				android:inputType="text"
 				android:nextFocusForward="@+id/et_login_password"
-				android:text="Hello123456" />
+				/>
 
 		<View
 				android:layout_width="match_parent"
@@ -65,7 +65,7 @@
 					android:hint="@string/please_input_password"
 					android:imeOptions="actionDone"
 					android:inputType="textPassword"
-					android:text=" 123456" />
+					/>
 
 		</RelativeLayout>
 

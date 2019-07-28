@@ -7,12 +7,16 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication
+import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.event.LoginEvent
+import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
 import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import com.longyi.module_usercenter.R
+import org.greenrobot.eventbus.EventBus
 
 @Route(path = RouterPath.UserCenter.LOGIN,name = "登录页面")
 class LoginActivity : BaseActivity(), LoginContract.View {
@@ -59,7 +63,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         tv_register.setOnClickListener {
             ARouter.getInstance().build(RouterPath.UserCenter.REGISTER).navigation()
         }
-        cb_login_pwd_visible.setOnCheckedChangeListener { _buttonView, isChecked ->
+        cb_login_pwd_visible.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 et_login_password.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 et_login_password.setSelection(et_login_password.text.toString().length)
@@ -75,7 +79,9 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun showLoginSuccess(successMsg: String) {
-        ToastUtils.show(BaseApplication.context,successMsg)
+        PreferenceUtils.saveValue(BaseConstant.IS_LOGIN_KEY, BaseConstant.IS_LOGIN_TRUE)
+        PreferenceUtils.saveValue(BaseConstant.USER_NAME, et_login_username.text.toString())
+        EventBus.getDefault().postSticky(LoginEvent(successMsg))
         finish()
     }
 

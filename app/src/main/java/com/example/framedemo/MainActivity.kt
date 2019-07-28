@@ -80,19 +80,7 @@ class MainActivity : BaseActivity() {
     override fun initData() {}
 
 
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-    }
 
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().unregister(this)
-    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: LoginEvent) {
-        ToastUtils.show(this, "event_bus return: " + event.str)
-    }
 
 }
