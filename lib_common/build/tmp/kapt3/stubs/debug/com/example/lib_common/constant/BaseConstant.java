@@ -2,9 +2,8 @@ package com.example.lib_common.constant;
 
 import java.lang.System;
 
-@kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u000e\n\u0002\b\u0005\n\u0002\u0010\u000b\n\u0002\b\n\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u0014\u0010\u0003\u001a\u00020\u0004X\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0005\u0010\u0006R\u0014\u0010\u0007\u001a\u00020\bX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\t\u0010\nR\u0014\u0010\u000b\u001a\u00020\bX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\f\u0010\nR\u0014\u0010\r\u001a\u00020\u000eX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\u000f\u0010\u0010R\u0014\u0010\u0011\u001a\u00020\bX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0012\u0010\nR\u001a\u0010\u0013\u001a\u00020\bX\u0086\u000e\u00a2\u0006\u000e\n\u0000\u001a\u0004\b\u0014\u0010\n\"\u0004\b\u0015\u0010\u0016R\u0014\u0010\u0017\u001a\u00020\u000eX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0017\u0010\u0010\u00a8\u0006\u0018"}, d2 = {"Lcom/example/lib_common/constant/BaseConstant;", "", "()V", "CAMERA_REQUEST_CODE", "", "getCAMERA_REQUEST_CODE", "()I", "EXIT_ACTION", "", "getEXIT_ACTION", "()Ljava/lang/String;", "IS_LOGIN_KEY", "getIS_LOGIN_KEY", "IS_LOGIN_TRUE", "", "getIS_LOGIN_TRUE", "()Z", "USER_NAME", "getUSER_NAME", "filePath", "getFilePath", "setFilePath", "(Ljava/lang/String;)V", "isDebug", "lib_common_debug"})
+@kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u000e\n\u0002\b\u0005\n\u0002\u0010\u000b\n\u0002\b\t\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u0014\u0010\u0003\u001a\u00020\u0004X\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0005\u0010\u0006R\u0014\u0010\u0007\u001a\u00020\bX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\t\u0010\nR\u0014\u0010\u000b\u001a\u00020\bX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\f\u0010\nR\u0014\u0010\r\u001a\u00020\u000eX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\u000f\u0010\u0010R\u0014\u0010\u0011\u001a\u00020\bX\u0086D\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0012\u0010\nR\u001a\u0010\u0013\u001a\u00020\bX\u0086\u000e\u00a2\u0006\u000e\n\u0000\u001a\u0004\b\u0014\u0010\n\"\u0004\b\u0015\u0010\u0016\u00a8\u0006\u0017"}, d2 = {"Lcom/example/lib_common/constant/BaseConstant;", "", "()V", "CAMERA_REQUEST_CODE", "", "getCAMERA_REQUEST_CODE", "()I", "EXIT_ACTION", "", "getEXIT_ACTION", "()Ljava/lang/String;", "IS_LOGIN_KEY", "getIS_LOGIN_KEY", "IS_LOGIN_TRUE", "", "getIS_LOGIN_TRUE", "()Z", "USER_NAME", "getUSER_NAME", "filePath", "getFilePath", "setFilePath", "(Ljava/lang/String;)V", "lib_common_debug"})
 public final class BaseConstant {
-    private static final boolean isDebug = true;
     @org.jetbrains.annotations.NotNull()
     private static final java.lang.String EXIT_ACTION = "action.exit";
     @org.jetbrains.annotations.NotNull()
@@ -16,10 +15,6 @@ public final class BaseConstant {
     @org.jetbrains.annotations.NotNull()
     private static final java.lang.String USER_NAME = "user_name";
     public static final com.example.lib_common.constant.BaseConstant INSTANCE = null;
-    
-    public final boolean isDebug() {
-        return false;
-    }
     
     @org.jetbrains.annotations.NotNull()
     public final java.lang.String getEXIT_ACTION() {

@@ -7,7 +7,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.BuildConfig
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
-import com.tencent.bugly.crashreport.CrashReport
 import kotlin.properties.Delegates
 
 /**
@@ -18,6 +17,10 @@ abstract class BaseApplication:Application() {
         private val TAG = "BaseApplication"
         var context: Context by Delegates.notNull()
             private set
+
+        fun isDebug(): Boolean {
+            return BuildConfig.DEBUG
+        }
     }
 
     override fun onCreate() {
@@ -37,9 +40,6 @@ abstract class BaseApplication:Application() {
         BGASwipeBackHelper.init(this, null)
     }
 
-    private fun isDebug(): Boolean {
-        return BuildConfig.DEBUG
-    }
 
     // 初始化数据
     abstract fun initData()

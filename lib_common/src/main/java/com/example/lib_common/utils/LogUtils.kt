@@ -1,6 +1,7 @@
 package com.example.lib_common.utils
 
 import android.util.Log
+import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.BaseConstant
 import java.text.SimpleDateFormat
 import java.util.*
@@ -8,7 +9,8 @@ import java.util.*
 class LogUtils {
     companion object {
 
-        private var debug: Boolean = BaseConstant.isDebug//是否打印log
+        //是否打印log
+        private var debug: Boolean = BaseApplication.isDebug()
         private val TAG = "ERP_LOG"
         private val TOP_BORDER = "********************************************************************************************************************************************"
         private var LEFT_BORDER = "*"
