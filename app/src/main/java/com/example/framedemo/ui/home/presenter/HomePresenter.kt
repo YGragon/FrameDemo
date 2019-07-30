@@ -10,6 +10,19 @@ import com.example.lib_common.utils.LogUtils
  * 首页 Presenter
  */
 class HomePresenter : BasePresenter<HomeContract.View>(),HomeContract.Presenter{
+
+    override fun getHotkey() {
+        val disposable = RetrofitManager.service.getHotkey()
+            .compose(SchedulerUtils.ioToMain())
+            .subscribe({ res ->
+                mRootView?.showHotkeys(res.data)
+            }, { throwable ->
+                mRootView?.showError(throwable.message.toString())
+            })
+        addSubscription(disposable)
+    }
+
+
     override fun getBanners() {
         val disposable = RetrofitManager.service.getBanners()
             .compose(SchedulerUtils.ioToMain())

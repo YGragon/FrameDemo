@@ -672,6 +672,7 @@ color foreground_material_dark
 color foreground_material_light
 color gray_ea
 color gray_f5
+color half_white
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color material_blue_grey_800
@@ -909,6 +910,8 @@ dimen fixed_no_title_icon_container_width
 dimen fixed_no_title_icon_height
 dimen fixed_no_title_icon_width
 dimen fixed_width_padding
+dimen flipper_height
+dimen flipper_text_size_16
 dimen highlight_alpha_material_colored
 dimen highlight_alpha_material_dark
 dimen highlight_alpha_material_light

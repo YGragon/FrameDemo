@@ -1,9 +1,6 @@
 package com.example.lib_common.http
 
-import com.example.lib_common.model.ArticleResult
-import com.example.lib_common.model.Banner
-import com.example.lib_common.model.CollectBean
-import com.example.lib_common.model.User
+import com.example.lib_common.model.*
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -53,5 +50,12 @@ interface ApiService {
      */
     @GET("article/list/{page}/json")
     fun getArticles(@Path("page") page:Int): Observable<BaseResponse<ArticleResult>>
+
+    /**
+     * 获取 搜索热词 列表
+     */
+    @GET("hotkey/json")
+    fun getHotkey():Observable<BaseResponse<MutableList<Hotkey>>>
+
 
 }

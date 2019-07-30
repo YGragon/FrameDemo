@@ -10,10 +10,13 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="gray_ea">#ffeaeaea</color>
     <color name="gray_f5">#fff5f5f5</color>
+    <color name="half_white">#80FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="white_aaa">#ffaaaaaa</color>
     <color name="white_f4f5f6">#fff4f5f6</color>
     <color name="white_fc">#fffcfcfc</color>
+    <dimen name="flipper_height">40dp</dimen>
+    <dimen name="flipper_text_size_16">16sp</dimen>
     <dimen name="statusbar_view_height">0dp</dimen>
     <string name="app_name">FrameDemo</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

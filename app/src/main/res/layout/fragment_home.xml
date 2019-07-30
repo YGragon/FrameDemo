@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  xmlns:tools="http://schemas.android.com/tools"
-			  android:layout_width="match_parent"
-			  android:layout_height="match_parent"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
+			  android:layout_width="match_parent" android:layout_height="match_parent"
 			  android:orientation="vertical"
 			  tools:context=".ui.home.HomeFragment">
 	<View
@@ -11,20 +11,27 @@
 			android:layout_height="@dimen/statusbar_view_height"
 			android:background="@color/colorPrimary"/>
 
-	<TextView
-			android:id="@+id/tv_title"
+	<FrameLayout
 			android:layout_width="match_parent"
-			android:layout_height="56dp"
-			android:background="@color/colorPrimary"
-			android:gravity="center"
-			android:text="首页"
-			android:textColor="@color/white"
-			android:textSize="24sp"/>
+			android:layout_height="match_parent">
 
-	<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/rv_home_list"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
+
+
+		<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rv_home_list"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+		<!--搜索布局-->
+		<ViewFlipper
+				android:id="@+id/mFlipperView"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/flipper_height"
+				android:flipInterval="3000"
+				android:inAnimation="@anim/bottom_in"
+				android:outAnimation="@anim/bottom_out"
+				android:background="@drawable/shape_search"
+		/>
+	</FrameLayout>
 
 
 </LinearLayout>

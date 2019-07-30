@@ -3,6 +3,7 @@ package com.example.framedemo.ui.home
 
 
 import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.framedemo.R
@@ -14,6 +15,7 @@ import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
+import com.example.lib_common.model.Hotkey
 import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -47,10 +49,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_home
+        return com.example.framedemo.R.layout.fragment_home
     }
 
     override fun initData() {
+        mPresenter.getHotkey()
         mPresenter.getBanners()
         mPresenter.getArticles(mPage)
     }
@@ -59,8 +62,8 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     override fun initView() {
         rv_home_list.layoutManager = LinearLayoutManager(activity)
         mAdapter = HomeAdapter(mArticles)
-        val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner,null)
-        banner = headBanner.findViewById(R.id.banner)
+        val headBanner = LayoutInflater.from(activity).inflate(com.example.framedemo.R.layout.head_home_banner,null)
+        banner = headBanner.findViewById(com.example.framedemo.R.id.banner)
         mAdapter.addHeaderView(headBanner)
         rv_home_list.adapter = mAdapter
 
@@ -86,7 +89,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun setTvTitleBackgroundColor() {
-        tv_title.setBackgroundColor(resources.getColor(R.color.colorAccent))
+//        tv_title.setBackgroundColor(resources.getColor(R.color.colorAccent))
         fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
     }
 
@@ -110,6 +113,30 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     override fun showError(errorMsg: String) {
         ToastUtils.show(BaseApplication.context,errorMsg)
+    }
+
+    override fun showHotkeys(hotkeys: MutableList<Hotkey>) {
+        val hotkeyList = mutableListOf<String>()
+        for (i in hotkeys){
+            hotkeyList.add( "热搜 | "+i.name)
+        }
+        setData(hotkeyList)
+
+    }
+
+    /**
+     * 设置热搜数据
+     */
+    private fun setData(data: MutableList<String>) {
+        for (text in data) {
+            val itemFlipper = LayoutInflater.from(activity).inflate(R.layout.item_flipper_view,null)
+            itemFlipper.findViewById<TextView>(R.id.tv_flipper_text).text =text
+            mFlipperView.addView(itemFlipper)
+        }
+        mFlipperView.startFlipping()
+        mFlipperView.setOnClickListener {
+            ToastUtils.show(BaseApplication.context,"Toast")
+        }
     }
 
     override fun showBanners(banners: MutableList<Banner>) {
