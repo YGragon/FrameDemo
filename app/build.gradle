@@ -64,6 +64,9 @@ dependencies {
     if (!isNeedMapModule.toBoolean()) {
         implementation project(":module_map")
     }
+    if (!isNeedSearchModule.toBoolean()) {
+        implementation project(":module_search")
+    }
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

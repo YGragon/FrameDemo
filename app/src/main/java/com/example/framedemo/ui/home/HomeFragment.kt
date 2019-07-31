@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun getLayoutId(): Int {
-        return com.example.framedemo.R.layout.fragment_home
+        return R.layout.fragment_home
     }
 
     override fun initData() {
@@ -62,8 +62,8 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     override fun initView() {
         rv_home_list.layoutManager = LinearLayoutManager(activity)
         mAdapter = HomeAdapter(mArticles)
-        val headBanner = LayoutInflater.from(activity).inflate(com.example.framedemo.R.layout.head_home_banner,null)
-        banner = headBanner.findViewById(com.example.framedemo.R.id.banner)
+        val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner,null)
+        banner = headBanner.findViewById(R.id.banner)
         mAdapter.addHeaderView(headBanner)
         rv_home_list.adapter = mAdapter
 
@@ -116,6 +116,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun showHotkeys(hotkeys: MutableList<Hotkey>) {
+        // 数据库保存 热搜词
         val hotkeyList = mutableListOf<String>()
         for (i in hotkeys){
             hotkeyList.add( "热搜 | "+i.name)
@@ -135,7 +136,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }
         mFlipperView.startFlipping()
         mFlipperView.setOnClickListener {
-            ToastUtils.show(BaseApplication.context,"Toast")
+            ARouter.getInstance().build(RouterPath.Search.SEARCH_HOME).navigation()
         }
     }
 

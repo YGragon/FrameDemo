@@ -57,5 +57,11 @@ interface ApiService {
     @GET("hotkey/json")
     fun getHotkey():Observable<BaseResponse<MutableList<Hotkey>>>
 
+    /**
+     * 获取 搜索 列表
+     */
+    @POST("article/query/{page}/json")
+    fun getSearchs(@Path("page") page:Int,@Query("k") key_word:String):Observable<BaseResponse<MutableList<SearchList>>>
+
 
 }

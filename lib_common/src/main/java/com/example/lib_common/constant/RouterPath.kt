@@ -22,4 +22,8 @@ object RouterPath {
     object Web{
         const val WEB_DETAIL = "/web/detail"
     }
+
+    object Search{
+        const val SEARCH_HOME = "/search/home"
+    }
 }
