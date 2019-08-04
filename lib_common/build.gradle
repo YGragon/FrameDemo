@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 kapt {
     arguments {
         arg("moduleName", project.getName())
@@ -18,7 +19,10 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                arguments = [
+                        AROUTER_MODULE_NAME: project.getName(),
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true"]
             }
         }
         ndk {            // 设置支持的SO库架构
@@ -62,7 +66,6 @@ dependencies {
     api rootProject.ext.dependencies["swipebacklayout"]
     api rootProject.ext.dependencies["bottom_navigation_bar"]
     api rootProject.ext.dependencies["arouter-api"]
-    kapt rootProject.ext.dependencies["arouter-compiler"]
     api rootProject.ext.dependencies["easypermissions"]
     api rootProject.ext.dependencies["BasePopup"]
     api rootProject.ext.dependencies["BRVAH"]
@@ -70,6 +73,8 @@ dependencies {
     api rootProject.ext.dependencies["nativecrashreport"]
     api rootProject.ext.dependencies["banner"]
     api rootProject.ext.dependencies["agentweb"]
+    api rootProject.ext.dependencies["room"]
+    kapt rootProject.ext.dependencies["room_compiler"]
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testrunner"]
     androidTestImplementation rootProject.ext.dependencies["espresso"]

@@ -13,6 +13,9 @@ import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.db.AppDataBase
+import com.example.lib_common.db.dao.HotKeyDao
+import com.example.lib_common.db.dao.SearchHistoryDao
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
 import com.example.lib_common.model.Hotkey

@@ -14,7 +14,7 @@
 			android:textSize="18sp"/>
 
 	<com.example.lib_common.widget.flow.FlowLayout
-			android:id="@+id/fl_search_history"
+			android:id="@+id/fl_search_hot"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="15dp"

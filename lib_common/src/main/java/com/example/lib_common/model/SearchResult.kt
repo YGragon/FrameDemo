@@ -11,7 +11,7 @@ data class SearchResult(
 
 data class SearchList(
     val curPage: Int,
-    val datas: List<SearchBean>,
+    val datas: MutableList<SearchBean>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,

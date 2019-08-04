@@ -36,6 +36,7 @@ ext {
             bugly                   : "latest.release",
             banner                  : "1.4.10",
             agentweb                : "4.0.3-beta",
+            room                    : "2.1.0",
     ]
 
     dependencies = [
@@ -73,5 +74,7 @@ ext {
             "nativecrashreport"        : "com.tencent.bugly:nativecrashreport:${version["bugly"]}",
             "banner"                   : "com.youth.banner:banner:${version["banner"]}",
             "agentweb"                 : "com.just.agentweb:agentweb:${version["agentweb"]}",
+            "room"                     : "androidx.room:room-runtime:${version["room"]}",
+            "room_compiler"            : "androidx.room:room-compiler:${version["room"]}",
     ]
 }

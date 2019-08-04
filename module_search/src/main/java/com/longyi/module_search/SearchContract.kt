@@ -3,6 +3,9 @@ package com.longyi.module_search
 import com.example.lib_common.base.IBaseView
 import com.example.lib_common.base.IPresenter
 import com.example.lib_common.model.Hotkey
+import com.example.lib_common.model.SearchBean
+import com.example.lib_common.model.SearchHistory
+import com.example.lib_common.model.SearchList
 
 /**
  * 搜索
@@ -26,7 +29,7 @@ interface SearchContract {
         /**
          * 显示 历史记录
          */
-        fun showHistorys(hotkeys:MutableList<Hotkey>)
+        fun showHistorys(searchHistory:MutableList<SearchHistory>)
 
         /**
          * 隐藏 历史记录
@@ -36,8 +39,7 @@ interface SearchContract {
         /**
          * 显示 搜索 列表
          */
-        fun showSearchResult()
-        fun hideSearchResult()
+        fun showSearchResult(list:MutableList<SearchBean>)
     }
 
     interface Presenter: IPresenter<View> {
@@ -52,8 +54,15 @@ interface SearchContract {
         fun getHistorys()
 
         /**
+         * 保存搜索历史记录
+         */
+        fun saveSearchHistory(keyword: String)
+
+        /**
          * 获取搜索结果
          */
         fun getSearchResult(page:Int,key_word:String)
+
+
     }
 }

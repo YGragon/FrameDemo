@@ -5,6 +5,7 @@ import android.content.Context
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.BuildConfig
+import com.example.lib_common.db.AppDataBase
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
 import com.tencent.bugly.crashreport.CrashReport
@@ -23,6 +24,7 @@ abstract class BaseApplication:Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        AppDataBase.instance(this)
         // 初始化 ARouter
         if (isDebug()) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
             ARouter.openLog()     // 打印日志

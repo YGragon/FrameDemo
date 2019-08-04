@@ -5,18 +5,25 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.Hotkey
 import com.example.lib_common.model.SearchBean
+import com.example.lib_common.model.SearchHistory
 import com.example.lib_common.utils.ToastUtils
+import com.example.lib_common.widget.flow.FlowAdapter
 import kotlinx.android.synthetic.main.activity_search_main.*
-import com.tencent.bugly.proguard.s
+import com.example.lib_common.widget.flow.FlowLayout
 
 
 @Route(path = RouterPath.Search.SEARCH_HOME,name = "搜索首页")
@@ -24,7 +31,12 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
 
 
     private lateinit var mSearchAdapter:SearchMainAdapter
+    private lateinit var mSearchHistoryAdapter:SearchHistoryAdapter
     private var mSearchList = mutableListOf<SearchBean>()
+    private var mSearchHistorys = mutableListOf<SearchHistory>()
+    private var mHotKeys = mutableListOf<Hotkey>()
+
+
     private var mPage = 0
     private lateinit var headerHot: View
     private lateinit var headerHistory:View
@@ -45,22 +57,24 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         tv_search_text.setOnClickListener {
             // TODO 封装
             val keyword = et_keyword.text.toString().trim { it <= ' ' }
-            if (TextUtils.isEmpty(keyword)) {
+            if (!TextUtils.isEmpty(keyword)) {
+                // 保存到数据库中
+                mPresenter.saveSearchHistory(keyword)
+                // 搜索
                 mPresenter.getSearchResult(mPage,keyword)
             }
-            mPresenter.getSearchResult(mPage,et_keyword.text.toString())
         }
-        et_keyword.addTextChangedListener(object :TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-                // TODO 使用 RxJava 实现
-                val keyword = s.toString().trim { it <= ' ' }
-                if (TextUtils.isEmpty(keyword)) {
-                    mPresenter.getSearchResult(mPage,keyword)
-                }
-            }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+//        et_keyword.addTextChangedListener(object :TextWatcher{
+//            override fun afterTextChanged(s: Editable?) {
+//                // TODO 使用 RxJava 实现
+//                val keyword = s.toString().trim { it <= ' ' }
+//                if (TextUtils.isEmpty(keyword)) {
+//                    mPresenter.getSearchResult(mPage,keyword)
+//                }
+//            }
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+//        })
 
         rv_search.layoutManager = LinearLayoutManager(this)
         mSearchAdapter = SearchMainAdapter(mSearchList)
@@ -84,29 +98,68 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
     }
 
     override fun showHotkeys(hotkeys: MutableList<Hotkey>) {
+        mHotKeys.clear()
+        mHotKeys.addAll(hotkeys)
+        // 热搜
+        val flSearchHot = headerHot.findViewById<FlowLayout>(R.id.fl_search_hot)
+        flSearchHot.setAdapter(object : FlowAdapter<Hotkey>(mHotKeys) {
 
+            override fun getView(position: Int, searchHotKey: Hotkey, parent: ViewGroup): View {
+                val textView = TextView(this@SearchMainActivity)
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
+                textView.setBackgroundResource(R.drawable.shape_search_history_bg)
+                textView.text = searchHotKey.name
+                textView.setTextColor(resources.getColor(R.color.black_333))
+                return textView
+            }
+        })
+        // 设置 item 点击事件
+        flSearchHot.setOnItemClickListener { position, adapter, parent ->
+            val searchHotKey = mHotKeys[position]
+            val keyword = searchHotKey.name
+            mPresenter.getSearchResult(0,keyword)
+        }
     }
 
     override fun hideHotkeys() {
         mSearchAdapter.removeHeaderView(headerHot)
+        mSearchAdapter.notifyDataSetChanged()
     }
 
-    override fun showHistorys(hotkeys: MutableList<Hotkey>) {
+    override fun showHistorys(searchHistory:MutableList<SearchHistory>) {
+        mSearchHistorys.clear()
+        mSearchHistorys.addAll(searchHistory)
+        // 搜索历史列表
+        val ivDelAllHistory = headerHistory.findViewById<ImageView>(R.id.iv_search_history_del_all)
+        val rvSearchHistory = headerHistory.findViewById<RecyclerView>(R.id.rt_search_history)
 
+        rvSearchHistory.layoutManager = LinearLayoutManager(this)
+        mSearchHistoryAdapter = SearchHistoryAdapter(mSearchHistorys)
+        rvSearchHistory.adapter = mSearchHistoryAdapter
+        mSearchHistoryAdapter.notifyDataSetChanged()
+
+        // 全部清空搜索历史
+        ivDelAllHistory.setOnClickListener {
+            mPresenter.searchDao.deleteAll()
+            hideHistorys()
+        }
     }
 
     override fun hideHistorys() {
         mSearchAdapter.removeHeaderView(headerHistory)
+        mSearchAdapter.notifyDataSetChanged()
     }
 
-    override fun showSearchResult() {
+    override fun showSearchResult(list: MutableList<SearchBean>) {
         mSearchAdapter.removeAllHeaderView()
+        mSearchAdapter.notifyDataSetChanged()
+
+        mSearchList.clear()
+        mSearchList.addAll(list)
+        mSearchAdapter.notifyDataSetChanged()
     }
 
-    override fun hideSearchResult() {
-        mSearchAdapter.addHeaderView(headerHot)
-        mSearchAdapter.addHeaderView(headerHistory)
-    }
+
 
     override fun showLoading() {}
 
