@@ -1,10 +1,7 @@
 package com.longyi.module_search
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.text.Editable
+import android.os.Handler
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +21,8 @@ import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.widget.flow.FlowAdapter
 import kotlinx.android.synthetic.main.activity_search_main.*
 import com.example.lib_common.widget.flow.FlowLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.example.lib_common.utils.keyboard.SoftKeyboardUtil
 
 
 @Route(path = RouterPath.Search.SEARCH_HOME,name = "搜索首页")
@@ -52,6 +51,9 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
     }
 
     override fun initView() {
+        tv_search_text.postDelayed({
+            SoftKeyboardUtil.hideKeyboard(et_keyword)
+        },200)
 
         iv_search_back.setOnClickListener { finish() }
         tv_search_text.setOnClickListener {
@@ -66,7 +68,7 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         }
 //        et_keyword.addTextChangedListener(object :TextWatcher{
 //            override fun afterTextChanged(s: Editable?) {
-//                // TODO 使用 RxJava 实现
+//                // TODO 使用 RxJava 实现 联想搜索
 //                val keyword = s.toString().trim { it <= ' ' }
 //                if (TextUtils.isEmpty(keyword)) {
 //                    mPresenter.getSearchResult(mPage,keyword)
@@ -117,6 +119,8 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         flSearchHot.setOnItemClickListener { position, adapter, parent ->
             val searchHotKey = mHotKeys[position]
             val keyword = searchHotKey.name
+            // 保存到数据库中
+            mPresenter.saveSearchHistory(keyword)
             mPresenter.getSearchResult(0,keyword)
         }
     }
@@ -134,10 +138,26 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         val rvSearchHistory = headerHistory.findViewById<RecyclerView>(R.id.rt_search_history)
 
         rvSearchHistory.layoutManager = LinearLayoutManager(this)
+        rvSearchHistory.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         mSearchHistoryAdapter = SearchHistoryAdapter(mSearchHistorys)
         rvSearchHistory.adapter = mSearchHistoryAdapter
         mSearchHistoryAdapter.notifyDataSetChanged()
-
+        mSearchHistoryAdapter.setOnItemChildClickListener { _, view, position ->
+            when(view.id){
+                R.id.tv_search_history_title -> {
+                    // 搜索
+                    mSearchHistorys[position].keyWord?.let { mPresenter.getSearchResult(0, it) }
+                }
+                R.id.iv_search_history_del -> {
+                    // 删除某个item
+                    mPresenter.searchDao.delete(mSearchHistorys[position])
+                    mSearchHistoryAdapter.notifyItemRemoved(position)
+                    if (mSearchHistoryAdapter.itemCount <= 0){
+                        hideHistorys()
+                    }
+                }
+            }
+        }
         // 全部清空搜索历史
         ivDelAllHistory.setOnClickListener {
             mPresenter.searchDao.deleteAll()

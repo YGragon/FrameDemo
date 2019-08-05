@@ -20,7 +20,7 @@ import com.example.lib_common.constant.ShareContentType
 import java.io.File
 
 /**
- * Created by Aller on 2019/7/24.
+ * 文件工具类
  */
 object FileUtil {
     private val TAG = "Share"
