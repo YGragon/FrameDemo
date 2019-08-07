@@ -5,7 +5,7 @@ import java.lang.System;
 /**
  * * 路由中心
  */
-@kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0007\b\u00c6\u0002\u0018\u00002\u00020\u0001:\u0005\u0003\u0004\u0005\u0006\u0007B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002\u00a8\u0006\b"}, d2 = {"Lcom/example/lib_common/constant/RouterPath;", "", "()V", "Map", "Search", "Share", "UserCenter", "Web", "lib_common_debug"})
+@kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\b\b\u00c6\u0002\u0018\u00002\u00020\u0001:\u0006\u0003\u0004\u0005\u0006\u0007\bB\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002\u00a8\u0006\t"}, d2 = {"Lcom/example/lib_common/constant/RouterPath;", "", "()V", "Gank", "Map", "Search", "Share", "UserCenter", "Web", "lib_common_debug"})
 public final class RouterPath {
     public static final com.example.lib_common.constant.RouterPath INSTANCE = null;
     
@@ -48,6 +48,17 @@ public final class RouterPath {
         public static final com.example.lib_common.constant.RouterPath.Map INSTANCE = null;
         
         private Map() {
+            super();
+        }
+    }
+    
+    @kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0012\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0000\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0005"}, d2 = {"Lcom/example/lib_common/constant/RouterPath$Gank;", "", "()V", "GANK_PHOTO", "", "lib_common_debug"})
+    public static final class Gank {
+        @org.jetbrains.annotations.NotNull()
+        public static final java.lang.String GANK_PHOTO = "/gank/photo";
+        public static final com.example.lib_common.constant.RouterPath.Gank INSTANCE = null;
+        
+        private Gank() {
             super();
         }
     }

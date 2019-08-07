@@ -39,6 +39,7 @@ object RetrofitManager {
 
         return OkHttpClient.Builder()
             .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApplication.context)))
+            .addInterceptor(ChangeBaseUrlInterceptor())
             .addInterceptor(CacheInterceptor())
             .addInterceptor(LoggingInterceptor())
             .addInterceptor(CheckLoginInterceptor())

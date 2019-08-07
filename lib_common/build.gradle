@@ -61,6 +61,7 @@ dependencies {
     api rootProject.ext.dependencies["converter_gson"]
     api rootProject.ext.dependencies["rxandroid"]
     api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["photo_view"]
     api rootProject.ext.dependencies["event_bus"]
     api rootProject.ext.dependencies["statusbarutil"]
     api rootProject.ext.dependencies["swipebacklayout"]

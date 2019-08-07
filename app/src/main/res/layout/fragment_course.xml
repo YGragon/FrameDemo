@@ -69,6 +69,16 @@
 					android:layout_gravity="center"
 					android:gravity="center"
 					android:textColor="@color/colorWhite"/>
+			<TextView
+					android:id="@+id/tv_gank_photo"
+					android:layout_width="match_parent"
+					android:layout_height="40dp"
+					android:background="@color/colorPrimary"
+					android:layout_margin="20dp"
+					android:text="跳转干货图片组件"
+					android:layout_gravity="center"
+					android:gravity="center"
+					android:textColor="@color/colorWhite"/>
 		</LinearLayout>
 
 	</androidx.core.widget.NestedScrollView>

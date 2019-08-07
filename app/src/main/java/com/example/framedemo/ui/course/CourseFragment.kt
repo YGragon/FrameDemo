@@ -75,6 +75,10 @@ class CourseFragment : BaseFragment() {
         tv_map.setOnClickListener {
             ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
         }
+
+        tv_gank_photo.setOnClickListener {
+            ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
+        }
     }
     override fun setTvTitleBackgroundColor() {
         tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimary))

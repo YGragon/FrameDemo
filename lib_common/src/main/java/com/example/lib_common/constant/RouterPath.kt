@@ -19,6 +19,10 @@ object RouterPath {
         const val MAP_APP = "/map/app"
     }
 
+    object Gank{
+        const val GANK_PHOTO = "/gank/photo"
+    }
+
     object Web{
         const val WEB_DETAIL = "/web/detail"
     }
