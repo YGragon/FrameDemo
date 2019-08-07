@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication
+import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.GankPhoto
 import com.example.lib_common.utils.ToastUtils
@@ -38,7 +40,13 @@ class GankMainActivity : BaseActivity(), GankPhotoContract.View {
         rv_gank_photo.adapter = mAdapter
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            ToastUtils.show(BaseApplication.context,"position+"+position)
+            ARouter.getInstance()
+                .build(RouterPath.Gank.GANK_PHOTO_DETAIL)
+                .withInt(ParameterConstant.GankPhoto.position, position % mCount)
+                .withInt(ParameterConstant.GankPhoto.count, mCount)
+                .withInt(ParameterConstant.GankPhoto.page, mPage)
+                .withString(ParameterConstant.GankPhoto.imageUrl, mList[position].url)
+                .navigation()
         }
 
         mAdapter.setOnLoadMoreListener({

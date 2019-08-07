@@ -9,6 +9,8 @@
 			android:roundIcon="@mipmap/ic_launcher_round"
 			android:supportsRtl="true"
 			android:theme="@style/AppTheme">
+		<activity android:name=".big_image.BigImageActivity">
+		</activity>
 		<activity android:name=".GankMainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>

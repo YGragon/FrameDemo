@@ -21,6 +21,7 @@ object RouterPath {
 
     object Gank{
         const val GANK_PHOTO = "/gank/photo"
+        const val GANK_PHOTO_DETAIL = "/gank/photo_detail"
     }
 
     object Web{

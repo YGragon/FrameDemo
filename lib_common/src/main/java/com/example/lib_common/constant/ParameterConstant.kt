@@ -14,4 +14,11 @@ object ParameterConstant {
     object Web{
         const val webUrl = "web_url"
     }
+
+    object GankPhoto{
+        const val count = "count"
+        const val page = "page"
+        const val position = "position"
+        const val imageUrl = "imageUrl"
+    }
 }
