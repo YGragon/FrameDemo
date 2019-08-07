@@ -19,7 +19,7 @@ class SearchMainAdapter(list:MutableList<SearchBean>)
         helper?.setText(R.id.tv_search_author,item?.author)
         helper?.setText(R.id.tv_search_time,item?.niceDate)
         helper?.setText(R.id.tv_search_title, Html.fromHtml(item?.title))
-        helper?.setText(R.id.tv_search_desc,item?.desc)
+        helper?.setText(R.id.tv_search_desc,Html.fromHtml(item?.desc))
 
 
     }

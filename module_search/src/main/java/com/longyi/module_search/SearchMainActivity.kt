@@ -124,6 +124,8 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         flSearchHot.setOnItemClickListener { position, adapter, parent ->
             val searchHotKey = mHotKeys[position]
             val keyword = searchHotKey.name
+            et_keyword.setText(keyword)
+            et_keyword.setSelection(keyword.length)
             // 保存到数据库中
             mPresenter.saveSearchHistory(keyword)
             mPresenter.getSearchResult(0,keyword)
@@ -147,20 +149,19 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         mSearchHistoryAdapter = SearchHistoryAdapter(mSearchHistorys)
         rvSearchHistory.adapter = mSearchHistoryAdapter
         mSearchHistoryAdapter.notifyDataSetChanged()
+        mSearchHistoryAdapter.setOnItemClickListener { adapter, view, position ->
+            val keyWord = mSearchHistorys[position].keyWord?:""
+            et_keyword.setText(keyWord)
+            et_keyword.setSelection(keyWord.length)
+            mPresenter.getSearchResult(0, keyWord)
+        }
         mSearchHistoryAdapter.setOnItemChildClickListener { _, view, position ->
-            when(view.id){
-                R.id.tv_search_history_title -> {
-                    // 搜索
-                    mSearchHistorys[position].keyWord?.let { mPresenter.getSearchResult(0, it) }
-                }
-                R.id.iv_search_history_del -> {
-                    // 删除某个item
-                    mPresenter.searchDao.delete(mSearchHistorys[position])
-                    mSearchHistoryAdapter.notifyItemRemoved(position)
-                    if (mSearchHistoryAdapter.itemCount <= 0){
-                        hideHistorys()
-                    }
-                }
+            // 删除某个item
+            mPresenter.searchDao.delete(mSearchHistorys[position])
+            mSearchHistorys.removeAt(position)
+            mSearchHistoryAdapter.notifyItemRemoved(position)
+            if (mSearchHistoryAdapter.itemCount <= 0){
+                hideHistorys()
             }
         }
         // 全部清空搜索历史
@@ -183,7 +184,13 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         mSearchList.addAll(list)
         mSearchAdapter.notifyDataSetChanged()
     }
+    override fun showSearchEmptyResult() {
 
+        mSearchAdapter.removeAllHeaderView()
+        val emptyLayout = LayoutInflater.from(this).inflate(R.layout.layout_empty,null)
+        mSearchAdapter.emptyView = emptyLayout
+        mSearchAdapter.notifyDataSetChanged()
+    }
 
 
     override fun showLoading() {}

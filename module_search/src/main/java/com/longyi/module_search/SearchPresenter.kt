@@ -48,7 +48,15 @@ class SearchPresenter : BasePresenter<SearchContract.View>(),SearchContract.Pres
             .subscribe({ res ->
                 if (res.data != null){
                     // 获取到结果
-                    mRootView?.showSearchResult(res.data.datas)
+                    if (res.data.datas.isEmpty()){
+                        // 显示空页面
+                        mRootView?.showSearchEmptyResult()
+                    }else{
+                        mRootView?.showSearchResult(res.data.datas)
+                    }
+                }else{
+                    // 显示空页面
+                    mRootView?.showSearchEmptyResult()
                 }
 
             }, { throwable ->

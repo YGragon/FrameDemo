@@ -40,6 +40,10 @@ interface SearchContract {
          * 显示 搜索 列表
          */
         fun showSearchResult(list:MutableList<SearchBean>)
+        /**
+         * 显示 搜索 空列表
+         */
+        fun showSearchEmptyResult()
     }
 
     interface Presenter: IPresenter<View> {
