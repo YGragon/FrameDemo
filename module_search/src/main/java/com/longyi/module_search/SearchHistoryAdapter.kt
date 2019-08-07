@@ -14,7 +14,7 @@ class SearchHistoryAdapter(list:MutableList<SearchHistory>)
 
     override fun convert(helper: BaseViewHolder?, item: SearchHistory?) {
 
-        helper?.setText(R.id.tv_search_history_title, Html.fromHtml(item?.keyWord))
+        helper?.setText(R.id.tv_search_history_title, item?.keyWord)
         helper?.addOnClickListener(R.id.tv_search_history_title)
         helper?.addOnClickListener(R.id.iv_search_history_del)
 

@@ -22,6 +22,8 @@ import com.example.lib_common.widget.flow.FlowAdapter
 import kotlinx.android.synthetic.main.activity_search_main.*
 import com.example.lib_common.widget.flow.FlowLayout
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.alibaba.android.arouter.launcher.ARouter
+import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.utils.keyboard.SoftKeyboardUtil
 
 
@@ -86,6 +88,9 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         headerHistory = LayoutInflater.from(this).inflate(R.layout.header_search_history, null)
         mSearchAdapter.addHeaderView(headerHot)
         mSearchAdapter.addHeaderView(headerHistory)
+        mSearchAdapter.setOnItemClickListener { adapter, view, position ->
+            ARouter.getInstance().build(RouterPath.Web.WEB_DETAIL).withString(ParameterConstant.Web.webUrl,mSearchList[position].link).navigation()
+        }
 
         mSearchAdapter.notifyDataSetChanged()
     }
