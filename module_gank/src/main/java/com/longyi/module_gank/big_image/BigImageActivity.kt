@@ -176,7 +176,6 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
         if(current == max) {
             hideNumberProgressBar()
         }
-
     }
 
     private fun showNumberProgressBar() {
