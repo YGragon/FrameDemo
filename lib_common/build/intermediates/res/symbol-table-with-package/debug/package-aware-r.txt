@@ -689,6 +689,7 @@ color material_grey_600
 color material_grey_800
 color material_grey_850
 color material_grey_900
+color menu_text_color
 color mtrl_bottom_nav_colored_item_tint
 color mtrl_bottom_nav_item_tint
 color mtrl_btn_bg_color_disabled
@@ -1126,6 +1127,10 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable icon_back
+drawable menu_collect
+drawable menu_collected
+drawable menu_download
+drawable menu_share
 drawable mtrl_snackbar_background
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
@@ -1382,6 +1387,9 @@ id titleDividerNoCustom
 id titleView
 id title_template
 id toolbar
+id toolbar_collect
+id toolbar_download
+id toolbar_share
 id top
 id topPanel
 id touch_outside
@@ -1492,6 +1500,7 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout shifting_bottom_navigation_item
 layout support_simple_spinner_dropdown_item
+menu menu_toolbar
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -1563,6 +1572,9 @@ string icon
 string load_end
 string load_failed
 string loading
+string menu_collect
+string menu_download
+string menu_share
 string mtrl_chip_close_icon_content_description
 string password_toggle_content_description
 string path_password_eye
@@ -1984,6 +1996,7 @@ style Theme_MaterialComponents_Light_NoActionBar
 style Theme_MaterialComponents_Light_NoActionBar_Bridge
 style Theme_MaterialComponents_NoActionBar
 style Theme_MaterialComponents_NoActionBar_Bridge
+style ToolbarPopupTheme
 style Widget_AppCompat_ActionBar
 style Widget_AppCompat_ActionBar_Solid
 style Widget_AppCompat_ActionBar_TabBar

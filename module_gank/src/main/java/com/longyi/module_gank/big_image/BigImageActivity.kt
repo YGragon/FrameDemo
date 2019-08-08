@@ -1,6 +1,7 @@
 package com.longyi.module_gank.big_image
 
 import android.view.LayoutInflater
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication
@@ -11,7 +12,14 @@ import kotlinx.android.synthetic.main.activity_big_image.*
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.constant.RouterPath
+import com.jaeger.library.StatusBarUtil
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.annotation.SuppressLint
+import android.util.Log
 import com.longyi.module_gank.R
+
 
 @Route(path = RouterPath.Gank.GANK_PHOTO_DETAIL,name = "上下翻页的图片详情")
 class BigImageActivity : BaseActivity(), BigImageContract.View {
@@ -37,9 +45,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View {
 
     override fun initView() {
 
-        mCount = intent.getIntExtra(ParameterConstant.GankPhoto.count,0)
-        mPage = intent.getIntExtra(ParameterConstant.GankPhoto.page,0)
-        mPosition = intent.getIntExtra(ParameterConstant.GankPhoto.position,0)
+        initToolbar()
 
         rv_gank_photo_detail.layoutManager = LinearLayoutManager(this)
         mBigImageAdapter = BigImageAdapter(mPhotoList)
@@ -54,8 +60,75 @@ class BigImageActivity : BaseActivity(), BigImageContract.View {
         },rv_gank_photo_detail)
     }
 
+    private fun initToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = "图片详情"
+        //设置为ActionBar
+        setSupportActionBar(toolbar)
+        //显示那个箭头
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
+    }
+
     override fun initData() {
+        mCount = intent.getIntExtra(ParameterConstant.GankPhoto.count,0)
+        mPage = intent.getIntExtra(ParameterConstant.GankPhoto.page,0)
+        mPosition = intent.getIntExtra(ParameterConstant.GankPhoto.position,0)
+
         mPresenter.getGankPhoto(mCount,mPage)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return true
+    }
+
+    /**
+     * 显示menu的icon,通过反射,设置Menu的icon显示.
+     * @param view
+     * @param menu
+     * @return
+     */
+    @SuppressLint("RestrictedApi")
+    override fun onPrepareOptionsPanel(view: View?, menu: Menu?): Boolean {
+        if (menu != null) {
+            if (menu.javaClass.simpleName == "MenuBuilder") {
+                try {
+                    val m = menu.javaClass.getDeclaredMethod("setOptionalIconsVisible", java.lang.Boolean.TYPE)
+                    m.isAccessible = true
+                    m.invoke(menu, true)
+                } catch (e: Exception) {
+                    Log.e(javaClass.simpleName, "onMenuOpened...unable to set icons for overflow menu", e)
+                }
+
+            }
+        }
+        return super.onPrepareOptionsPanel(view, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.toolbar_collect ->{
+                ToastUtils.show(this,"收藏")
+                return true
+            }
+            R.id.toolbar_collect ->{
+                return true
+            }
+            R.id.toolbar_collect ->{
+                return true
+            }
+            else -> {
+                return super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
+    override fun setStatusBar() {
+        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
+        StatusBarUtil.setTranslucentForImageView(this,null)
     }
 
     override fun showError(errorMsg: String) {
