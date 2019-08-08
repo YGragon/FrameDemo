@@ -18,13 +18,27 @@ import android.view.MenuItem
 import android.view.View
 import android.annotation.SuppressLint
 import android.util.Log
+import android.widget.Toast
+import com.daimajia.numberprogressbar.OnProgressBarListener
+import com.example.lib_common.constant.BaseConstant
+import com.example.lib_common.http.UrlConstant
+import com.example.lib_common.utils.LogUtils
+import com.longyi.lib_download.file_download.DownloadHelper
+import com.longyi.lib_download.file_download.DownloadListener
 import com.longyi.module_gank.R
+import java.io.File
+import java.util.*
+
+
 
 
 @Route(path = RouterPath.Gank.GANK_PHOTO_DETAIL,name = "上下翻页的图片详情")
-class BigImageActivity : BaseActivity(), BigImageContract.View {
+class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarListener {
+
 
     private lateinit var mBigImageAdapter: BigImageAdapter
+    private lateinit var mLinearLayoutManager: LinearLayoutManager
+    private lateinit var timer: Timer
     private var mPhotoList = mutableListOf<GankPhoto>()
 
     private var mCount = 10
@@ -40,14 +54,15 @@ class BigImageActivity : BaseActivity(), BigImageContract.View {
 
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_big_image
+        return com.longyi.module_gank.R.layout.activity_big_image
     }
 
     override fun initView() {
 
         initToolbar()
 
-        rv_gank_photo_detail.layoutManager = LinearLayoutManager(this)
+        mLinearLayoutManager = LinearLayoutManager(this)
+        rv_gank_photo_detail.layoutManager = mLinearLayoutManager
         mBigImageAdapter = BigImageAdapter(mPhotoList)
         rv_gank_photo_detail.adapter = mBigImageAdapter
         // 垂直翻页
@@ -114,10 +129,11 @@ class BigImageActivity : BaseActivity(), BigImageContract.View {
                 ToastUtils.show(this,"收藏")
                 return true
             }
-            R.id.toolbar_collect ->{
+            R.id.toolbar_download ->{
+                startDownLoad()
                 return true
             }
-            R.id.toolbar_collect ->{
+            R.id.toolbar_share ->{
                 return true
             }
             else -> {
@@ -125,6 +141,54 @@ class BigImageActivity : BaseActivity(), BigImageContract.View {
             }
         }
     }
+
+    private fun startDownLoad() {
+
+        mBigImageAdapter.getItem(mLinearLayoutManager.findFirstCompletelyVisibleItemPosition())?.url?.let {
+            DownloadHelper(UrlConstant.GANK_URL, object : DownloadListener {
+                override fun onStartDownload() {
+                    showNumberProgressBar()
+                    LogUtils.ee("222", "开始下载")
+                }
+
+                override fun onProgress(progress: Int) {
+                    number_progress_bar.progress = progress
+                    LogUtils.ee("222", "下载进度：" + progress)
+                }
+
+                override fun onFinishDownload(file: File) {
+                    hideNumberProgressBar()
+                    LogUtils.ee("222", "下载结束：" + file.name)
+                    LogUtils.ee("222", "下载结束：" + file.absolutePath)
+                }
+
+                override fun onFail(ex: Throwable) {
+                    LogUtils.ee("222", "下载失败：" + ex.message)
+                }
+            }).downloadFile(
+                it,
+                BaseConstant.filePath, "${ mBigImageAdapter.getItem(mLinearLayoutManager.findFirstCompletelyVisibleItemPosition())?.desc}.png"
+            )
+        }
+    }
+
+    override fun onProgressChange(current: Int, max: Int) {
+        if(current == max) {
+            hideNumberProgressBar()
+        }
+
+    }
+
+    private fun showNumberProgressBar() {
+        ToastUtils.show(this, "开始下载")
+        number_progress_bar.visibility = View.VISIBLE
+    }
+
+    private fun hideNumberProgressBar() {
+        ToastUtils.show(this, "下载完成")
+        number_progress_bar.visibility = View.GONE
+    }
+
 
     override fun setStatusBar() {
         fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))

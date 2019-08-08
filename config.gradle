@@ -38,6 +38,7 @@ ext {
             banner                  : "1.4.10",
             agentweb                : "4.0.3-beta",
             room                    : "2.1.0",
+            number_progress         : "1.4@aar",
     ]
 
     dependencies = [
@@ -78,5 +79,6 @@ ext {
             "agentweb"                 : "com.just.agentweb:agentweb:${version["agentweb"]}",
             "room"                     : "androidx.room:room-runtime:${version["room"]}",
             "room_compiler"            : "androidx.room:room-compiler:${version["room"]}",
+            "number_progress"            : "com.daimajia.numberprogressbar:library:${version["number_progress"]}",
     ]
 }

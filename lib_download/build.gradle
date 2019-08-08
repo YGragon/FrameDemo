@@ -31,4 +31,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation project(":lib_common")
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    api rootProject.ext.dependencies["number_progress"]
+
 }

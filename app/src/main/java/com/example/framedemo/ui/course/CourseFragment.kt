@@ -45,27 +45,7 @@ class CourseFragment : BaseFragment() {
         tv_download_file.setOnClickListener {
 //            下载文件使用
             ToastUtils.show(BaseApplication.context,"下载文件使用")
-//            DownloadHelper("http://www.wanandroid.com/", object : DownloadListener {
-//                override fun onStartDownload() {
-//                    LogUtils.ee("222", "开始下载")
-//                }
-//
-//                override fun onProgress(progress: Int) {
-//                    LogUtils.ee("222", "下载进度：" + progress)
-//                }
-//
-//                override fun onFinishDownload(file: File) {
-//                    LogUtils.ee("222", "下载结束：" + file.name)
-//                    LogUtils.ee("222", "下载结束：" + file.absolutePath)
-//                }
-//
-//                override fun onFail(ex: Throwable) {
-//                    LogUtils.ee("222", "下载失败：" + ex.message)
-//                }
-//            }).downloadFile(
-//                "http://wanandroid.com/blogimgs/fb2c1185-55a0-4598-b5b2-11d1381fa596.png",
-//                BaseConstant.filePath, "测试_2019_7_24.png"
-//            )
+
         }
 
         tv_share.setOnClickListener {
