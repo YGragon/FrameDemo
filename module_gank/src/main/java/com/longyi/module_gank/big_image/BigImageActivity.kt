@@ -17,6 +17,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import com.daimajia.numberprogressbar.OnProgressBarListener
@@ -25,10 +26,7 @@ import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.utils.LogUtils
 import com.longyi.lib_download.file_download.DownloadHelper
 import com.longyi.lib_download.file_download.DownloadListener
-import com.longyi.module_gank.R
 import java.io.File
-import java.util.*
-
 
 
 
@@ -38,7 +36,6 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
     private lateinit var mBigImageAdapter: BigImageAdapter
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-    private lateinit var timer: Timer
     private var mPhotoList = mutableListOf<GankPhoto>()
 
     private var mCount = 10
@@ -76,8 +73,8 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
     }
 
     private fun initToolbar() {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.title = "图片详情"
+        val toolbar = findViewById<Toolbar>(com.longyi.module_gank.R.id.toolbar)
+        toolbar.title = "图片预览"
         //设置为ActionBar
         setSupportActionBar(toolbar)
         //显示那个箭头
@@ -95,7 +92,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        menuInflater.inflate(com.longyi.module_gank.R.menu.menu_toolbar, menu)
         return true
     }
 
@@ -125,15 +122,15 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.toolbar_collect ->{
+            com.longyi.module_gank.R.id.toolbar_collect ->{
                 ToastUtils.show(this,"收藏")
                 return true
             }
-            R.id.toolbar_download ->{
+            com.longyi.module_gank.R.id.toolbar_download ->{
                 startDownLoad()
                 return true
             }
-            R.id.toolbar_share ->{
+            com.longyi.module_gank.R.id.toolbar_share ->{
                 return true
             }
             else -> {
@@ -190,7 +187,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
 
     override fun setStatusBar() {
-        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
+        fake_status_bar.setBackgroundColor(resources.getColor(com.longyi.module_gank.R.color.colorAccent))
         StatusBarUtil.setTranslucentForImageView(this,null)
     }
 
@@ -214,7 +211,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
     }
 
-    override fun showGankEmptyResult() {  val emptyLayout = LayoutInflater.from(this).inflate(R.layout.layout_empty, null)
+    override fun showGankEmptyResult() {  val emptyLayout = LayoutInflater.from(this).inflate(com.longyi.module_gank.R.layout.layout_empty, null)
         mBigImageAdapter.emptyView = emptyLayout
         mBigImageAdapter.notifyDataSetChanged()
     }

@@ -4,8 +4,7 @@
 
 	<application
 			android:theme="@style/AppTheme">
-		<activity android:name=".big_image.BigImageActivity">
-		</activity>
+		<activity android:name=".big_image.BigImageActivity"/>
 		<activity android:name=".GankMainActivity"/>
 	</application>
 
