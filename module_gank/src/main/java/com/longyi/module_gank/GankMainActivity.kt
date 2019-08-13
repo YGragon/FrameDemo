@@ -39,7 +39,7 @@ class GankMainActivity : BaseActivity(), GankPhotoContract.View {
         mAdapter = GankPhotoAdapter(mList)
         rv_gank_photo.adapter = mAdapter
 
-        mAdapter.setOnItemClickListener { adapter, view, position ->
+        mAdapter.setOnItemClickListener { _, _, position ->
             ARouter.getInstance()
                 .build(RouterPath.Gank.GANK_PHOTO_DETAIL)
                 .withInt(ParameterConstant.GankPhoto.position, position % mCount)

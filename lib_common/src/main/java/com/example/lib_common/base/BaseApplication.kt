@@ -34,7 +34,7 @@ abstract class BaseApplication:Application() {
         // Bugly 崩溃上传和升级
         Beta.autoCheckUpgrade = true
         // TODO 更换 bugly 中的 app_id
-        Bugly.init(this, "0ec81c5e2d", true)
+        Bugly.init(this, "app_id", true)
         // 侧滑返回
         BGASwipeBackHelper.init(this, null)
     }
@@ -44,5 +44,5 @@ abstract class BaseApplication:Application() {
     }
 
     // 初始化数据
-    abstract fun initData()
+    abstract fun initData(application: Application)
 }
