@@ -8,15 +8,14 @@ import com.example.lib_common.BuildConfig
 import com.example.lib_common.db.AppDataBase
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
-import com.tencent.bugly.crashreport.CrashReport
 import kotlin.properties.Delegates
 
 /**
  * Created by Aller on 2019/7/20.
  */
 abstract class BaseApplication:Application() {
+    private val sTAG:String = BaseApplication::class.java.simpleName
     companion object {
-        private val TAG = "BaseApplication"
         var context: Context by Delegates.notNull()
             private set
     }

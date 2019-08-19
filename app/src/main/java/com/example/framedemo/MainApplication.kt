@@ -9,6 +9,8 @@ import java.lang.Exception
 
 class MainApplication : BaseApplication()  {
 
+    private val sTAG:String = MainApplication::class.java.simpleName
+
     override fun onCreate() {
         super.onCreate()
         // 初始化组件 Application
@@ -31,7 +33,7 @@ class MainApplication : BaseApplication()  {
             } catch (e: InstantiationException) {
                 e.printStackTrace()
             }catch (e:Exception){
-                LogUtils.ee("222","222222222222222MainApplication   Exception.e.message()" + e.message)
+                LogUtils.ee(sTAG,"MainApplication   Exception.e.message()" + e.message)
             }
         }
 

@@ -6,6 +6,7 @@ if (isNeedShareModule.toBoolean()) {
     apply plugin: 'com.android.library'
 }
 
+apply plugin: 'com.mob.sdk'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -71,6 +72,37 @@ android {
 //    }
 
 }
+MobSDK {
+    appKey " apikey"
+    appSecret "appsecret"
+
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            SinaWeibo {
+                appKey "568898243"
+                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+                callbackUri "http://www.sharesdk.cn"
+                shareByAppClient false
+            }
+            Wechat {
+                appId "wx4868b35061f87885"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+            }
+            QQ {
+                appId "100371282"
+                appKey "aed9b0303e3ed1e27bae87c33761161d"
+                shareByAppClient true
+            }
+            Facebook {
+                appKey "1412473428822331"
+                appSecret "a42f4f3f867dc947b9ed6020c2e93558"
+                callbackUri "https://mob.com"
+            }
+        }
+    }
+
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -78,11 +110,5 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation project(":lib_common")
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    // 友盟基础组件
-    implementation  'com.umeng.umsdk:common:2.0.0'
-    implementation  'com.umeng.umsdk:utdid:1.1.5.3'
-    // 友盟分享
-    implementation 'com.umeng.umsdk:share-core:6.9.4'
-    implementation 'com.umeng.umsdk:share-wx:6.9.4'
     kapt rootProject.ext.dependencies["arouter-compiler"]
 }

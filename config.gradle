@@ -79,6 +79,6 @@ ext {
             "agentweb"                 : "com.just.agentweb:agentweb:${version["agentweb"]}",
             "room"                     : "androidx.room:room-runtime:${version["room"]}",
             "room_compiler"            : "androidx.room:room-compiler:${version["room"]}",
-            "number_progress"            : "com.daimajia.numberprogressbar:library:${version["number_progress"]}",
+            "number_progress"          : "com.daimajia.numberprogressbar:library:${version["number_progress"]}",
     ]
 }
