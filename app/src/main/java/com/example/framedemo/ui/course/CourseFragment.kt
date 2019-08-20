@@ -45,7 +45,24 @@ class CourseFragment : BaseFragment() {
         tv_download_file.setOnClickListener {
 //            下载文件使用
             ToastUtils.show(BaseApplication.context,"下载文件使用")
+//            val file = File(filePath)
+//            //实现上传进度监听
+//            val requestFile = ProgressRequestBody(file, "*/*", object : UploadCallbacks {
+//                override fun onProgressUpdate(percentage: In) {
+//                }
+//
+//                override fun onError() {}
+//
+//                override fun onFinish() {}
+//            })
+//
+//            val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+//            runRxLambda(RetrofitManager.create(OperationApi::class.java).upload(body,0),{
+//
+//            },{
 
+//            },{
+//            })
         }
 
         tv_share.setOnClickListener {
