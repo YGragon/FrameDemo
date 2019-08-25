@@ -2,6 +2,7 @@ package com.example.lib_common.http
 
 import com.example.lib_common.model.*
 import io.reactivex.Observable
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -70,4 +71,10 @@ interface ApiService {
     @GET("api/data/福利/{count}/{page}")
     fun getGankPhotos(@Path("count")count:Int,@Path("page")page:Int):Observable<BaseGankResponse<MutableList<GankPhoto>>>
 
+    /**
+     * 文件上传
+     */
+    @Multipart
+    @POST("upload")
+    fun upload(@Part param: MultipartBody.Part): Observable<ResponseBody>
 }

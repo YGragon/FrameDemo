@@ -73,8 +73,8 @@ android {
 
 }
 MobSDK {
-    appKey " apikey"
-    appSecret "appsecret"
+    appKey " 2c1523c823d64"
+    appSecret "80068d8a4b543a7ada6a2b45c3c2d890"
 
     ShareSDK {
         //平台配置信息

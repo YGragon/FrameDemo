@@ -1,6 +1,7 @@
 package com.example.framedemo.ui.course
 
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
 
@@ -9,15 +10,22 @@ import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.db.AppDataBase
+import com.example.lib_common.db.dao.HotKeyDao
+import com.example.lib_common.http.RetrofitManager
+import com.example.lib_common.http.scheduler.SchedulerUtils
 import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
 import com.longyi.lib_download.app_upgrade.UpdateFragment
 import com.longyi.lib_download.file_download.DownloadHelper
 import com.longyi.lib_download.file_download.DownloadListener
+import com.longyi.lib_download.file_upload.ProgressRequestBody
+import com.longyi.lib_download.file_upload.UploadCallbacks
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
 import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.android.synthetic.main.fragment_course.*
+import okhttp3.MultipartBody
 import java.io.File
 
 /**
@@ -64,6 +72,12 @@ class CourseFragment : BaseFragment() {
 //            },{
 //            })
         }
+        tv_upload_file.setOnClickListener {
+            ToastUtils.show(BaseApplication.context,"上传文件使用")
+//            uploadFile(
+//              文件绝对路径
+//            )
+        }
 
         tv_share.setOnClickListener {
             ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
@@ -85,5 +99,53 @@ class CourseFragment : BaseFragment() {
     override fun fragmentShowToUser() {}
 
     override fun fragmentHideToUser() {}
+
+    /**
+     * 上传文件
+     */
+    private fun uploadFile(path: String) {
+        val dialog = ProgressDialog(activity)
+        //设置进度条风格，风格为圆形，旋转的
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+        //设置ProgressDialog 标题
+        dialog.setTitle("文件上传")
+        //设置ProgressDialog 提示信息
+        dialog.setMessage("文件上传中...")
+        //设置ProgressDialog 标题图标
+        dialog.setIcon(android.R.drawable.ic_dialog_alert)
+        //设置ProgressDialog的最大进度
+        dialog.max = 100
+        //设置ProgressDialog 是否可以按退回按键取消
+        dialog.setCancelable(false)
+        dialog.show()
+        dialog.progress = 0
+        val file = File(path)
+        //实现上传进度监听
+        val requestFile = ProgressRequestBody(file, "file", object : UploadCallbacks {
+            override fun onProgressUpdate(percentage: Int) {
+                dialog.progress = percentage
+            }
+
+            override fun onError() {
+                dialog.dismiss()
+            }
+
+            override fun onFinish() {
+                dialog.dismiss()
+            }
+        })
+
+        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+        val disposable = RetrofitManager.service.upload(body)
+            .compose(SchedulerUtils.ioToMain())
+            .subscribe({ res ->
+                // 上传成功
+
+            }, { throwable ->
+                // 上传失败
+            })
+//        addSubscription(disposable)
+    }
 
 }
