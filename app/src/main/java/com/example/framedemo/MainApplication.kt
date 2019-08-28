@@ -33,7 +33,7 @@ class MainApplication : BaseApplication()  {
             } catch (e: InstantiationException) {
                 e.printStackTrace()
             }catch (e:Exception){
-                LogUtils.ee(sTAG,"MainApplication   Exception.e.message()" + e.message)
+                LogUtils.d("MainApplication   Exception.e.message()" + e.message)
             }
         }
 

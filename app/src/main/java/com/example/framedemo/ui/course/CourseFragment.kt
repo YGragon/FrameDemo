@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 
 import com.example.framedemo.R
 import com.example.framedemo.ui.FragmentAdapter
+import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
+import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.fragment_course.*
 import com.google.android.material.tabs.TabLayout
 
@@ -34,12 +36,12 @@ class CourseFragment : BaseFragment() {
 
     override fun initView() {
 
-        val finishFragment = FinishFragment()
         val unFinishFragment = UnFinishFragment()
-        mFragments.add(finishFragment)
+        val finishFragment = FinishFragment()
         mFragments.add(unFinishFragment)
-        mTitles.add("已完成")
+        mFragments.add(finishFragment)
         mTitles.add("未完成")
+        mTitles.add("已完成")
         mAdapter = FragmentAdapter(childFragmentManager, mFragments, mTitles)
         view_pager_course.adapter = mAdapter
         tabLayout.setupWithViewPager(view_pager_course)
@@ -63,6 +65,10 @@ class CourseFragment : BaseFragment() {
 
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+
+        floatActionButton.setOnClickListener {
+            ToastUtils.show(BaseApplication.context,"----")
+        }
     }
 
     override fun fragmentShowToUser() {}

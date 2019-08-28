@@ -97,11 +97,9 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun fragmentShowToUser() {
-        LogUtils.ee("222","fragmentShowToUser")
     }
 
     override fun fragmentHideToUser() {
-        LogUtils.ee("222","fragmentHideToUser")
     }
 
     override fun onStart() {

@@ -145,22 +145,22 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
             DownloadHelper(UrlConstant.GANK_URL, object : DownloadListener {
                 override fun onStartDownload() {
                     showNumberProgressBar()
-                    LogUtils.ee("222", "开始下载")
+                    LogUtils.d( "开始下载")
                 }
 
                 override fun onProgress(progress: Int) {
                     number_progress_bar.progress = progress
-                    LogUtils.ee("222", "下载进度：" + progress)
+                    LogUtils.d("下载进度：" + progress)
                 }
 
                 override fun onFinishDownload(file: File) {
                     hideNumberProgressBar()
-                    LogUtils.ee("222", "下载结束：" + file.name)
-                    LogUtils.ee("222", "下载结束：" + file.absolutePath)
+                    LogUtils.d("下载结束：" + file.name)
+                    LogUtils.d("下载结束：" + file.absolutePath)
                 }
 
                 override fun onFail(ex: Throwable) {
-                    LogUtils.ee("222", "下载失败：" + ex.message)
+                    LogUtils.d("下载失败：" + ex.message)
                 }
             }).downloadFile(
                 it,

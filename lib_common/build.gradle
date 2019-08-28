@@ -55,6 +55,8 @@ dependencies {
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["retrofit2"]
     api rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["logging-interceptor"]
+    api rootProject.ext.dependencies["logger"]
     api rootProject.ext.dependencies["PersistentCookieJar"]
     api rootProject.ext.dependencies["rxjava2"]
     api rootProject.ext.dependencies["adapter-rxjava2"]

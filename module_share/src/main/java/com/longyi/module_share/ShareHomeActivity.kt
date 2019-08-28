@@ -18,9 +18,6 @@ import kotlinx.android.synthetic.main.activity_share_home.*
 @Route(path = RouterPath.Share.SHARE_APP,name = "分享主页")
 class ShareHomeActivity : BaseActivity() {
 
-
-    private val sTAG:String = ShareHomeActivity::class.java.simpleName
-
     override fun getLayoutId(): Int {
         return R.layout.activity_share_home
     }
@@ -39,7 +36,7 @@ class ShareHomeActivity : BaseActivity() {
 
 
         tv_share_sdk.setOnClickListener {
-            LogUtils.e(sTAG,"分享")
+            LogUtils.d("分享")
             showShare()
 //            ShareBottomSheetDialogFragment().show(supportFragmentManager,"dialog")
         }
