@@ -5,9 +5,9 @@ import com.example.lib_common.base.IPresenter
 import com.example.lib_common.model.Banner
 
 /**
- * 用户中心
+ * TD
  */
-interface MineContract {
+interface CourseContract {
     interface View:IBaseView{
         /**
          * 显示错误信息

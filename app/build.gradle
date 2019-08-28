@@ -20,9 +20,9 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName(),
-                             "room.schemaLocation":"$projectDir/schemas".toString(),
-                             "room.incremental":"true"]
+                arguments = [AROUTER_MODULE_NAME  : project.getName(),
+                             "room.schemaLocation": "$projectDir/schemas".toString(),
+                             "room.incremental"   : "true"]
             }
         }
 

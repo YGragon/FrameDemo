@@ -15,7 +15,7 @@ import java.io.File
 /**
  * Mine Presenter 处理
  */
-class MinePresenter : BasePresenter<CourseContract.View>(), CourseContract.Presenter {
+class CoursePresenter : BasePresenter<CourseContract.View>(), CourseContract.Presenter {
 
 
     override fun getUserInfo() {
