@@ -1,7 +1,7 @@
 package com.longyi.module_usercenter.ui.register
 
 import com.example.lib_common.base.BasePresenter
-import com.example.lib_common.http.ExceptionHandle
+import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.scheduler.SchedulerUtils
 

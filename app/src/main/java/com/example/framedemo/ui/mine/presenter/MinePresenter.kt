@@ -4,7 +4,7 @@ import android.app.ProgressDialog
 import com.example.framedemo.ui.mine.contract.CourseContract
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BasePresenter
-import com.example.lib_common.http.ExceptionHandle
+import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.scheduler.SchedulerUtils
 import com.longyi.lib_download.file_upload.ProgressRequestBody

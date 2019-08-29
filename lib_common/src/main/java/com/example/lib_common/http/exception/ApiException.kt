@@ -1,4 +1,4 @@
-package com.example.lib_common.http
+package com.example.lib_common.http.exception
 
 /**
  * 错误异常

@@ -1,4 +1,4 @@
-package com.example.lib_common.http
+package com.example.lib_common.http.response
 
 /**
  * 基本的服务器返回

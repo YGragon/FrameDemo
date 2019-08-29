@@ -3,7 +3,7 @@ package com.example.lib_common.http.interceptor
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
-import com.example.lib_common.http.BaseResponse
+import com.example.lib_common.http.response.BaseResponse
 import com.example.lib_common.utils.ActivityManager
 import com.google.gson.Gson
 import okhttp3.Interceptor

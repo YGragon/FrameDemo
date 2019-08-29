@@ -3,10 +3,9 @@ package com.longyi.module_search
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BasePresenter
 import com.example.lib_common.db.AppDataBase
-import com.example.lib_common.http.ExceptionHandle
+import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.scheduler.SchedulerUtils
-import com.example.lib_common.model.Hotkey
 import com.example.lib_common.model.SearchHistory
 import com.example.lib_common.utils.DateUtils
 
