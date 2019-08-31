@@ -75,6 +75,17 @@ interface ApiService {
 
 
     /**
+     * 发布TODO
+     */
+    @POST("lg/todo/add/json")
+    fun publishTodo(@Query("title") title:String,
+                    @Query("content") content:String,
+                    @Query("date") date:String,
+                    @Query("type") type:Int,
+                    @Query("priority") priority:Int
+    ):Observable<BaseResponse<TodoBean>>
+
+    /**
      * 获取 TODO列表
      */
     @GET("lg/todo/v2/list/{page}/json")
@@ -83,7 +94,7 @@ interface ApiService {
                     @Query("type") type:Int,//创建时传入的类型, 默认全部展示
                     @Query("priority") priority:Int,//创建时传入的优先级；默认全部展示
                     @Query("orderby") orderby:Int//1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)
-                    ):Observable<BaseResponse<MutableList<Todo>>>
+                    ):Observable<BaseResponse<TodoList>>
     /**
      * 文件上传
      */

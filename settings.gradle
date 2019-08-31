@@ -1,1 +1,1 @@
-include ':app', ':lib_common', ':module_usercenter', ':lib_download', ':module_share', ':module_map', ':module_search', ':module_gank'
+include ':app', ':lib_common', ':module_usercenter', ':lib_download', ':module_share', ':module_map', ':module_search', ':module_gank', ':module_todo'

@@ -18,7 +18,7 @@ class TodoPresenter:BasePresenter<TodoContract.View>(),TodoContract.Presenter {
         val disposable = RetrofitManager.service.getTodoList(page,status,type,priority,orderby)
             .compose(SchedulerUtils.ioToMain())
             .subscribe({ res ->
-                mRootView?.showUnFinishList(res.data)
+                mRootView?.showUnFinishList(res.data.curPage,res.data.pageCount,res.data.datas)
             }, { throwable ->
                 mRootView?.showError(throwable.message.toString())
             })

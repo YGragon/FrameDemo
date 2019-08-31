@@ -36,6 +36,9 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     private var mArticles = mutableListOf<Article>()
     private var mBanners = mutableListOf<Banner>()
     private var mPage = 0
+
+    private var isShowToUser = true
+
     private lateinit var mAdapter:HomeAdapter
     private lateinit var banner:com.youth.banner.Banner
 
@@ -56,9 +59,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun initData() {
-        mPresenter.getHotkey()
-        mPresenter.getBanners()
-        mPresenter.getArticles(mPage)
     }
 
 
@@ -97,10 +97,16 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun fragmentShowToUser() {
+        mPresenter.getHotkey()
+        mPresenter.getBanners()
+        if (isShowToUser){
+            mPresenter.getArticles(mPage)
+            isShowToUser = false
+        }
+
     }
 
-    override fun fragmentHideToUser() {
-    }
+    override fun fragmentHideToUser() {}
 
     override fun onStart() {
         super.onStart()

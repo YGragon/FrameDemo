@@ -47,7 +47,7 @@ object RetrofitManager {
             .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApplication.context)))
             .addInterceptor(ChangeBaseUrlInterceptor())
             .addInterceptor(CacheInterceptor())
-            .addInterceptor(logInterceptor)
+            .addNetworkInterceptor(logInterceptor)
             .addInterceptor(CheckLoginInterceptor())
             .build()
     }

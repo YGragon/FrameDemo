@@ -4,8 +4,14 @@
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
-	<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/rv_un_finish"
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/srl_refresh_layout"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
+			android:layout_height="match_parent">
+		<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rv_un_finish"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </FrameLayout>

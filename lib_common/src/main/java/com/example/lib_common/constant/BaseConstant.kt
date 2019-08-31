@@ -22,4 +22,8 @@ object BaseConstant {
     val IS_LOGIN_TRUE = true
 
     val USER_NAME = "user_name"
+
+    val TODO_TYPE_WORK = 1
+    val TODO_TYPE_LIFE = 2
+    val TODO_TYPE_FUN = 3
 }

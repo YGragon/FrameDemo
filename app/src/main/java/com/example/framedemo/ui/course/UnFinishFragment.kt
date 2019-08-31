@@ -36,14 +36,18 @@ class UnFinishFragment:BaseFragment(),TodoContract.View {
         return R.layout.fragment_un_finish
     }
 
-    override fun initData() {
-        mPresenter.getUnFinishList(page = mPage,type = mType,priority = mPriority)
-    }
+    override fun initData() {}
 
     override fun initView() {
         rv_un_finish.layoutManager = GridLayoutManager(activity,2)
         mAdapter = TodoAdapter(mUnFinishList)
         rv_un_finish.adapter = mAdapter
+
+        srl_refresh_layout.setOnRefreshListener {
+            mUnFinishList.clear()
+            mPage = 0
+            mPresenter.getUnFinishList(page = mPage,type = mType,priority = mPriority)
+        }
 
         mAdapter.setOnLoadMoreListener({
             mPage++
@@ -54,21 +58,26 @@ class UnFinishFragment:BaseFragment(),TodoContract.View {
     override fun setTvTitleBackgroundColor() {}
 
     override fun fragmentShowToUser() {
+        mPresenter.getUnFinishList(page = mPage,type = mType,priority = mPriority)
     }
 
-    override fun fragmentHideToUser() {
-    }
+    override fun fragmentHideToUser() {}
 
     override fun showError(errorMsg: String) {
+        srl_refresh_layout.isRefreshing = false
         ToastUtils.show(BaseApplication.context,errorMsg)
     }
 
-    override fun showUnFinishList(list: MutableList<Todo>) {
-        if (list.size > 0){
-            mUnFinishList.addAll(list)
-            mAdapter.loadMoreComplete()
-        }else{
-            mAdapter.loadMoreEnd()
+    override fun showUnFinishList(curPage:Int, totalPage:Int, list: MutableList<Todo>) {
+        when (curPage) {
+            in 1..totalPage -> {
+                mUnFinishList.addAll(list)
+                mAdapter.loadMoreComplete()
+            }
+            else -> {
+                mUnFinishList.addAll(list)
+                mAdapter.loadMoreEnd()
+            }
         }
 
         if (mUnFinishList.isEmpty()){
@@ -76,6 +85,7 @@ class UnFinishFragment:BaseFragment(),TodoContract.View {
             mAdapter.emptyView = emptyView
         }
         LogUtils.d("集合数据："+mUnFinishList.size)
+        srl_refresh_layout.isRefreshing = false
         mAdapter.notifyDataSetChanged()
     }
 

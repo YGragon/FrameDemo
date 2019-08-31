@@ -18,7 +18,7 @@ interface TodoContract {
         /**
          * 显示 未完成列表
          */
-        fun showUnFinishList(list: MutableList<Todo>)
+        fun showUnFinishList(curPage:Int, totalPage:Int, list: MutableList<Todo>)
 
     }
 

@@ -24,6 +24,11 @@ object RouterPath {
         const val GANK_PHOTO_DETAIL = "/gank/photo_detail"
     }
 
+    object Todo{
+        const val TODO_PUBLISH = "/todo/publish"
+        const val TODO_DETAIL = "/todo/detail"
+    }
+
     object Web{
         const val WEB_DETAIL = "/web/detail"
     }

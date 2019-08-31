@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/module_map" />
             <option value="$PROJECT_DIR$/module_search" />
             <option value="$PROJECT_DIR$/module_share" />
+            <option value="$PROJECT_DIR$/module_todo" />
             <option value="$PROJECT_DIR$/module_usercenter" />
           </set>
         </option>
