@@ -11,6 +11,11 @@ import com.example.lib_common.model.Todo
 import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.fragment_un_finish.*
+import android.widget.Toast
+import android.view.Gravity
+import com.example.lib_common.widget.popupview.ToDoPopup
+import razerdp.basepopup.QuickPopupConfig
+import razerdp.basepopup.QuickPopupBuilder
 
 /**
  * 未完成
@@ -53,6 +58,11 @@ class UnFinishFragment:BaseFragment(),TodoContract.View {
             mPage++
             mPresenter.getUnFinishList(page = mPage,type = mType,priority = mPriority)
         },rv_un_finish)
+
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
+            ToastUtils.show(BaseApplication.context, "开发中...")
+//            ToDoPopup(BaseApplication.context).showPopupWindow(R.id.iv_more)
+        }
     }
 
     override fun setTvTitleBackgroundColor() {}

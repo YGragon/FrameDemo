@@ -14,5 +14,7 @@ class TodoAdapter(list:MutableList<Todo>) : BaseQuickAdapter<Todo,BaseViewHolder
         helper?.setText(R.id.tv_date, item?.dateStr)
         helper?.setText(R.id.tv_title, item?.title)
         helper?.setText(R.id.tv_content, item?.content)
+
+        helper?.addOnClickListener(R.id.iv_more)
     }
 }
