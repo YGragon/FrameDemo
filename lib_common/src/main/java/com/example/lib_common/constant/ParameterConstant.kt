@@ -21,4 +21,9 @@ object ParameterConstant {
         const val position = "position"
         const val imageUrl = "imageUrl"
     }
+
+    object ToDo{
+        const val todoBean = "todo_bean"
+
+    }
 }

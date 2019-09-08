@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  package="com.longyi.module_todo">
 
-	<application
-			android:theme="@style/AppTheme">
-		<activity android:name=".ToDoMainActivity">
+	<application android:theme="@style/AppTheme">
+		<activity android:name=".ToDoDetailActivity">
+		</activity>
+		<activity android:name=".ToDoPublishActivity">
 		</activity>
 	</application>
 

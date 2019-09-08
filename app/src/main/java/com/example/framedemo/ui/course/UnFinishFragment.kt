@@ -13,6 +13,9 @@ import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.fragment_un_finish.*
 import android.widget.Toast
 import android.view.Gravity
+import com.alibaba.android.arouter.launcher.ARouter
+import com.example.lib_common.constant.ParameterConstant
+import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.widget.popupview.ToDoPopup
 import razerdp.basepopup.QuickPopupConfig
 import razerdp.basepopup.QuickPopupBuilder
@@ -59,9 +62,10 @@ class UnFinishFragment:BaseFragment(),TodoContract.View {
             mPresenter.getUnFinishList(page = mPage,type = mType,priority = mPriority)
         },rv_un_finish)
 
-        mAdapter.setOnItemChildClickListener { adapter, view, position ->
-            ToastUtils.show(BaseApplication.context, "开发中...")
-//            ToDoPopup(BaseApplication.context).showPopupWindow(R.id.iv_more)
+        mAdapter.setOnItemClickListener { _, _, position ->
+            ARouter.getInstance().build(RouterPath.Todo.TODO_DETAIL)
+                .withSerializable(ParameterConstant.ToDo.todoBean,mUnFinishList[position])
+                .navigation()
         }
     }
 

@@ -1,8 +1,8 @@
 <resources>
 	<string name="app_name">module_todo</string>
 	<string-array name="todo_type">
-		<item >工作</item>
-		<item >生活</item>
-		<item >娱乐</item>
+		<item>工作</item>
+		<item>生活</item>
+		<item>娱乐</item>
 	</string-array>
 </resources>

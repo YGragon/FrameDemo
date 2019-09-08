@@ -86,6 +86,31 @@ interface ApiService {
     ):Observable<BaseResponse<TodoBean>>
 
     /**
+     * 更新TODO
+     */
+    @POST("lg/todo/update/{id}/json")
+    fun editTodo(@Path("id") id:Int,
+                    @Query("title") title:String,
+                    @Query("content") content:String,
+                    @Query("date") date:String,
+                    @Query("type") type:Int,
+                    @Query("priority") priority:Int
+    ):Observable<BaseResponse<TodoBean>>
+
+    /**
+     * 删除TODO
+     */
+    @POST("lg/todo/delete/{id}/json")
+    fun deleteTodo(@Path("id") id:Int):Observable<BaseResponse<TodoBean>>
+
+    /**
+     * 仅更新完成状态Todo
+     */
+    @POST("lg/todo/done/{id}/json")
+    fun updateStatusTodo(@Path("id") id:Int,
+                   @Query("status") status:Int):Observable<BaseResponse<TodoBean>>
+
+    /**
      * 获取 TODO列表
      */
     @GET("lg/todo/v2/list/{page}/json")

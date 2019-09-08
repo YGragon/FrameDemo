@@ -1,5 +1,7 @@
 package com.example.lib_common.model
 
+import java.io.Serializable
+
 /**
  * TODO列表对象
  */
@@ -33,4 +35,4 @@ data class Todo(
     val title: String,
     val type: Int,
     val userId: Int
-)
+) : Serializable
