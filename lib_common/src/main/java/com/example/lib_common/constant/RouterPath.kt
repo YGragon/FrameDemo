@@ -29,6 +29,10 @@ object RouterPath {
         const val TODO_DETAIL = "/todo/detail"
     }
 
+    object Expand{
+        const val EXPAND_HOME = "/expand/home"
+    }
+
     object Web{
         const val WEB_DETAIL = "/web/detail"
     }

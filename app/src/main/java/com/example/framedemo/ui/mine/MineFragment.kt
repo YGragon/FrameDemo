@@ -15,6 +15,7 @@ import com.example.lib_common.event.LoginEvent
 import com.example.lib_common.model.UserControl
 import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
+import com.orhanobut.logger.Logger
 import com.tencent.bugly.beta.Beta
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.greenrobot.eventbus.EventBus
@@ -106,6 +107,12 @@ class MineFragment : BaseFragment(),CourseContract.View {
         tv_gank_photo.setOnClickListener {
             ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
         }
+
+        tv_tree.setOnClickListener {
+            Logger.e("===============")
+            ARouter.getInstance().build(RouterPath.Expand.EXPAND_HOME).navigation()
+        }
+
     }
 
     override fun initView() {
