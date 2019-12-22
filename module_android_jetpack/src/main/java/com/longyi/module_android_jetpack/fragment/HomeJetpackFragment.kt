@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
+import com.example.uitestdemo.viewmodel.CommonLivaData
 import com.example.uitestdemo.viewmodel.CommonViewModel
 import com.example.uitestdemo.viewmodel.MainViewModel
 
@@ -39,7 +40,6 @@ class HomeJetpackFragment : BaseFragment() {
 
 
     override fun initView() {
-        mCommonViewModel = activity?.let { ViewModelProviders.of(it).get(CommonViewModel::class.java) }
 
         val adapter = StudentAdapter()
         val layoutManager = LinearLayoutManager(activity)
@@ -51,6 +51,11 @@ class HomeJetpackFragment : BaseFragment() {
         })
     }
     override fun initData() {
+        mCommonViewModel = activity?.let { ViewModelProviders.of(it).get(CommonViewModel::class.java) }
+        mCommonViewModel?.getCommonLivaData()?.observe(this, Observer<CommonLivaData>{
+            //注册观察者,观察数据的变化
+            Log.e(TAG, "onChanged: 数据有更新---->"+it.getTag1())
+        })
     }
 
     override fun setTvTitleBackgroundColor() {

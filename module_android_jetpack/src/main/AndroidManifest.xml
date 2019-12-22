@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.longyi.module_android_jetpack">
 
-    <application
-        android:theme="@style/AppTheme">
-        <activity android:name=".AndroidJetPackActivity"/>
+    <application android:theme="@style/AppTheme">
+        <activity android:name=".activity.JetpackActivity"></activity>
+        <activity android:name=".HomeActivity" />
     </application>
 
 </manifest>

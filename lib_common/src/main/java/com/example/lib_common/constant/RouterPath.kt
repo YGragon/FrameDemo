@@ -43,5 +43,6 @@ object RouterPath {
 
     object AndroidJetPack{
         const val JETPACK_HOME = "/jetpack/home"
+        const val JETPACK_HOME_DEMO = "/jetpack/home_demo"
     }
 }

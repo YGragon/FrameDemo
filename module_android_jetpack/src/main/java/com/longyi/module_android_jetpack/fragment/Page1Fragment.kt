@@ -10,35 +10,41 @@ import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.RouterPath
 import com.example.uitestdemo.viewmodel.CommonLivaData
 import com.example.uitestdemo.viewmodel.CommonViewModel
-
 import com.longyi.module_android_jetpack.R
-import kotlinx.android.synthetic.main.fragment_explore_jetpack.*
+import kotlinx.android.synthetic.main.fragment_page1.*
+
 
 /**
- * jetpack 发现页面
+ * test fragment
  */
-class ExploreJetpackFragment : BaseFragment() {
-    private val TAG = ExploreJetpackFragment::class.java.simpleName
+class Page1Fragment : BaseFragment() {
+
+    private val TAG = Page1Fragment::class.java.simpleName
     private var mCommonViewModel: CommonViewModel? = null
 
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_explore_jetpack
+        return R.layout.fragment_page1
     }
 
     override fun initData() {
-
         mCommonViewModel?.getCommonLivaData()?.observe(this, Observer<CommonLivaData>{
             //注册观察者,观察数据的变化
             Log.e(TAG, "onChanged: 数据有更新---->"+it.getTag1())
         })
+
+
     }
 
     override fun initView() {
         mCommonViewModel = activity?.let { ViewModelProviders.of(it).get(CommonViewModel::class.java) }
         btn_post_data.setOnClickListener {
-            mCommonViewModel?.getCommonLivaData()?.setTag1(123)
-            ARouter.getInstance().build(RouterPath.AndroidJetPack.JETPACK_HOME_DEMO).navigation()
+            Log.e(TAG, "onChanged: click---->")
+            mCommonViewModel?.getCommonLivaData()?.setTag1(1234566)
+            Navigation.findNavController(it).navigate(R.id.action_page2)
+        }
+        btn_mvp.setOnClickListener {
+            Log.e(TAG, "onChanged: click---->")
         }
     }
 

@@ -4,12 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.ExploreJetpackFragment">
+    tools:context=".fragment.Page2Fragment">
+
+
 
     <Button
-        android:id="@+id/btn_post_data"
+        android:id="@+id/btn_back_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="跳转Jetpack"/>
+        android:text="返回上一页（ViewModel 发送数据）"/>
+    <Button
+        android:id="@+id/btn_to_destination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="返回指定页面（ViewModel 发送数据）"/>
 
 </LinearLayout>
