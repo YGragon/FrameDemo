@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.Page1Fragment">
+    <Button
+        android:id="@+id/btn_post_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="页面跳转（发送数据）"/>
+    <Button
+        android:id="@+id/btn_mvp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MVP（监听生命周期）"/>
+
+</LinearLayout>

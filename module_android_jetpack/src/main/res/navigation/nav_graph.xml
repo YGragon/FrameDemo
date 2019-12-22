@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/page1Fragment"
+    android:id="@+id/nav_graph"
+    tools:ignore="UnusedNavigation">
+    <!--  page1 -->
+    <fragment
+        android:id="@+id/page1Fragment"
+        android:name="com.longyi.module_android_jetpack.fragment.Page1Fragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_page1">
+        <action
+            android:id="@+id/action_page2"
+            app:destination="@id/page2Fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/page2Fragment"
+        android:name="com.longyi.module_android_jetpack.fragment.Page2Fragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_page2">
+        <action
+            android:id="@+id/action_page1"
+            app:popUpTo="@id/page1Fragment" />
+    </fragment>
+
+</navigation>

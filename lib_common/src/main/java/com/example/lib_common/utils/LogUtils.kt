@@ -3,12 +3,13 @@ package com.example.lib_common.utils
 import android.util.Log
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.BaseConstant
+import com.orhanobut.logger.Logger
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LogUtils {
-    companion object {
+object LogUtils {
 
+<<<<<<< HEAD
         //是否打印log
         private var debug: Boolean = BaseApplication.isDebug()
         private val TAG = "ERP_LOG"
@@ -62,22 +63,26 @@ class LogUtils {
                 Log.WARN -> Log.w(TAG, newMsg)
                 Log.ERROR -> Log.e(TAG, newMsg)
             }
+=======
+    fun d(message: String) {
+        Logger.d(message)
+    }
+>>>>>>> dev
 
-        }
+    fun i(message: String) {
+        Logger.i(message)
+    }
 
-        private fun msgFormat(msg: String, tag: String): String {
-            val bytes: ByteArray = msg.toByteArray()
-            val length = bytes.size
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-            if (length >  100 ) {
-                LEFT_BORDER = ""
-            }
-            var newMsg = " \n$TOP_BORDER\n$LEFT_BORDER TAG: $tag\t TIME: ${sdf.format(Date())}"
-            newMsg += "\n$LEFT_BORDER MSG: $msg"
-            newMsg += "\n$BOTTOM_BORDER"
-            return newMsg
+    fun w(message: String, e: Throwable?) {
+        val info = e?.toString() ?: "null"
+        Logger.w("$message：$info")
+    }
 
-        }
+    fun e(message: String, e: Throwable) {
+        Logger.e(e, message)
+    }
 
+    fun json(json: String) {
+        Logger.json(json)
     }
 }

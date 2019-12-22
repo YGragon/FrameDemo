@@ -6,6 +6,7 @@ if (isNeedShareModule.toBoolean()) {
     apply plugin: 'com.android.library'
 }
 
+apply plugin: 'com.mob.sdk'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -50,9 +51,54 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+//    signingConfigs {
+//        debug {
+//            storeFile file('debug.keystore')
+//            storePassword "android"
+//            keyAlias "androiddebugkey"
+//            keyPassword "android"
+//        }
+//    }
+
+}
+MobSDK {
+    appKey " 2c1523c823d64"
+    appSecret "80068d8a4b543a7ada6a2b45c3c2d890"
+
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            SinaWeibo {
+                appKey "568898243"
+                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+                callbackUri "http://www.sharesdk.cn"
+                shareByAppClient false
+            }
+            Wechat {
+                appId "wx4868b35061f87885"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+            }
+            QQ {
+                appId "100371282"
+                appKey "aed9b0303e3ed1e27bae87c33761161d"
+                shareByAppClient true
+            }
+            Facebook {
+                appKey "1412473428822331"
+                appSecret "a42f4f3f867dc947b9ed6020c2e93558"
+                callbackUri "https://mob.com"
+            }
         }
     }
 

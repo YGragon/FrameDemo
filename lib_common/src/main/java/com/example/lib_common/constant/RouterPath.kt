@@ -19,7 +19,30 @@ object RouterPath {
         const val MAP_APP = "/map/app"
     }
 
+    object Gank{
+        const val GANK_PHOTO = "/gank/photo"
+        const val GANK_PHOTO_DETAIL = "/gank/photo_detail"
+    }
+
+    object Todo{
+        const val TODO_PUBLISH = "/todo/publish"
+        const val TODO_DETAIL = "/todo/detail"
+    }
+
+    object Expand{
+        const val EXPAND_HOME = "/expand/home"
+    }
+
     object Web{
         const val WEB_DETAIL = "/web/detail"
+    }
+
+    object Search{
+        const val SEARCH_HOME = "/search/home"
+    }
+
+    object AndroidJetPack{
+        const val JETPACK_HOME = "/jetpack/home"
+        const val JETPACK_HOME_DEMO = "/jetpack/home_demo"
     }
 }

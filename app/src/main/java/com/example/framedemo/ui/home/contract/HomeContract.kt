@@ -4,6 +4,7 @@ import com.example.lib_common.base.IBaseView
 import com.example.lib_common.base.IPresenter
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
+import com.example.lib_common.model.Hotkey
 
 /**
  * 首页 Contract
@@ -21,6 +22,11 @@ interface HomeContract {
         fun showBanners(banners: MutableList<Banner>)
 
         /**
+         * 显示 hotkey
+         */
+        fun showHotkeys(hotkeys: MutableList<Hotkey>)
+
+        /**
          * 加载完成显示 article
          */
         fun showLoadCompleteArticles(articles: MutableList<Article>)
@@ -32,6 +38,12 @@ interface HomeContract {
     }
 
     interface Presenter: IPresenter<View> {
+
+        /**
+         * 获取 搜索热词
+         */
+        fun getHotkey()
+
         /**
          * 获取 banner
          */

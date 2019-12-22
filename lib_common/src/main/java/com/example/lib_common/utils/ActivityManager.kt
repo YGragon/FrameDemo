@@ -25,10 +25,7 @@ class ActivityManager {
      */
     fun addActivity(activity: AppCompatActivity) {
         activityStack.add(activity)
-        LogUtils.d(
-            "ActivityManager---->>",
-            "add---->>$activity size---->>${activityStack.size}"
-        )
+        LogUtils.d("add---->>$activity size---->>${activityStack.size}")
     }
 
     /**
@@ -39,10 +36,7 @@ class ActivityManager {
     fun removeActivity(activity: AppCompatActivity) {
         if (activityStack.contains(activity)) {
             activityStack.remove(activity)
-            LogUtils.d(
-                "ActivityManager---->>",
-                "remove---->>$activity size---->>${activityStack.size}"
-            )
+            LogUtils.d("remove---->>$activity size---->>${activityStack.size}")
         }
     }
 
@@ -103,7 +97,7 @@ class ActivityManager {
             activity.finish()
         }
         activityStack.clear()
-        LogUtils.d("ActivityManager---->>", "Finish All Activity!")
+        LogUtils.d( "Finish All Activity!")
     }
 
 
@@ -118,7 +112,7 @@ class ActivityManager {
             activityMgr.killBackgroundProcesses(peekActivity().packageName)
             System.exit(0)
         } catch (e: Exception) {
-            LogUtils.d("ActivityManager---->>", "Application Exit!")
+            LogUtils.d( "Application Exit!")
         }
     }
 }

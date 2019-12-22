@@ -3,6 +3,7 @@ package com.example.framedemo.ui.home
 
 
 import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.framedemo.R
@@ -12,8 +13,12 @@ import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.db.AppDataBase
+import com.example.lib_common.db.dao.HotKeyDao
+import com.example.lib_common.db.dao.SearchHistoryDao
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
+import com.example.lib_common.model.Hotkey
 import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -31,6 +36,9 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     private var mArticles = mutableListOf<Article>()
     private var mBanners = mutableListOf<Banner>()
     private var mPage = 0
+
+    private var isShowToUser = true
+
     private lateinit var mAdapter:HomeAdapter
     private lateinit var banner:com.youth.banner.Banner
 
@@ -51,8 +59,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun initData() {
-        mPresenter.getBanners()
-        mPresenter.getArticles(mPage)
     }
 
 
@@ -86,17 +92,21 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun setTvTitleBackgroundColor() {
-        tv_title.setBackgroundColor(resources.getColor(R.color.colorAccent))
+//        tv_title.setBackgroundColor(resources.getColor(R.color.colorAccent))
         fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
     }
 
     override fun fragmentShowToUser() {
-        LogUtils.ee("222","fragmentShowToUser")
+        mPresenter.getHotkey()
+        mPresenter.getBanners()
+        if (isShowToUser){
+            mPresenter.getArticles(mPage)
+            isShowToUser = false
+        }
+
     }
 
-    override fun fragmentHideToUser() {
-        LogUtils.ee("222","fragmentHideToUser")
-    }
+    override fun fragmentHideToUser() {}
 
     override fun onStart() {
         super.onStart()
@@ -110,6 +120,31 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     override fun showError(errorMsg: String) {
         ToastUtils.show(BaseApplication.context,errorMsg)
+    }
+
+    override fun showHotkeys(hotkeys: MutableList<Hotkey>) {
+        // 数据库保存 热搜词
+        val hotkeyList = mutableListOf<String>()
+        for (i in hotkeys){
+            hotkeyList.add( "热搜 | "+i.name)
+        }
+        setData(hotkeyList)
+
+    }
+
+    /**
+     * 设置热搜数据
+     */
+    private fun setData(data: MutableList<String>) {
+        for (text in data) {
+            val itemFlipper = LayoutInflater.from(activity).inflate(R.layout.item_flipper_view,null)
+            itemFlipper.findViewById<TextView>(R.id.tv_flipper_text).text =text
+            mFlipperView.addView(itemFlipper)
+        }
+        mFlipperView.startFlipping()
+        mFlipperView.setOnClickListener {
+            ARouter.getInstance().build(RouterPath.Search.SEARCH_HOME).navigation()
+        }
     }
 
     override fun showBanners(banners: MutableList<Banner>) {

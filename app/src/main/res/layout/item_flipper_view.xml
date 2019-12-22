@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content">
+	<TextView
+			android:id="@+id/tv_flipper_text"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/flipper_height"
+			android:textSize="@dimen/flipper_text_size_16"
+			android:textColor="@color/half_white"
+			android:gravity="center"/>
+</LinearLayout>

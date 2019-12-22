@@ -139,7 +139,7 @@ abstract class BaseActivity : AppCompatActivity(), BGASwipeBackHelper.Delegate, 
      * @param perms       申请的权限的名字
      */
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-        LogUtils.dd("EasyPermissions", "获取成功的权限$perms")
+        LogUtils.d("获取成功的权限$perms")
     }
 
     /**

@@ -6,6 +6,7 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import okhttp3.*
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,16 +37,18 @@ object RetrofitManager {
         //设置 请求的缓存的大小跟位置
         val cacheFile = File(BaseApplication.context.cacheDir, "cache")
         val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
-
+        val logInterceptor = HttpLoggingInterceptor(HttpLogger())
+        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
-            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApplication.context)))
-            .addInterceptor(CacheInterceptor())
-            .addInterceptor(LoggingInterceptor())
-            .addInterceptor(CheckLoginInterceptor())
             .cache(cache)  //添加缓存
             .connectTimeout(60L, TimeUnit.SECONDS)
             .readTimeout(60L, TimeUnit.SECONDS)
             .writeTimeout(60L, TimeUnit.SECONDS)
+            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApplication.context)))
+            .addInterceptor(ChangeBaseUrlInterceptor())
+            .addInterceptor(CacheInterceptor())
+            .addNetworkInterceptor(logInterceptor)
+            .addInterceptor(CheckLoginInterceptor())
             .build()
     }
 

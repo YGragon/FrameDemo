@@ -32,6 +32,11 @@ interface MineContract {
         fun getUserInfo()
 
         /**
+         * 上传文件
+         */
+        fun uploadFile(path: String)
+
+        /**
          * 退出登录
          */
         fun loginOut()

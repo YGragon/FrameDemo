@@ -9,14 +9,21 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/lib_common" />
             <option value="$PROJECT_DIR$/lib_download" />
+            <option value="$PROJECT_DIR$/module_android_jetpack" />
+            <option value="$PROJECT_DIR$/module_expandablelist" />
+            <option value="$PROJECT_DIR$/module_gank" />
             <option value="$PROJECT_DIR$/module_map" />
+            <option value="$PROJECT_DIR$/module_search" />
             <option value="$PROJECT_DIR$/module_share" />
+            <option value="$PROJECT_DIR$/module_todo" />
             <option value="$PROJECT_DIR$/module_usercenter" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

@@ -4,7 +4,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.framedemo.R
 import com.example.lib_common.model.Article
-import com.example.lib_common.model.ArticleResult
 
 /**
  * 首页 adapter

@@ -1,0 +1,66 @@
+if (isNeedGankModule.toBoolean()) {
+    // 作为 app
+    apply plugin: 'com.android.application'
+} else {
+    // 作为 lib
+    apply plugin: 'com.android.library'
+}
+
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    defaultConfig {
+        if (isNeedGankModule.toBoolean()) {
+            // 独立的 id
+            applicationId "com.longyi.module_gank"
+        }
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        sourceSets {
+            main {
+                if (isNeedGankModule.toBoolean()) {
+                    manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+                } else {
+                    manifest.srcFile 'src/main/AndroidManifest.xml'
+                }
+            }
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation project(":lib_common")
+    implementation project(":lib_download")
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    kapt rootProject.ext.dependencies["arouter-compiler"]
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="15dp"
+		android:paddingTop="10dp"
+		android:paddingRight="15dp"
+		android:layout_marginTop="20dp">
+
+	<ImageView
+			android:id="@+id/iv_search_history_del_all"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_alignParentEnd="true"
+			android:paddingStart="10dp"
+			android:src="@drawable/ic_delete_all"/>
+
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingTop="10dp"
+			android:paddingBottom="10dp"
+			android:text="搜索历史"
+			android:textColor="@color/black_333"
+			android:textSize="18sp"/>
+	<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/rt_search_history"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="10dp"
+			android:paddingBottom="10dp"
+			android:layout_below="@+id/iv_search_history_del_all"/>
+</RelativeLayout>

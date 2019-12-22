@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!--流式布局-->
+	<declare-styleable name="FlowLayout">
+		<attr name="horizontalMargin" format="dimension|reference" />
+		<attr name="verticalMargin" format="dimension|reference" />
+	</declare-styleable>
+</resources>

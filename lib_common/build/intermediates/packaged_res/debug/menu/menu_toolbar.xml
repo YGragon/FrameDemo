@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	  xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+			android:id="@+id/toolbar_share"
+			android:icon="@drawable/menu_share"
+			android:title="@string/menu_share"
+			app:showAsAction="withText"/>
+	<item
+			android:id="@+id/toolbar_download"
+			android:icon="@drawable/menu_download"
+			android:title="@string/menu_download"
+			app:showAsAction="withText"/>
+	<item
+			android:id="@+id/toolbar_collect"
+			android:icon="@drawable/menu_collect"
+			android:title="@string/menu_collect"
+			app:showAsAction="withText"/>
+</menu>
