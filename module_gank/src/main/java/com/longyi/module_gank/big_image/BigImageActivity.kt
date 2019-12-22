@@ -103,7 +103,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
      * @return
      */
     @SuppressLint("RestrictedApi")
-    override fun onPrepareOptionsPanel(view: View?, menu: Menu?): Boolean {
+    override fun onPrepareOptionsPanel(view: View?, menu: Menu): Boolean {
         if (menu != null) {
             if (menu.javaClass.simpleName == "MenuBuilder") {
                 try {

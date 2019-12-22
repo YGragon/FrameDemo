@@ -1,0 +1,57 @@
+if (isNeedAndroidJetpackModule.toBoolean()) {
+    // 作为 app
+    apply plugin: 'com.android.application'
+} else {
+    // 作为 lib
+    apply plugin: 'com.android.library'
+}
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion Config.compileSdkVersion
+
+    defaultConfig {
+        if (isNeedAndroidJetpackModule.toBoolean()) {
+            // 独立的 id
+            applicationId "com.longyi.module_android_jetpack"
+        }
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        minSdkVersion Config.minSdkVersion
+        targetSdkVersion Config.targetSdkVersion
+        versionCode Config.versionCode
+        versionName Config.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        sourceSets {
+            main {
+                if (isNeedGankModule.toBoolean()) {
+                    manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+                } else {
+                    manifest.srcFile 'src/main/AndroidManifest.xml'
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(":lib_common")
+}

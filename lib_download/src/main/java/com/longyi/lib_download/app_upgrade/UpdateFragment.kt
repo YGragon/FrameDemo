@@ -49,8 +49,8 @@ class UpdateFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // 去掉标题
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE) // 去掉标题
+        dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val view = inflater.inflate(R.layout.fragment_update, container)
 
         val bundle = arguments
@@ -128,7 +128,7 @@ class UpdateFragment : DialogFragment() {
      * @param manager
      * @param tag
      */
-    override fun show(manager: FragmentManager, tag: String) {
+    override fun show(manager: FragmentManager, tag: String?) {
         try {
             val c = Class.forName("android.support.v4.app.DialogFragment")
             val con = c.getConstructor()
