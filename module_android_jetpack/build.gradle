@@ -33,7 +33,7 @@ android {
 
         sourceSets {
             main {
-                if (isNeedGankModule.toBoolean()) {
+                if (isNeedAndroidJetpackModule.toBoolean()) {
                     manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
                 } else {
                     manifest.srcFile 'src/main/AndroidManifest.xml'
@@ -54,4 +54,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":lib_common")
+    kapt rootProject.ext.dependencies["arouter-compiler"]
+    kapt Config.dependencies.room_compiler
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }

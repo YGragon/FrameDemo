@@ -112,6 +112,9 @@ class MineFragment : BaseFragment(),CourseContract.View {
             Logger.e("===============")
             ARouter.getInstance().build(RouterPath.Expand.EXPAND_HOME).navigation()
         }
+        tv_android_jetpack.setOnClickListener {
+            ARouter.getInstance().build(RouterPath.AndroidJetPack.JETPACK_HOME).navigation()
+        }
 
     }
 

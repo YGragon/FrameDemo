@@ -89,8 +89,9 @@ class Config {
         "banner"                   : "com.youth.banner:banner:${version["banner"]}",
         "agentweb"                 : "com.just.agentweb:agentweb:${version["agentweb"]}",
         "number_progress"          : "com.daimajia.numberprogressbar:library:${version["number_progress"]}",
-        "room"                     : "androidx.room:room-runtime:${version["room_version"]}",
-        "room_compiler"            : "androidx.room:room-compiler:${version["room_version"]}",
+        "room"                     : "androidx.room:room-runtime:${version.room_version}",
+        "room_compiler"            : "androidx.room:room-compiler:${version.room_version}",
+        "paging_runtime_ktx"       : "androidx.paging:paging-runtime-ktx:${version.paging_version}",
         "lifecycle"                : "androidx.lifecycle:lifecycle-extensions:${version.lifecycle_version}",
         "navigation_fragment"      : "androidx.navigation:navigation-fragment-ktx:${version.nav_version}",
         "navigation_ui"            : "androidx.navigation:navigation-ui-ktx:${version.nav_version}"

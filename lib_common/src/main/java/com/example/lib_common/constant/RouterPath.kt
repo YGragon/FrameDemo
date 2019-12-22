@@ -40,4 +40,8 @@ object RouterPath {
     object Search{
         const val SEARCH_HOME = "/search/home"
     }
+
+    object AndroidJetPack{
+        const val JETPACK_HOME = "/jetpack/home"
+    }
 }

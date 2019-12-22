@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment"
+    android:id="@+id/nav_graph"
+    tools:ignore="UnusedNavigation">
+    <!--    首页-->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.longyi.module_android_jetpack.fragment.HomeJetpackFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home_jetpack">
+        <action
+            android:id="@+id/action_explore"
+            app:destination="@id/exploreFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.longyi.module_android_jetpack.fragment.ExploreJetpackFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore_jetpack">
+        <action
+            android:id="@+id/action_home"
+            app:popUpTo="@id/homeFragment" />
+
+    </fragment>
+
+
+</navigation>
