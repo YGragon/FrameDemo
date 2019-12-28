@@ -2,9 +2,11 @@ package com.example.framedemo.ui.mine
 
 
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 
 import com.example.framedemo.R
+import com.example.framedemo.data.DataSource
 import com.example.framedemo.ui.mine.contract.CourseContract
 import com.example.framedemo.ui.mine.presenter.CoursePresenter
 import com.example.lib_common.base.BaseApplication
@@ -62,14 +64,23 @@ class MineFragment : BaseFragment(),CourseContract.View {
         tv_login_out.setOnClickListener {
             mPresenter.loginOut()
         }
+    }
 
-        tv_download_apk.setOnClickListener {
-            Beta.checkUpgrade()
-        }
+    override fun initView() {
+        checkUserLogin()
 
-        tv_download_file.setOnClickListener {
-            //            下载文件使用
-            ToastUtils.show(BaseApplication.context,"下载文件使用")
+        val datas = DataSource.getFunData()
+        rv_mine_list.layoutManager = GridLayoutManager(activity,3)
+        val mineAdapter = MineAdapter(datas)
+        rv_mine_list.adapter = mineAdapter
+        mineAdapter.notifyDataSetChanged()
+
+        mineAdapter.setOnItemClickListener { adapter, view, position ->
+            when(datas[position].mID){
+                0 -> Beta.checkUpgrade()
+                1 -> {
+                    //            下载文件使用
+                    ToastUtils.show(BaseApplication.context,"下载文件使用")
 //            val file = File(filePath)
 //            //实现上传进度监听
 //            val requestFile = ProgressRequestBody(file, "*/*", object : UploadCallbacks {
@@ -88,38 +99,15 @@ class MineFragment : BaseFragment(),CourseContract.View {
 
 //            },{
 //            })
-        }
-        tv_upload_file.setOnClickListener {
-            ToastUtils.show(BaseApplication.context,"上传文件使用")
-//            uploadFile(
-//              文件绝对路径
-//            )
-        }
-
-        tv_share.setOnClickListener {
-            ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
+                }
+                2 -> ToastUtils.show(BaseApplication.context,"上传文件使用")
+                3 -> ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
+                4 -> ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
+                5 -> ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
+                6 ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.JETPACK_HOME).navigation()
+            }
         }
 
-        tv_map.setOnClickListener {
-            ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
-        }
-
-        tv_gank_photo.setOnClickListener {
-            ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
-        }
-
-        tv_tree.setOnClickListener {
-            Logger.e("===============")
-            ARouter.getInstance().build(RouterPath.Expand.EXPAND_HOME).navigation()
-        }
-        tv_android_jetpack.setOnClickListener {
-            ARouter.getInstance().build(RouterPath.AndroidJetPack.JETPACK_HOME).navigation()
-        }
-
-    }
-
-    override fun initView() {
-        checkUserLogin()
     }
 
     override fun setTvTitleBackgroundColor() {

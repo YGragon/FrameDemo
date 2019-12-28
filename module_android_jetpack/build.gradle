@@ -17,7 +17,6 @@ android {
             // 独立的 id
             applicationId "com.longyi.module_android_jetpack"
         }
-        minSdkVersion rootProject.ext.android["minSdkVersion"]
         minSdkVersion Config.minSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode Config.versionCode

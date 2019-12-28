@@ -24,8 +24,9 @@
 		<!--搜索布局-->
 		<ViewFlipper
 				android:id="@+id/mFlipperView"
-				android:layout_width="match_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="@dimen/flipper_height"
+				android:layout_gravity="center_horizontal"
 				android:flipInterval="3000"
 				android:inAnimation="@anim/bottom_in"
 				android:outAnimation="@anim/bottom_out"
