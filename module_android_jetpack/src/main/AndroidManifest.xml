@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.longyi.module_android_jetpack">
 
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <application android:theme="@style/AppTheme">
+        <activity android:name=".activity.WechatActivity"
+            android:launchMode="singleInstance"></activity>
+
         <activity android:name=".activity.JetpackActivity"></activity>
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".activity.CustomTabViewHomeActivity" />
     </application>
 
 </manifest>

@@ -17,7 +17,6 @@ import com.example.lib_common.event.LoginEvent
 import com.example.lib_common.model.UserControl
 import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
-import com.orhanobut.logger.Logger
 import com.tencent.bugly.beta.Beta
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.greenrobot.eventbus.EventBus
@@ -70,7 +69,7 @@ class MineFragment : BaseFragment(),CourseContract.View {
         checkUserLogin()
 
         val datas = DataSource.getFunData()
-        rv_mine_list.layoutManager = GridLayoutManager(activity,3)
+        rv_mine_list.layoutManager = activity?.let { GridLayoutManager(it,3) }
         val mineAdapter = MineAdapter(datas)
         rv_mine_list.adapter = mineAdapter
         mineAdapter.notifyDataSetChanged()
@@ -104,7 +103,8 @@ class MineFragment : BaseFragment(),CourseContract.View {
                 3 -> ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
                 4 -> ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
                 5 -> ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
-                6 ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.JETPACK_HOME).navigation()
+                6 ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.JETPACK_HOME_DEMO).navigation()
+                7 ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.CUSTOM_TAB).navigation()
             }
         }
 

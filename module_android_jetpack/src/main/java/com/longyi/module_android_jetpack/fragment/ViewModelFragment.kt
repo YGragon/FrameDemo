@@ -2,29 +2,26 @@ package com.longyi.module_android_jetpack.fragment
 
 
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseFragment
-import com.example.lib_common.constant.RouterPath
 import com.example.uitestdemo.viewmodel.CommonLivaData
 import com.example.uitestdemo.viewmodel.CommonViewModel
-import com.longyi.module_android_jetpack.R
-import kotlinx.android.synthetic.main.fragment_page1.*
+
+import kotlinx.android.synthetic.main.fragment_view_model.*
 
 
 /**
- * test fragment
+ * A simple [Fragment] subclass.
  */
-class Page1Fragment : BaseFragment() {
-
-    private val TAG = Page1Fragment::class.java.simpleName
+class ViewModelFragment : BaseFragment() {
+    private val TAG = ViewModelFragment::class.java.simpleName
     private var mCommonViewModel: CommonViewModel? = null
 
-
     override fun getLayoutId(): Int {
-        return R.layout.fragment_page1
+        return com.longyi.module_android_jetpack.R.layout.fragment_view_model
     }
 
     override fun initData() {
@@ -32,29 +29,31 @@ class Page1Fragment : BaseFragment() {
             //注册观察者,观察数据的变化
             Log.e(TAG, "onChanged: 数据有更新---->"+it.getTag1())
         })
-
-
     }
 
     override fun initView() {
         mCommonViewModel = activity?.let { ViewModelProviders.of(it).get(CommonViewModel::class.java) }
-        btn_post_data.setOnClickListener {
-            Log.e(TAG, "onChanged: click---->")
-            mCommonViewModel?.getCommonLivaData()?.setTag1(1234566)
-            Navigation.findNavController(it).navigate(R.id.action_page2)
+        btn_back_data.setOnClickListener {
+            mCommonViewModel?.getCommonLivaData()?.setTag1(456)
+            Navigation.findNavController(it).navigateUp()
         }
-        btn_mvp.setOnClickListener {
-            Log.e(TAG, "onChanged: click---->")
+        btn_to_destination.setOnClickListener {
+            mCommonViewModel?.getCommonLivaData()?.setTag1(789)
+            Navigation.findNavController(it).navigate(com.longyi.module_android_jetpack.R.id.fragment_main)
         }
     }
+
 
     override fun setTvTitleBackgroundColor() {
     }
 
     override fun fragmentShowToUser() {
+        Log.e(TAG, "fragmentShowToUser")
     }
 
     override fun fragmentHideToUser() {
+        Log.e(TAG, "fragmentHideToUser")
     }
+
 
 }

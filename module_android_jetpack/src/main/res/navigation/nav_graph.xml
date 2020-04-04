@@ -3,28 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/page1Fragment"
-    android:id="@+id/nav_graph"
-    tools:ignore="UnusedNavigation">
+    app:startDestination="@id/mainFragment"
+    android:id="@+id/nav_graph">
     <!--  page1 -->
     <fragment
-        android:id="@+id/page1Fragment"
-        android:name="com.longyi.module_android_jetpack.fragment.Page1Fragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_page1">
+        android:id="@+id/mainFragment"
+        android:name="com.longyi.module_android_jetpack.fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_page2"
-            app:destination="@id/page2Fragment" />
+            android:id="@+id/action_view_model"
+            app:destination="@id/viewModelFragment" />
     </fragment>
-
+    <!--  page2 -->
     <fragment
-        android:id="@+id/page2Fragment"
-        android:name="com.longyi.module_android_jetpack.fragment.Page2Fragment"
-        android:label="fragment_explore"
-        tools:layout="@layout/fragment_page2">
+        android:id="@+id/viewModelFragment"
+        android:name="com.longyi.module_android_jetpack.fragment.ViewModelFragment"
+        android:label="fragment_view_model"
+        tools:layout="@layout/fragment_view_model">
         <action
-            android:id="@+id/action_page1"
-            app:popUpTo="@id/page1Fragment" />
+            android:id="@+id/fragment_main"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
 
 </navigation>

@@ -16,7 +16,8 @@ object DataSource {
         list.add(MineItemBean(3,"跳转分享组件",""))
         list.add(MineItemBean(4,"跳转地图组件",""))
         list.add(MineItemBean(5,"跳转干货组件",""))
-        list.add(MineItemBean(6,"AndroidJetpack",""))
+        list.add(MineItemBean(6,"Android JetPack",""))
+        list.add(MineItemBean(7,"微信朋友圈效果 & CustomTab",""))
         return list
     }
 }

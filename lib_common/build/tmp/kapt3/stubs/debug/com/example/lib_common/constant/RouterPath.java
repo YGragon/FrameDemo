@@ -5,7 +5,7 @@ import java.lang.System;
 /**
  * * 路由中心
  */
-@kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\n\b\u00c6\u0002\u0018\u00002\u00020\u0001:\b\u0003\u0004\u0005\u0006\u0007\b\t\nB\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002\u00a8\u0006\u000b"}, d2 = {"Lcom/example/lib_common/constant/RouterPath;", "", "()V", "AndroidJetPack", "Gank", "Map", "Search", "Share", "Todo", "UserCenter", "Web", "lib_common_debug"})
+@kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u000b\b\u00c6\u0002\u0018\u00002\u00020\u0001:\t\u0003\u0004\u0005\u0006\u0007\b\t\n\u000bB\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002\u00a8\u0006\f"}, d2 = {"Lcom/example/lib_common/constant/RouterPath;", "", "()V", "AndroidJetPack", "Gank", "Map", "Search", "Share", "Todo", "UserCenter", "Web", "WechatMoments", "lib_common_debug"})
 public final class RouterPath {
     public static final com.example.lib_common.constant.RouterPath INSTANCE = null;
     
@@ -100,12 +100,23 @@ public final class RouterPath {
         }
     }
     
-    @kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0014\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0002\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0006"}, d2 = {"Lcom/example/lib_common/constant/RouterPath$AndroidJetPack;", "", "()V", "JETPACK_HOME", "", "JETPACK_HOME_DEMO", "lib_common_debug"})
+    @kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0012\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0000\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0005"}, d2 = {"Lcom/example/lib_common/constant/RouterPath$WechatMoments;", "", "()V", "MOMENTS", "", "lib_common_debug"})
+    public static final class WechatMoments {
+        @org.jetbrains.annotations.NotNull()
+        public static final java.lang.String MOMENTS = "/wechat_moments/home";
+        public static final com.example.lib_common.constant.RouterPath.WechatMoments INSTANCE = null;
+        
+        private WechatMoments() {
+            super();
+        }
+    }
+    
+    @kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0014\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0002\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0006"}, d2 = {"Lcom/example/lib_common/constant/RouterPath$AndroidJetPack;", "", "()V", "CUSTOM_TAB", "", "JETPACK_HOME_DEMO", "lib_common_debug"})
     public static final class AndroidJetPack {
         @org.jetbrains.annotations.NotNull()
-        public static final java.lang.String JETPACK_HOME = "/jetpack/home";
-        @org.jetbrains.annotations.NotNull()
         public static final java.lang.String JETPACK_HOME_DEMO = "/jetpack/home_demo";
+        @org.jetbrains.annotations.NotNull()
+        public static final java.lang.String CUSTOM_TAB = "/jetpack/custom_tab";
         public static final com.example.lib_common.constant.RouterPath.AndroidJetPack INSTANCE = null;
         
         private AndroidJetPack() {
