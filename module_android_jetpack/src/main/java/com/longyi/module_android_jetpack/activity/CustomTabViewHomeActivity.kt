@@ -1,22 +1,23 @@
-package com.longyi.module_android_jetpack
+package com.longyi.module_android_jetpack.activity
 
+import android.content.Intent
+import android.util.Log
 import com.example.lib_common.base.BaseActivity
 import com.longyi.module_android_jetpack.widget.custom_bottom_tab.CustomTabView
 import androidx.fragment.app.Fragment
-import android.util.Log
 import android.view.View
-import androidx.navigation.Navigation.findNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.RouterPath
+import com.longyi.module_android_jetpack.R
 import com.longyi.module_android_jetpack.widget.custom_bottom_tab.Tab
 import com.longyi.module_android_jetpack.fragment.ExploreJetpackFragment
 import com.longyi.module_android_jetpack.fragment.HomeJetpackFragment
 
 
-@Route(path = RouterPath.AndroidJetPack.JETPACK_HOME,name = "AndroidJetPack 首页")
-class HomeActivity : BaseActivity(), CustomTabView.OnTabCheckListener {
-
+@Route(path = RouterPath.AndroidJetPack.CUSTOM_TAB,name = "CustomTabView 首页")
+class CustomTabViewHomeActivity : BaseActivity(), CustomTabView.OnTabCheckListener {
+    private val TAG = CustomTabViewHomeActivity::class.java.simpleName
     private var mCustomTabView = CustomTabView(BaseApplication.context)
     private val mFragments = mutableListOf<Fragment>()
 
@@ -75,4 +76,6 @@ class HomeActivity : BaseActivity(), CustomTabView.OnTabCheckListener {
             supportFragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit()
         }
     }
+
+
 }
