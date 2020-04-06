@@ -27,7 +27,6 @@ class WechatActivity : BaseActivity() {
     }
 
     override fun initView() {
-        Log.e(TAG,"initView:")
         for (i in 0..100){
             val student = Student(i,i.toString())
             list.add(student)
