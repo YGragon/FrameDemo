@@ -1,7 +1,5 @@
 package com.longyi.module_android_jetpack.activity
 
-import android.content.Intent
-import android.util.Log
 import com.example.lib_common.base.BaseActivity
 import com.longyi.module_android_jetpack.widget.custom_bottom_tab.CustomTabView
 import androidx.fragment.app.Fragment
@@ -33,15 +31,15 @@ class CustomTabViewHomeActivity : BaseActivity(), CustomTabView.OnTabCheckListen
         val tabHome = Tab.Builder().setText("首页")
             .setColor(resources.getColor(android.R.color.darker_gray))
             .setCheckedColor(resources.getColor(android.R.color.holo_blue_light))
-            .setNormalIcon(R.mipmap.home_select)
-            .setPressedIcon(R.mipmap.home_un_select)
+            .setNormalIcon(R.mipmap.home_un_select)
+            .setPressedIcon(R.mipmap.home_select)
         mCustomTabView.addTab(tabHome.build())
 
         val tabExplore = Tab.Builder().setText("发现")
             .setColor(resources.getColor(android.R.color.darker_gray))
             .setCheckedColor(resources.getColor(android.R.color.holo_blue_light))
-            .setNormalIcon(R.mipmap.course_select)
-            .setPressedIcon(R.mipmap.course_un_select)
+            .setNormalIcon(R.mipmap.course_un_select)
+            .setPressedIcon(R.mipmap.course_select)
         mCustomTabView.addTab(tabExplore.build())
 
 

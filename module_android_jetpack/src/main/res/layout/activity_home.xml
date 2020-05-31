@@ -23,7 +23,7 @@
     <com.longyi.module_android_jetpack.widget.custom_bottom_tab.CustomTabView
         android:id="@+id/custom_tab_container"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>
