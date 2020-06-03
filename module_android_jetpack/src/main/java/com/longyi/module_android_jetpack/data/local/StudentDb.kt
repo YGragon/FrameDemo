@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.uitestdemo.ioThread
-import com.longyi.module_android_jetpack.data.Student
+import com.longyi.module_android_jetpack.data.local.Student
 
 @Database(entities = arrayOf(Student::class), version = 1)
 abstract class StudentDb:RoomDatabase() {
@@ -25,7 +25,12 @@ abstract class StudentDb:RoomDatabase() {
                             ioThread {
                                 // 单线程池
                                 get(context).studentDao().insert(
-                                    CHEESE_DATA.map { Student(id = 0, name = it) })
+                                    CHEESE_DATA.map {
+                                        Student(
+                                            id = 0,
+                                            name = it
+                                        )
+                                    })
                             }
                         }
                     }).build()

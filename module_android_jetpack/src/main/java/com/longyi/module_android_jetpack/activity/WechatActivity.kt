@@ -3,14 +3,13 @@ package com.longyi.module_android_jetpack.activity
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.longyi.module_android_jetpack.adapter.JetpackStudentAdapter
-import com.longyi.module_android_jetpack.data.Student
+import com.longyi.module_android_jetpack.data.local.Student
 import kotlinx.android.synthetic.main.activity_wechat.*
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.RouterPath
 import android.app.ActivityManager
 import android.content.Context
-import com.example.lib_common.utils.PreferenceUtils
 import com.longyi.module_android_jetpack.R
 
 
@@ -28,7 +27,7 @@ class WechatActivity : BaseActivity() {
 
     override fun initView() {
         for (i in 0..100){
-            val student = Student(i,i.toString())
+            val student = Student(i, i.toString())
             list.add(student)
         }
 

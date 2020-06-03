@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.longyi.module_android_jetpack.R
-import com.longyi.module_android_jetpack.data.Student
+import com.longyi.module_android_jetpack.data.local.Student
 
 /**
  * Created by Aller on 2019/12/22.

@@ -3,7 +3,7 @@ package com.longyi.module_android_jetpack.adapter
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.longyi.module_android_jetpack.data.Student
+import com.longyi.module_android_jetpack.data.local.Student
 
 /**
  * 学生列表

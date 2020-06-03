@@ -1,4 +1,4 @@
-package com.longyi.module_android_jetpack.data
+package com.longyi.module_android_jetpack.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

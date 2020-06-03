@@ -11,6 +11,7 @@ import com.longyi.module_android_jetpack.R
 import com.longyi.module_android_jetpack.widget.custom_bottom_tab.Tab
 import com.longyi.module_android_jetpack.fragment.ExploreJetpackFragment
 import com.longyi.module_android_jetpack.fragment.HomeJetpackFragment
+import com.longyi.module_android_jetpack.fragment.mine.MineFragment
 
 
 @Route(path = RouterPath.AndroidJetPack.CUSTOM_TAB,name = "CustomTabView 首页")
@@ -42,12 +43,20 @@ class CustomTabViewHomeActivity : BaseActivity(), CustomTabView.OnTabCheckListen
             .setPressedIcon(R.mipmap.course_select)
         mCustomTabView.addTab(tabExplore.build())
 
+        val tabMine = Tab.Builder().setText("我的")
+            .setColor(resources.getColor(android.R.color.darker_gray))
+            .setCheckedColor(resources.getColor(android.R.color.holo_blue_light))
+            .setNormalIcon(R.mipmap.course_un_select)
+            .setPressedIcon(R.mipmap.course_select)
+        mCustomTabView.addTab(tabMine.build())
+
 
     }
 
     override fun initData() {
         mFragments.add(HomeJetpackFragment())
         mFragments.add(ExploreJetpackFragment())
+        mFragments.add(MineFragment.newInstance())
         mCustomTabView.setOnTabCheckListener(this)
         mCustomTabView.setCurrentItem(0)
 
@@ -68,6 +77,10 @@ class CustomTabViewHomeActivity : BaseActivity(), CustomTabView.OnTabCheckListen
             1 -> {
                 fragment = mFragments[1]
                 mCustomTabView.updateState(1)
+            }
+            2 -> {
+                fragment = mFragments[2]
+                mCustomTabView.updateState(2)
             }
         }
         if (fragment != null) {

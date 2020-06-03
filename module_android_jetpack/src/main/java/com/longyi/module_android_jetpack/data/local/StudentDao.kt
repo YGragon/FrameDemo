@@ -4,7 +4,7 @@ import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.longyi.module_android_jetpack.data.Student
+import com.longyi.module_android_jetpack.data.local.Student
 
 @Dao
 interface StudentDao {
