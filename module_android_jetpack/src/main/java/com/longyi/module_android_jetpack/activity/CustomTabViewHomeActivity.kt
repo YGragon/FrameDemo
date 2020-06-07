@@ -10,7 +10,7 @@ import com.example.lib_common.constant.RouterPath
 import com.longyi.module_android_jetpack.R
 import com.longyi.module_android_jetpack.widget.custom_bottom_tab.Tab
 import com.longyi.module_android_jetpack.fragment.ExploreJetpackFragment
-import com.longyi.module_android_jetpack.fragment.HomeJetpackFragment
+import com.longyi.module_android_jetpack.fragment.home.HomeJetpackFragment
 import com.longyi.module_android_jetpack.fragment.mine.MineFragment
 
 

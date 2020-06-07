@@ -6,8 +6,10 @@
     tools:context=".fragment.mine.MineFragment">
 
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Hello" />
     <Button
         android:id="@+id/btn_get_data"

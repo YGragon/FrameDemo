@@ -1,8 +1,7 @@
-package com.longyi.module_android_jetpack.fragment
+package com.longyi.module_android_jetpack.fragment.home
 
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,9 +9,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
-import com.example.uitestdemo.viewmodel.CommonLivaData
-import com.example.uitestdemo.viewmodel.CommonViewModel
-import com.example.uitestdemo.viewmodel.MainViewModel
 
 import com.longyi.module_android_jetpack.R
 import com.longyi.module_android_jetpack.adapter.StudentAdapter
@@ -23,14 +19,14 @@ import kotlinx.android.synthetic.main.fragment_home_jetpack.*
  */
 class HomeJetpackFragment : BaseFragment() {
     private val TAG = HomeJetpackFragment::class.java.simpleName
-    private var mCommonViewModel: CommonViewModel? = null
 
     private val viewModel by lazy(LazyThreadSafetyMode.NONE) {
         ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(
+            // 传递 context
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T = HomeViewModel(
                 BaseApplication.context as Application
             ) as T
-        }).get(MainViewModel::class.java)
+        }).get(HomeViewModel::class.java)
     }
 
     override fun getLayoutId(): Int {
@@ -50,22 +46,13 @@ class HomeJetpackFragment : BaseFragment() {
             adapter.submitList(it)
         })
     }
-    override fun initData() {
-        mCommonViewModel = activity?.let { ViewModelProviders.of(it).get(CommonViewModel::class.java) }
-        mCommonViewModel?.getCommonLivaData()?.observe(this, Observer<CommonLivaData>{
-            //注册观察者,观察数据的变化
-            Log.e(TAG, "onChanged: 数据有更新---->"+it.getTag1())
-        })
-    }
+    override fun initData() {}
 
-    override fun setTvTitleBackgroundColor() {
-    }
+    override fun setTvTitleBackgroundColor() {}
 
-    override fun fragmentShowToUser() {
-    }
+    override fun fragmentShowToUser() {}
 
-    override fun fragmentHideToUser() {
-    }
+    override fun fragmentHideToUser() {}
 
 
 
