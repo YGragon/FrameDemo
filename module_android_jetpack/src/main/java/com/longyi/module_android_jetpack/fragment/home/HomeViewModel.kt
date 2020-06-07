@@ -16,8 +16,10 @@ class HomeViewModel(context: Context): BaseViewModel() {
         private const val ENABLE_PLACEHOLDERS = false
     }
 
-    val mContext = context
-    val dao = StudentDb.get(mContext).studentDao()
+//    val mContext = context
+//    val dao = StudentDb.get(mContext).studentDao()
+
+    val dao = StudentDb.get().studentDao()
 
     val allStudents = LivePagedListBuilder(dao.getAllStudent(), PagedList.Config.Builder()
         .setPageSize(PAGE_SIZE)                         //配置分页加载的数量

@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.AppConfig
 import com.example.lib_common.utils.LogUtils
+import com.example.uitestdemo.data.db.StudentDb
 import java.lang.Exception
 
 
@@ -15,6 +16,8 @@ class JetpackApplication : BaseApplication()  {
         super.onCreate()
         // 初始化组件 Application
         initData(this)
+        // 初始化数据库数据
+        StudentDb.initData()
     }
 
     /**
