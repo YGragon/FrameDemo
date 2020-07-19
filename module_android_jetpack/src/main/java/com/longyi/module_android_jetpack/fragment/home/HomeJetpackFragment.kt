@@ -39,8 +39,8 @@ class HomeJetpackFragment : BaseFragment() {
 
         val adapter = StudentAdapter()
         val layoutManager = LinearLayoutManager(activity)
-        rv_list.layoutManager = layoutManager
-        rv_list.adapter = adapter
+        rv_fragment_home_list.layoutManager = layoutManager
+        rv_fragment_home_list.adapter = adapter
         // 将数据的变化反映到UI上
         viewModel.allStudents.observe(this, Observer {
             adapter.submitList(it)

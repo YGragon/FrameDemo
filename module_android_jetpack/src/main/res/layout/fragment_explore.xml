@@ -6,14 +6,23 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".fragment.ExploreJetpackFragment">
+    android:background="@color/white"
+    tools:context=".fragment.explore.ExploreFragment">
 
     <Button
-        android:id="@+id/btn_jump_to_wechat_moments"
+        android:id="@+id/btn_to_coin_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="跳转微信朋友圈效果"/>
+        android:text="跳转积分排行榜页面"/>
+
+    <Button
+        android:id="@+id/btn_to_wechat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="跳转微信朋友圈页面"/>
 
 </LinearLayout>

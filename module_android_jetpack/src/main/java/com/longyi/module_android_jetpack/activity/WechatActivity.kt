@@ -13,7 +13,7 @@ import android.content.Context
 import com.longyi.module_android_jetpack.R
 
 
-@Route(path = RouterPath.WechatMoments.MOMENTS, name = "测试朋友圈效果")
+@Route(path = RouterPath.AndroidJetPack.WECHAT, name = "测试朋友圈效果")
 class WechatActivity : BaseActivity() {
 
     private val TAG = WechatActivity::class.java.simpleName

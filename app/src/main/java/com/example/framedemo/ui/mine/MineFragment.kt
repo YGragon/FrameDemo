@@ -103,8 +103,7 @@ class MineFragment : BaseFragment(),CourseContract.View {
                 3 -> ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
                 4 -> ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
                 5 -> ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
-                6 ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.JETPACK_HOME_DEMO).navigation()
-                7 ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.CUSTOM_TAB).navigation()
+                6 ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.CUSTOM_TAB).navigation()
             }
         }
 

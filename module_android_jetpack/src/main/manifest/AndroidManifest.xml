@@ -17,6 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.WechatActivity"
+            android:launchMode="singleInstance"></activity>
     </application>
 
 </manifest>

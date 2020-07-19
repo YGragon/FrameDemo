@@ -59,6 +59,5 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     kapt rootProject.ext.dependencies["arouter-compiler"]
     kapt Config.dependencies.room_compiler
-
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }

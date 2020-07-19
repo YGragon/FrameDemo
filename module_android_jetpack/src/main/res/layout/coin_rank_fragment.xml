@@ -4,18 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragment.mine.MineFragment">
+    tools:context=".fragment.rank.CoinRankFragment">
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Hello" />
     <Button
-        android:id="@+id/btn_get_data"
+        android:id="@+id/btn_to_mine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="getData"/>
+        android:text="to mine"/>
+
 </FrameLayout>

@@ -6,8 +6,6 @@
     <application android:theme="@style/AppTheme">
         <activity android:name=".activity.WechatActivity"
             android:launchMode="singleInstance"></activity>
-
-        <activity android:name=".activity.JetpackActivity"></activity>
         <activity android:name=".activity.CustomTabViewHomeActivity" />
     </application>
 

@@ -38,13 +38,9 @@ object RouterPath {
         const val SEARCH_HOME = "/search/home"
     }
 
-
-    object WechatMoments{
-        const val MOMENTS = "/wechat_moments/home"
-    }
-
     object AndroidJetPack{
         const val JETPACK_HOME_DEMO = "/jetpack/home_demo"
         const val CUSTOM_TAB = "/jetpack/custom_tab"
+        const val WECHAT = "/jetpack/wecaht"
     }
 }
