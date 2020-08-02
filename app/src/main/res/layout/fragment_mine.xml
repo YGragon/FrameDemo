@@ -67,6 +67,11 @@
 			android:gravity="center"
 			android:textColor="@color/colorWhite"/>
 	</LinearLayout>
+	<Button
+		android:id="@+id/btn_get_server"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="获取所有后台服务"/>
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rv_mine_list"
 		android:layout_width="match_parent"

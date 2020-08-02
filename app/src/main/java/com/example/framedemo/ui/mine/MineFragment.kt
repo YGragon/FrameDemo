@@ -5,7 +5,6 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 
-import com.example.framedemo.R
 import com.example.framedemo.data.DataSource
 import com.example.framedemo.ui.mine.contract.CourseContract
 import com.example.framedemo.ui.mine.presenter.CoursePresenter
@@ -43,7 +42,7 @@ class MineFragment : BaseFragment(),CourseContract.View {
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_mine
+        return com.example.framedemo.R.layout.fragment_mine
     }
 
     override fun initData() {
@@ -107,11 +106,25 @@ class MineFragment : BaseFragment(),CourseContract.View {
             }
         }
 
+        btn_get_server.setOnClickListener {
+
+
+//            val isCheck = TestService.checkEnabledAccessibilityService(BaseApplication.context)
+//            if (isCheck){
+                val isRun = TestService.isRun(BaseApplication.context,"")
+                val enabled = TestService.enabled("",BaseApplication.context)
+                println(isRun)
+                println(enabled)
+//            }else{
+//                println("未获取权限")
+//            }
+        }
+
     }
 
     override fun setTvTitleBackgroundColor() {
-        tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
-        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+        tv_title.setBackgroundColor(resources.getColor(com.example.framedemo.R.color.colorPrimaryDark))
+        fake_status_bar.setBackgroundColor(resources.getColor(com.example.framedemo.R.color.colorPrimary))
     }
 
     private fun checkUserLogin() {
