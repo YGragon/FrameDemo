@@ -6,6 +6,7 @@ import com.example.lib_common.base.BasePresenter
 import com.example.lib_common.db.AppDataBase
 import com.example.lib_common.db.dao.HotKeyDao
 import com.example.lib_common.http.RetrofitManager
+import com.example.lib_common.http.runRxLambda
 import com.example.lib_common.http.scheduler.SchedulerUtils
 import com.example.lib_common.utils.LogUtils
 
@@ -15,19 +16,16 @@ import com.example.lib_common.utils.LogUtils
 class HomePresenter : BasePresenter<HomeContract.View>(),HomeContract.Presenter{
 
     override fun getHotkey() {
-        val disposable = RetrofitManager.service.getHotkey()
-            .compose(SchedulerUtils.ioToMain())
-            .subscribe({ res ->
-                // 保存到数据库
-                val hotkeyDao: HotKeyDao = AppDataBase.instance(BaseApplication.context).getHotKeyDao()
-                hotkeyDao.getAllHotKey().clear()
-                hotkeyDao.insertAll(res.data)
-
-                mRootView?.showHotkeys(res.data)
-            }, { throwable ->
-                mRootView?.showError(throwable.message.toString())
-            })
-        addSubscription(disposable)
+        // runRxLambda 网络请求工具使用
+        runRxLambda(RetrofitManager.service.getHotkey(),{
+            // 保存到数据库
+            val hotkeyDao: HotKeyDao = AppDataBase.instance(BaseApplication.context).getHotKeyDao()
+            hotkeyDao.getAllHotKey().clear()
+            hotkeyDao.insertAll(it.data)
+            mRootView?.showHotkeys(it.data)
+        },{},{
+            addSubscription(it)
+        })
     }
 
 
