@@ -34,31 +34,29 @@ class HomePresenter : BasePresenter<HomeContract.View>(),HomeContract.Presenter{
 
 
     override fun getBanners() {
-        val disposable = RetrofitManager.service.getBanners()
-            .compose(SchedulerUtils.ioToMain())
-            .subscribe({ res ->
-                mRootView?.showBanners(res.data)
-            }, { throwable ->
-                mRootView?.showError(throwable.message.toString())
-            })
-        addSubscription(disposable)
+        runRxLambda(RetrofitManager.service.getBanners(),{
+            mRootView?.showBanners(it.data)
+        },{
+            mRootView?.showError(ExceptionHandle.handleException(it))
+        },{
+            addSubscription(it)
+        })
     }
 
     override fun getArticles(page:Int) {
-        val disposable = RetrofitManager.service.getArticles(page)
-            .compose(SchedulerUtils.ioToMain())
-            .subscribe({ res ->
-                if (res.data != null){
-                    if (res.data.curPage == res.data.pageCount) {
-                        mRootView?.showLoadEndArticles(res.data.datas)
-                    } else {
-                        mRootView?.showLoadCompleteArticles(res.data.datas)
-                    }
+        runRxLambda(RetrofitManager.service.getArticles(page),{
+            if (it.data != null){
+                if (it.data.curPage == it.data.pageCount) {
+                    mRootView?.showLoadEndArticles(it.data.datas)
+                } else {
+                    mRootView?.showLoadCompleteArticles(it.data.datas)
                 }
-            }, { throwable ->
-                mRootView?.showError(throwable.message.toString())
-            })
-        addSubscription(disposable)
+            }
+        },{
+            mRootView?.showError(ExceptionHandle.handleException(it))
+        },{
+            addSubscription(it)
+        })
     }
 
 }
