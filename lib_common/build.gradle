@@ -80,7 +80,8 @@ dependencies {
     api Config.dependencies.room
     kapt Config.dependencies.room_compiler
     api Config.dependencies.paging_runtime_ktx
-    api Config.dependencies.lifecycle
+    api Config.dependencies.lifecycle_viewmodel
+    api Config.dependencies.lifecycle_livedata
     api Config.dependencies.navigation_fragment
     api Config.dependencies.navigation_ui
     testImplementation rootProject.ext.dependencies["junit"]

@@ -23,7 +23,7 @@ import java.io.File
  * 文件工具类
  */
 object FileUtil {
-    private val TAG = "Share"
+    private val TAG = "FileUtil"
 
     /**
      * Get file uri

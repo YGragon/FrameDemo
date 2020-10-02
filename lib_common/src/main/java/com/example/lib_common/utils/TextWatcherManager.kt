@@ -5,6 +5,7 @@ import android.text.TextWatcher
 
 /**
  * TextWatcherManager 封装
+ * 可以使用 RxJava 优化
  */
 abstract class TextWatcherManager:TextWatcher {
     override fun afterTextChanged(s: Editable?) {
