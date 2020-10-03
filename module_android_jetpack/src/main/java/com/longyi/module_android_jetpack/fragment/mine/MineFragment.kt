@@ -1,11 +1,15 @@
 package com.longyi.module_android_jetpack.fragment.mine
 
-import androidx.lifecycle.ViewModelProviders
 import android.util.Log
 import androidx.lifecycle.Observer
+import autodispose2.AutoDispose.autoDisposable
 import com.example.lib_common.base.BaseFragment
+import com.example.lib_common.http.runRxLambda
 import com.longyi.module_android_jetpack.R
+import com.tencent.bugly.proguard.s
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.mine_fragment.*
+import java.util.concurrent.TimeUnit
 
 class MineFragment : BaseFragment(),MineContract.View {
 
@@ -13,15 +17,13 @@ class MineFragment : BaseFragment(),MineContract.View {
         fun newInstance() = MineFragment()
     }
     private val minePresenter = MinePresenter(this)
-    private lateinit var viewModel: MineViewModel
+    private  var viewModel = MineViewModel()
 
     override fun getLayoutId(): Int {
         return R.layout.mine_fragment
     }
 
     override fun initData() {
-        viewModel = ViewModelProviders.of(this).get(MineViewModel::class.java)
-
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.currentName.observe(this, Observer<String> { newName ->
             // Update the UI, in this case, a TextView.
@@ -31,7 +33,7 @@ class MineFragment : BaseFragment(),MineContract.View {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.countDownTime.observe(this, Observer<Long> { aLong ->
             //Update UI
-            tv_name.text = "time = " + aLong!!
+            tv_name.text = "time = $aLong"
         })
     }
     override fun initView() {
@@ -48,6 +50,10 @@ class MineFragment : BaseFragment(),MineContract.View {
     override fun onStart() {
         super.onStart()
         Log.e("222","MineFragment onStart")
+
+//        Observable.timer(0,TimeUnit.SECONDS)
+//            .as(autoDisposable(this))   // The magic
+//            .subscribe(s -> ...);
     }
 
     override fun onResume() {

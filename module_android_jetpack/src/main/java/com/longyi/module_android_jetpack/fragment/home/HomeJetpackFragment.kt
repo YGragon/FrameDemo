@@ -3,9 +3,6 @@ package com.longyi.module_android_jetpack.fragment.home
 
 import android.app.Application
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
@@ -20,14 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home_jetpack.*
 class HomeJetpackFragment : BaseFragment() {
     private val TAG = HomeJetpackFragment::class.java.simpleName
 
-    private val viewModel by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            // 传递 context
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T = HomeViewModel(
-                BaseApplication.context as Application
-            ) as T
-        }).get(HomeViewModel::class.java)
-    }
+    private val viewModel  = HomeViewModel(BaseApplication.context as Application)
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home_jetpack

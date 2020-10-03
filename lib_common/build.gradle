@@ -58,7 +58,7 @@ dependencies {
     api rootProject.ext.dependencies["logging-interceptor"]
     api rootProject.ext.dependencies["logger"]
     api rootProject.ext.dependencies["PersistentCookieJar"]
-    api rootProject.ext.dependencies["rxjava2"]
+//    api rootProject.ext.dependencies["rxjava2"]
     api rootProject.ext.dependencies["adapter-rxjava2"]
     api rootProject.ext.dependencies["converter_gson"]
     api rootProject.ext.dependencies["rxandroid"]
@@ -80,10 +80,13 @@ dependencies {
     api Config.dependencies.room
     kapt Config.dependencies.room_compiler
     api Config.dependencies.paging_runtime_ktx
+    api Config.dependencies.lifecycle
     api Config.dependencies.lifecycle_viewmodel
     api Config.dependencies.lifecycle_livedata
     api Config.dependencies.navigation_fragment
     api Config.dependencies.navigation_ui
+    api Config.dependencies.autodispose2
+    api Config.dependencies.autodispose_lifecycle2
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testrunner"]
     androidTestImplementation rootProject.ext.dependencies["espresso"]

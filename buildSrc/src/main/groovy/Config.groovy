@@ -45,6 +45,7 @@ class Config {
         room_version            : "2.2.0-rc01",
         paging_version          : "2.1.1",
         lifecycle_version       : "2.2.0",
+        autodispose2            : "2.0.0",
 
     ]
 
@@ -92,10 +93,13 @@ class Config {
         "room"                     : "androidx.room:room-runtime:${version.room_version}",
         "room_compiler"            : "androidx.room:room-compiler:${version.room_version}",
         "paging_runtime_ktx"       : "androidx.paging:paging-runtime-ktx:${version.paging_version}",
+        "lifecycle"                : "androidx.lifecycle:lifecycle-extensions:${version.lifecycle_version}",
         "lifecycle_viewmodel"      : "androidx.lifecycle:lifecycle-viewmodel-ktx:${version.lifecycle_version}",
         "lifecycle_livedata"       : "androidx.lifecycle:lifecycle-livedata-ktx:${version.lifecycle_version}",
         "navigation_fragment"      : "androidx.navigation:navigation-fragment-ktx:${version.nav_version}",
-        "navigation_ui"            : "androidx.navigation:navigation-ui-ktx:${version.nav_version}"
+        "navigation_ui"            : "androidx.navigation:navigation-ui-ktx:${version.nav_version}",
+        "autodispose2"             : "com.uber.autodispose2:autodispose-android:${version.autodispose2}",
+        "autodispose_lifecycle2"   : "com.uber.autodispose2:autodispose-lifecycle:${version.autodispose2}",
     ]
 
 }
