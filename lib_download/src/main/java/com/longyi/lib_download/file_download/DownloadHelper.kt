@@ -5,7 +5,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -44,7 +44,7 @@ class DownloadHelper {
         retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(httpClient)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
     }
 
