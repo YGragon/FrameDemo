@@ -1,21 +1,14 @@
 package com.longyi.module_android_jetpack.fragment.mine
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import android.os.SystemClock
-import autodispose2.AutoDispose.autoDisposable
-import com.example.lib_common.http.runRx
-import com.example.lib_common.http.runRxLambda
-import com.longyi.module_android_jetpack.viewmodel.BaseViewModel
-import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.*
+import com.example.lib_common.base.BaseViewModel
+import com.example.lib_common.http.runRxLambdaViewModel
+import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
 
 
 class MineViewModel : BaseViewModel() {
+    private val TAG = MineViewModel::class.java.simpleName
     private val periodTime = 1000L
     private val mElapsedRealTime = MutableLiveData<Long>()
     private var mInitialTime: Long = 0
@@ -28,6 +21,7 @@ class MineViewModel : BaseViewModel() {
     val countDownTime: MutableLiveData<Long> by lazy {
         mElapsedRealTime
     }
+
     /**
      * 开启倒计时
      */
@@ -46,9 +40,9 @@ class MineViewModel : BaseViewModel() {
 //        }
 //        timer.scheduleAtFixedRate(timeTask,periodTime,periodTime)
 
-        runRxLambda(Observable.timer(10,TimeUnit.SECONDS),{
+        // 只处理成功，失败的可以处理可以不处理
+        runRxLambdaViewModel(this,Observable.timer(10,TimeUnit.SECONDS),{
             mElapsedRealTime.postValue(it)
-        },{},{})
-
+        })
     }
 }

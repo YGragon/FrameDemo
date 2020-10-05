@@ -100,6 +100,8 @@ class Config {
         "navigation_ui"            : "androidx.navigation:navigation-ui-ktx:${version.nav_version}",
         "autodispose2"             : "com.uber.autodispose2:autodispose-android:${version.autodispose2}",
         "autodispose_lifecycle2"   : "com.uber.autodispose2:autodispose-lifecycle:${version.autodispose2}",
+        "autodisposex_lifecycle2"  : "com.uber.autodispose2:autodispose-androidx-lifecycle:${version.autodispose2}",
+        "autodispose_java"         : "com.uber.autodispose2:autodispose:${version.autodispose2}",
     ]
 
 }

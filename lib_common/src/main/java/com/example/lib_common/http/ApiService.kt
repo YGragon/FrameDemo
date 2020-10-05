@@ -3,7 +3,7 @@ package com.example.lib_common.http
 import com.example.lib_common.http.response.BaseGankResponse
 import com.example.lib_common.http.response.BaseResponse
 import com.example.lib_common.model.*
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.http.*

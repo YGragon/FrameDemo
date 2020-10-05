@@ -5,6 +5,7 @@ import com.example.lib_common.base.BasePresenter
 import com.example.lib_common.db.AppDataBase
 import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
+import com.example.lib_common.http.runRxLambda
 import com.example.lib_common.http.scheduler.SchedulerUtils
 import com.example.lib_common.model.SearchHistory
 import com.example.lib_common.utils.DateUtils
@@ -42,26 +43,24 @@ class SearchPresenter : BasePresenter<SearchContract.View>(),SearchContract.Pres
 
     override fun getSearchResult(page:Int,key_word:String) {
         // 从服务器获取
-        val disposable = RetrofitManager.service.getSearchs(page,key_word)
-            .compose(SchedulerUtils.ioToMain())
-            .subscribe({ res ->
-                if (res.data != null){
-                    // 获取到结果
-                    if (res.data.datas.isEmpty()){
-                        // 显示空页面
-                        mRootView?.showSearchEmptyResult()
-                    }else{
-                        mRootView?.showSearchResult(res.data.datas)
-                    }
-                }else{
+        runRxLambda(RetrofitManager.service.getSearchs(page,key_word),{
+            if (it.data != null){
+                // 获取到结果
+                if (it.data.datas.isEmpty()){
                     // 显示空页面
                     mRootView?.showSearchEmptyResult()
+                }else{
+                    mRootView?.showSearchResult(it.data.datas)
                 }
-
-            }, { throwable ->
-                val errorMsg = ExceptionHandle.handleException(throwable)
-                mRootView?.showError(errorMsg)
-            })
-        addSubscription(disposable)
+            }else{
+                // 显示空页面
+                mRootView?.showSearchEmptyResult()
+            }
+        },{
+            val errorMsg = ExceptionHandle.handleException(it)
+            mRootView?.showError(errorMsg)
+        },{
+            addSubscription(it)
+        })
     }
 }

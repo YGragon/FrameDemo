@@ -1,12 +1,13 @@
 package com.example.framedemo.ui.mine.presenter
 
 import android.app.ProgressDialog
-import com.example.framedemo.ui.mine.contract.CourseContract
+import com.example.framedemo.ui.mine.contract.MineContract
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BasePresenter
 import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
-import com.example.lib_common.http.scheduler.SchedulerUtils
+import com.example.lib_common.http.runRxLambda
+import com.example.lib_common.utils.LogUtils
 import com.longyi.lib_download.file_upload.ProgressRequestBody
 import com.longyi.lib_download.file_upload.UploadCallbacks
 import okhttp3.MultipartBody
@@ -15,7 +16,7 @@ import java.io.File
 /**
  * Mine Presenter 处理
  */
-class MinePresenter : BasePresenter<CourseContract.View>(), CourseContract.Presenter {
+class MinePresenter : BasePresenter<MineContract.View>(), MineContract.Presenter {
 
 
     override fun getUserInfo() {
@@ -24,20 +25,18 @@ class MinePresenter : BasePresenter<CourseContract.View>(), CourseContract.Prese
     }
 
     override fun loginOut() {
-        val disposable = RetrofitManager.service.logout()
-            .compose(SchedulerUtils.ioToMain())
-            .subscribe({ res ->
-                if (res.errorCode == 0) {
-                    mRootView?.showLoginOutSuccess()
-                }else{
-                    mRootView?.showError(res.errorMsg)
-                }
-            }, { throwable ->
-                val errorMsg = ExceptionHandle.handleException(throwable)
-                mRootView?.showError(errorMsg)
-            })
-        addSubscription(disposable)
-
+        runRxLambda(RetrofitManager.service.logout(),{
+            if (it.errorCode == 0) {
+                mRootView?.showLoginOutSuccess()
+            }else{
+                mRootView?.showError(it.errorMsg)
+            }
+        },{
+            val errorMsg = ExceptionHandle.handleException(it)
+            mRootView?.showError(errorMsg)
+        },{
+            addSubscription(it)
+        })
     }
 
     /**
@@ -77,14 +76,13 @@ class MinePresenter : BasePresenter<CourseContract.View>(), CourseContract.Prese
 
         val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-        val disposable = RetrofitManager.service.upload(body)
-            .compose(SchedulerUtils.ioToMain())
-            .subscribe({ res ->
-                // 上传成功
-
-            }, { throwable ->
-                // 上传失败
-            })
-        addSubscription(disposable)
+        runRxLambda(RetrofitManager.service.upload(body),{
+            LogUtils.d("上传成功")
+        },{
+            val errorMsg = ExceptionHandle.handleException(it)
+            mRootView?.showError(errorMsg)
+        },{
+            addSubscription(it)
+        })
     }
 }

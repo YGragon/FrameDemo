@@ -9,7 +9,7 @@ kapt {
     }
 }
 android {
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    compileSdkVersion Config.compileSdkVersion
     defaultConfig {
         applicationId Config.applicationId
         minSdkVersion Config.minSdkVersion

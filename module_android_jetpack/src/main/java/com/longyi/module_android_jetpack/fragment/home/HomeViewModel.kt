@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.uitestdemo.data.db.StudentDb
-import com.longyi.module_android_jetpack.viewmodel.BaseViewModel
+import com.example.lib_common.base.BaseViewModel
 
 /**
  * Created by Aller on 2020/6/6.

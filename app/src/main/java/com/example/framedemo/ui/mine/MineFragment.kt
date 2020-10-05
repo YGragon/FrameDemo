@@ -4,10 +4,11 @@ package com.example.framedemo.ui.mine
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.framedemo.R
 
 import com.example.framedemo.data.DataSource
-import com.example.framedemo.ui.mine.contract.CourseContract
-import com.example.framedemo.ui.mine.presenter.CoursePresenter
+import com.example.framedemo.ui.mine.contract.MineContract
+import com.example.framedemo.ui.mine.presenter.MinePresenter
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.BaseConstant
@@ -27,12 +28,12 @@ import org.greenrobot.eventbus.ThreadMode
  * 用户中心
  *
  */
-class MineFragment : BaseFragment(),CourseContract.View {
+class MineFragment : BaseFragment(),MineContract.View {
 
     /**
      * 懒加载Presenter
      */
-    private val mPresenter by lazy { CoursePresenter() }
+    private val mPresenter by lazy { MinePresenter() }
     init {
         mPresenter.attachView(this)
     }
@@ -42,7 +43,7 @@ class MineFragment : BaseFragment(),CourseContract.View {
     }
 
     override fun getLayoutId(): Int {
-        return com.example.framedemo.R.layout.fragment_mine
+        return R.layout.fragment_mine
     }
 
     override fun initData() {

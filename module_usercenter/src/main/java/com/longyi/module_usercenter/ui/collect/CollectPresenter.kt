@@ -3,6 +3,7 @@ package com.longyi.module_usercenter.ui.collect
 import com.example.lib_common.base.BasePresenter
 import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
+import com.example.lib_common.http.runRxLambda
 import com.example.lib_common.http.scheduler.SchedulerUtils
 
 /**
@@ -11,21 +12,19 @@ import com.example.lib_common.http.scheduler.SchedulerUtils
 class CollectPresenter : BasePresenter<CollectContract.View>(), CollectContract.Presenter {
 
     override fun getCollects(page: Int) {
-        val disposable = RetrofitManager.service.getCollects(page)
-            .compose(SchedulerUtils.ioToMain())
-            .subscribe({ res ->
-                if (res.data != null){
-                        if (res.data.curPage == res.data.pageCount) {
-                            mRootView?.showLoadEnd(res.data.datas)
-                        } else {
-                            mRootView?.showLoadComplete(res.data.datas)
-                        }
+        runRxLambda(RetrofitManager.service.getCollects(page),{
+            if (it.data != null){
+                if (it.data.curPage == it.data.pageCount) {
+                    mRootView?.showLoadEnd(it.data.datas)
+                } else {
+                    mRootView?.showLoadComplete(it.data.datas)
                 }
-
-            }, { throwable ->
-                val errorMsg = ExceptionHandle.handleException(throwable)
-                mRootView?.showError(errorMsg)
-            })
-        addSubscription(disposable)
+            }
+        },{
+            val errorMsg = ExceptionHandle.handleException(it)
+            mRootView?.showError(errorMsg)
+        },{
+            addSubscription(it)
+        })
     }
 }

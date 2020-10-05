@@ -17,7 +17,6 @@
     <color name="white_aaa">#ffaaaaaa</color>
     <color name="white_f4f5f6">#fff4f5f6</color>
     <color name="white_fc">#fffcfcfc</color>
-    <declare-styleable name="FlowLayout"><attr format="dimension|reference" name="horizontalMargin"/><attr format="dimension|reference" name="verticalMargin"/></declare-styleable>
     <dimen name="divider_1dp">0.5dp</dimen>
     <dimen name="flipper_height">40dp</dimen>
     <dimen name="flipper_text_size_16">16sp</dimen>
@@ -59,4 +58,8 @@
 		<!-- Used by MediaRouter -->
 		<item name="isLightTheme">true</item>
 	</style>
+    <declare-styleable name="FlowLayout">
+		<attr format="dimension|reference" name="horizontalMargin"/>
+		<attr format="dimension|reference" name="verticalMargin"/>
+	</declare-styleable>
 </resources>
