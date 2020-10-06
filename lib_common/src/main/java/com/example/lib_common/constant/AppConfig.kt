@@ -9,6 +9,7 @@ object AppConfig {
     private const val ModuleSearch = "com.longyi.module_search.SearchMainApplication"
     private const val ModuleShare = "com.longyi.module_share.ShareApplication"
     private const val ModuleUserCenter = "com.longyi.module_usercenter.UserApplication"
+    private const val ModuleJetPack = "com.longyi.module_android_jetpack.JetpackApplication"
 
-    var moduleApps = arrayOf( ModuleGank, ModuleMap, ModuleSearch, ModuleShare, ModuleUserCenter)
+    var moduleApps = arrayOf( ModuleGank, ModuleMap, ModuleSearch, ModuleShare, ModuleUserCenter, ModuleJetPack)
 }

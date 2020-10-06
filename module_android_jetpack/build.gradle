@@ -53,5 +53,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":lib_common")
+    kapt Config.dependencies.room_compiler
     kapt rootProject.ext.dependencies["arouter-compiler"]
 }
