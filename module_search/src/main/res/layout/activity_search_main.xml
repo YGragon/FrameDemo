@@ -1,50 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical"
-		tools:context=".SearchMainActivity">
-	<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="50dp"
-			android:background="@android:color/white">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	tools:context=".SearchMainActivity">
+	<ImageView
+		android:id="@+id/iv_search_back"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_centerVertical="true"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		android:paddingLeft="5dp"
+		android:paddingRight="5dp"
+		android:src="@drawable/icon_back"/>
+	<androidx.appcompat.widget.SearchView
+		android:id="@+id/searchView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:singleLine="true"
+		android:searchIcon="@null"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/iv_search_back"
+		app:layout_constraintTop_toTopOf="parent"/>
 
-		<ImageView
-				android:id="@+id/iv_search_back"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				android:layout_centerVertical="true"
-				android:paddingLeft="5dp"
-				android:paddingRight="5dp"
-				android:src="@drawable/icon_back"/>
-
-		<TextView
-				android:id="@+id/tv_search_text"
-				android:layout_width="wrap_content"
-				android:layout_height="match_parent"
-				android:layout_alignParentEnd="true"
-				android:gravity="center_vertical"
-				android:paddingStart="10dp"
-				android:paddingEnd="12dp"
-				android:text="@string/search"
-				android:textColor="@color/black_333"
-				android:textSize="16sp"/>
-
-		<EditText
-				android:id="@+id/et_keyword"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_toLeftOf="@id/tv_search_text"
-				android:layout_toRightOf="@id/iv_search_back"
-				android:hint="输入关键字搜索文章"
-				android:singleLine="true"/>
-
-	</RelativeLayout>
 	<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/rv_search"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
+		android:id="@+id/rv_search"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/searchView"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,12 +2,14 @@ package com.longyi.module_search
 
 import android.os.Handler
 import android.text.TextUtils
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -22,9 +24,17 @@ import com.example.lib_common.widget.flow.FlowAdapter
 import kotlinx.android.synthetic.main.activity_search_main.*
 import com.example.lib_common.widget.flow.FlowLayout
 import androidx.recyclerview.widget.DividerItemDecoration
+import autodispose2.AutoDispose
+import autodispose2.AutoDispose.autoDisposable
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.constant.ParameterConstant
+import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.keyboard.SoftKeyboardUtil
+import com.example.lib_common.utils.rx.RxUtil
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 @Route(path = RouterPath.Search.SEARCH_HOME,name = "搜索首页")
@@ -53,32 +63,32 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
     }
 
     override fun initView() {
-        tv_search_text.postDelayed({
-            SoftKeyboardUtil.hideKeyboard(et_keyword)
-        },200)
 
         iv_search_back.setOnClickListener { finish() }
-        tv_search_text.setOnClickListener {
-            // TODO 封装
-            val keyword = et_keyword.text.toString().trim { it <= ' ' }
-            if (!TextUtils.isEmpty(keyword)) {
-                // 保存到数据库中
-                mPresenter.saveSearchHistory(keyword)
-                // 搜索
-                mPresenter.getSearchResult(mPage,keyword)
+
+        //设置搜索框直接展开显示。左侧有放大镜(在搜索框中) 右侧有叉叉 可以关闭搜索框
+        // searchView.isIconified = false
+        // 设置搜索框直接展开显示。左侧有放大镜(在搜索框外) 右侧无叉叉 有输入内容后有叉叉 不能关闭搜索框
+        // searchView.setIconifiedByDefault(false)
+        // 设置搜索框直接展开显示。左侧有无放大镜(在搜索框中) 右侧无叉叉 有输入内容后有叉叉 不能关闭搜索框
+        searchView.onActionViewExpanded()
+        searchView.queryHint = "输入关键字搜索文章"
+
+
+        // 搜索框文字变化监听
+        RxUtil.searchViewTextChanges(searchView)
+            .debounce(1, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if (!TextUtils.isEmpty(it)) {
+                    // 保存到数据库中
+                    mPresenter.saveSearchHistory(it)
+                    // 搜索
+                    mPresenter.getSearchResult(mPage, it)
+                }
             }
-        }
-//        et_keyword.addTextChangedListener(object :TextWatcher{
-//            override fun afterTextChanged(s: Editable?) {
-//                // TODO 使用 RxJava 实现 联想搜索
-//                val keyword = s.toString().trim { it <= ' ' }
-//                if (TextUtils.isEmpty(keyword)) {
-//                    mPresenter.getSearchResult(mPage,keyword)
-//                }
-//            }
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-//        })
 
         rv_search.layoutManager = LinearLayoutManager(this)
         mSearchAdapter = SearchMainAdapter(mSearchList)
@@ -124,8 +134,7 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         flSearchHot.setOnItemClickListener { position, adapter, parent ->
             val searchHotKey = mHotKeys[position]
             val keyword = searchHotKey.name
-            et_keyword.setText(keyword)
-            et_keyword.setSelection(keyword.length)
+            searchView.setQuery(keyword,false)
             // 保存到数据库中
             mPresenter.saveSearchHistory(keyword)
             mPresenter.getSearchResult(0,keyword)
@@ -150,10 +159,9 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         rvSearchHistory.adapter = mSearchHistoryAdapter
         mSearchHistoryAdapter.notifyDataSetChanged()
         mSearchHistoryAdapter.setOnItemClickListener { adapter, view, position ->
-            val keyWord = mSearchHistorys[position].keyWord?:""
-            et_keyword.setText(keyWord)
-            et_keyword.setSelection(keyWord.length)
-            mPresenter.getSearchResult(0, keyWord)
+            val keyword = mSearchHistorys[position].keyWord?:""
+            searchView.setQuery(keyword,false)
+            mPresenter.getSearchResult(0, keyword)
         }
         mSearchHistoryAdapter.setOnItemChildClickListener { _, view, position ->
             // 删除某个item
@@ -183,6 +191,8 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         mSearchList.clear()
         mSearchList.addAll(list)
         mSearchAdapter.notifyDataSetChanged()
+
+        SoftKeyboardUtil.hideKeyboard(searchView)
     }
     override fun showSearchEmptyResult() {
 
@@ -190,6 +200,8 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         val emptyLayout = LayoutInflater.from(this).inflate(R.layout.layout_empty,null)
         mSearchAdapter.emptyView = emptyLayout
         mSearchAdapter.notifyDataSetChanged()
+
+        SoftKeyboardUtil.hideKeyboard(searchView)
     }
 
 
