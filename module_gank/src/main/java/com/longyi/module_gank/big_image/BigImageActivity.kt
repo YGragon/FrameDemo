@@ -23,6 +23,7 @@ import android.widget.Toast
 import com.daimajia.numberprogressbar.OnProgressBarListener
 import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.http.UrlConstant
+import com.example.lib_common.model.ImageData
 import com.example.lib_common.utils.LogUtils
 import com.longyi.lib_download.file_download.DownloadHelper
 import com.longyi.lib_download.file_download.DownloadListener
@@ -36,7 +37,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
     private lateinit var mBigImageAdapter: BigImageAdapter
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-    private var mPhotoList = mutableListOf<GankPhoto>()
+    private var mPhotoList = mutableListOf<ImageData>()
 
     private var mCount = 10
     private var mPage = 0
@@ -195,7 +196,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
         ToastUtils.show(BaseApplication.context, errorMsg)
     }
 
-    override fun showGankPhotoResult(list: MutableList<GankPhoto>) {
+    override fun showGankPhotoResult(list: MutableList<ImageData>) {
         if (list.isEmpty()) {
             mBigImageAdapter.loadMoreEnd()
         } else {

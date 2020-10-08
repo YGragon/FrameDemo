@@ -70,8 +70,8 @@ interface ApiService {
      * 获取 干货图片 列表
      */
     @Headers("base_url:gank")//添加注解，更换baseUrl
-    @GET("api/data/福利/{count}/{page}")
-    fun getGankPhotos(@Path("count")count:Int,@Path("page")page:Int):Observable<BaseGankResponse<MutableList<GankPhoto>>>
+    @GET("api/v2/data/category/Girl/type/Girl/page/{page}/count/{count}")
+    fun getGankPhotos(@Path("count")count:Int,@Path("page")page:Int):Observable<GankPhoto>
 
 
     /**

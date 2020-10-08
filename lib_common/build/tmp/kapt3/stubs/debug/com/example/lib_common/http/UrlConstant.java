@@ -10,7 +10,7 @@ public final class UrlConstant {
     @org.jetbrains.annotations.NotNull()
     public static final java.lang.String BASE_URL = "https://www.wanandroid.com/";
     @org.jetbrains.annotations.NotNull()
-    public static final java.lang.String GANK_URL = "http://gank.io/";
+    public static final java.lang.String GANK_URL = "https://gank.io/";
     public static final com.example.lib_common.http.UrlConstant INSTANCE = null;
     
     private UrlConstant() {

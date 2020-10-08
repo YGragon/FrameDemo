@@ -13,11 +13,11 @@ class BigImagePresenter : BasePresenter<BigImageContract.View>(),BigImageContrac
     override fun getGankPhoto(count: Int, page: Int) {
         // 从服务器获取
         runRxLambda(RetrofitManager.service.getGankPhotos(count,page),{
-            if (it.results.isEmpty()){
+            if (it.data.isEmpty()){
                 // 显示空页面
                 mRootView?.showGankEmptyResult()
             }else{
-                mRootView?.showGankPhotoResult(it.results)
+                mRootView?.showGankPhotoResult(it.data)
             }
         },{
             val errorMsg = ExceptionHandle.handleException(it)

@@ -17,7 +17,7 @@ interface GankPhotoContract {
         /**
          * 显示 干货图片 列表
          */
-        fun showGankPhotoResult(list:MutableList<GankPhoto>)
+        fun showGankPhotoResult(list:MutableList<ImageData>)
 
         /**
          * 显示 搜索 空列表

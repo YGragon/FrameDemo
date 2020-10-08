@@ -13,6 +13,7 @@ import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.GankPhoto
+import com.example.lib_common.model.ImageData
 import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.activity_gank_main.*
 
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_gank_main.*
 class GankMainActivity : BaseActivity(), GankPhotoContract.View {
 
     private lateinit var mAdapter: GankPhotoAdapter
-    private val mList = mutableListOf<GankPhoto>()
+    private val mList = mutableListOf<ImageData>()
     private var mCount = 10
     private var mPage = 1
 
@@ -63,7 +64,7 @@ class GankMainActivity : BaseActivity(), GankPhotoContract.View {
         ToastUtils.show(BaseApplication.context, errorMsg)
     }
 
-    override fun showGankPhotoResult(list: MutableList<GankPhoto>) {
+    override fun showGankPhotoResult(list: MutableList<ImageData>) {
         if (list.isEmpty()) {
             mAdapter.loadMoreEnd()
         } else {
