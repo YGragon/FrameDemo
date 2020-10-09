@@ -47,6 +47,7 @@ class Config {
         paging_version          : "2.1.1",
         lifecycle_version       : "2.2.0",
         autodispose2            : "2.0.0",
+        leak_canary             : "2.5",
 
     ]
 
@@ -103,6 +104,7 @@ class Config {
         "autodispose_lifecycle2"   : "com.uber.autodispose2:autodispose-lifecycle:${version.autodispose2}",
         "autodisposex_lifecycle2"  : "com.uber.autodispose2:autodispose-androidx-lifecycle:${version.autodispose2}",
         "autodispose_java"         : "com.uber.autodispose2:autodispose:${version.autodispose2}",
+        "leak_canary"              : "com.squareup.leakcanary:leakcanary-android:${version.leak_canary}",
     ]
 
 }

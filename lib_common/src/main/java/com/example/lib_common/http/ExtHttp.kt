@@ -1,6 +1,7 @@
 package com.example.lib_common.http
 
 import android.util.Log
+import autodispose2.ScopeProvider
 import autodispose2.autoDispose
 import autodispose2.lifecycle.LifecycleScopeProvider
 import com.example.lib_common.base.BaseViewModel
@@ -39,23 +40,23 @@ fun <T> runRxLambda(observable: Observable<T>,
     })
 }
 
-fun <T> runRxViewModel(lifecycleScopeProvider: LifecycleScopeProvider<BaseViewModel.ViewModelEvent>, observable: Observable<T>, observer: Observer<T>) =
+fun <T> runRxViewModel(provider: ScopeProvider, observable: Observable<T>, observer: Observer<T>) =
     observable
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .autoDispose(lifecycleScopeProvider)
+        .autoDispose(provider)
         .subscribe(observer)
 
-fun <T> runRxLambdaViewModel(lifecycleScopeProvider: LifecycleScopeProvider<BaseViewModel.ViewModelEvent>,observable: Observable<T>,
-                    next: (T) -> Unit,
-                    error: (error: Throwable) -> Unit = {
+fun <T> runRxLambdaViewModel(provider: ScopeProvider, observable: Observable<T>,
+                             next: (T) -> Unit,
+                             error: (error: Throwable) -> Unit = {
 //                        val errorStr = ExceptionHandle.handleException(it)
 //                        Log.e("runRxLambda", "error:$errorStr")
                     },
-                    subscribe: (d: Disposable) -> Unit = { Log.e("runRxLambda", "Disposable") },
-                    completed: () -> Unit = { Log.e("runRxLambda", "completed") }) {
+                             subscribe: (d: Disposable) -> Unit = { Log.e("runRxLambdaViewModel", "Disposable") },
+                             completed: () -> Unit = { Log.e("runRxLambdaViewModel", "completed") }) {
 
-    runRxViewModel(lifecycleScopeProvider,observable,object :Observer<T>{
+    runRxViewModel(provider,observable,object :Observer<T>{
         // 返回Disposable，用于在合适时机取消订阅，否则会出现内存泄漏问题
         override fun onSubscribe(d: Disposable) {subscribe(d)}
 

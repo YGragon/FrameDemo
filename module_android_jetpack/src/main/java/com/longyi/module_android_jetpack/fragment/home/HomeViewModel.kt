@@ -1,6 +1,7 @@
 package com.longyi.module_android_jetpack.fragment.home
 
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.uitestdemo.data.db.StudentDb
@@ -9,7 +10,7 @@ import com.example.lib_common.base.BaseViewModel
 /**
  * Created by Aller on 2020/6/6.
  */
-class HomeViewModel(context: Context): BaseViewModel() {
+class HomeViewModel(val view:LifecycleOwner): BaseViewModel() {
 
     companion object {
         private const val PAGE_SIZE = 15

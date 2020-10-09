@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home_jetpack.*
 class HomeJetpackFragment : BaseFragment() {
     private val TAG = HomeJetpackFragment::class.java.simpleName
 
-    private val viewModel  = HomeViewModel(BaseApplication.context as Application)
+    private val viewModel  = HomeViewModel(this)
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home_jetpack

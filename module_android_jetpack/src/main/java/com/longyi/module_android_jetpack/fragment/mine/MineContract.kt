@@ -1,6 +1,7 @@
 package com.longyi.module_android_jetpack.fragment.mine
 
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -15,6 +16,9 @@ interface MineContract {
     interface View:IBaseView{
         // 显示刷新后的 UI
         fun refreshUI()
+
+        // 获取当前 Owner , 放在 IBaseView 中
+        fun getOwnerView():Fragment
     }
 
     interface Presenter:IPresenter<View>, LifecycleObserver {
