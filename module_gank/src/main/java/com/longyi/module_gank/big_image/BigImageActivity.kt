@@ -25,10 +25,15 @@ import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.model.ImageData
 import com.example.lib_common.utils.LogUtils
+import com.example.lib_common.utils.RxBus
+import com.example.lib_common.utils.registerInBus
 import com.longyi.lib_download.file_download.DownloadHelper
 import com.longyi.lib_download.file_download.DownloadListener
+import com.longyi.module_gank.event.ImageEvent
+import org.greenrobot.eventbus.EventBus
 import java.io.File
-
+import org.greenrobot.eventbus.ThreadMode
+import org.greenrobot.eventbus.Subscribe
 
 
 @Route(path = RouterPath.Gank.GANK_PHOTO_DETAIL,name = "上下翻页的图片详情")
@@ -42,7 +47,6 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
     private var mCount = 10
     private var mPage = 0
     private var mPosition = 0
-    private var isInit = false
 
     private val mPresenter by lazy { BigImagePresenter() }
 
@@ -52,6 +56,13 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
 
     override fun getLayoutId(): Int {
+//        RxBus.observe<ImageEvent>().subscribe {
+//            Log.e("222","imageEvent:$it")
+//            mCount = it.count
+//            mPage = it.page
+//            mPosition = it.position
+//            mPhotoList = it.list
+//        }.registerInBus(this)
         return com.longyi.module_gank.R.layout.activity_big_image
     }
 
@@ -84,12 +95,21 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
         toolbar.setNavigationOnClickListener { finish() }
     }
 
-    override fun initData() {
-        mCount = intent.getIntExtra(ParameterConstant.GankPhoto.count,0)
-        mPage = intent.getIntExtra(ParameterConstant.GankPhoto.page,0)
-        mPosition = intent.getIntExtra(ParameterConstant.GankPhoto.position,0)
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    fun onMessageEvent(it: ImageEvent) {/* Do something */
+        mCount = it.count
+        mPage = it.page
+        mPosition = it.position
+        mPhotoList.clear()
+        mPhotoList.addAll(it.list)
 
-        mPresenter.getGankPhoto(mCount,mPage)
+        rv_gank_photo_detail.scrollToPosition(mPosition)
+        mLinearLayoutManager.scrollToPositionWithOffset(mPosition,0)
+
+        mBigImageAdapter.notifyDataSetChanged()
+    }
+
+    override fun initData() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -203,10 +223,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
             mPhotoList.addAll(list)
             mBigImageAdapter.loadMoreComplete()
         }
-        if (isInit){
-            isInit = false
-            rv_gank_photo_detail.scrollToPosition(mPosition)
-        }
+        rv_gank_photo_detail.scrollToPosition(mPosition)
 
         mBigImageAdapter.notifyDataSetChanged()
 
@@ -223,7 +240,12 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
     override fun onResume() {
         super.onResume()
-        isInit = true
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onDestroy() {

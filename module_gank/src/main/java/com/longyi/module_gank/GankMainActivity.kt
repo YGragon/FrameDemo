@@ -1,21 +1,19 @@
 package com.longyi.module_gank
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication
-import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
-import com.example.lib_common.model.GankPhoto
 import com.example.lib_common.model.ImageData
 import com.example.lib_common.utils.ToastUtils
+import com.longyi.module_gank.event.ImageEvent
 import kotlinx.android.synthetic.main.activity_gank_main.*
+import org.greenrobot.eventbus.EventBus
 
 @Route(path = RouterPath.Gank.GANK_PHOTO, name = "干货福利")
 class GankMainActivity : BaseActivity(), GankPhotoContract.View {
@@ -36,17 +34,19 @@ class GankMainActivity : BaseActivity(), GankPhotoContract.View {
     }
 
     override fun initView() {
+
+        initToolbar()
+
         rv_gank_photo.layoutManager = GridLayoutManager(this, 2)
         mAdapter = GankPhotoAdapter(mList)
         rv_gank_photo.adapter = mAdapter
 
         mAdapter.setOnItemClickListener { _, _, position ->
+            // 传递数据
+            EventBus.getDefault().postSticky(ImageEvent(position,mPage,mCount,mList))
+
             ARouter.getInstance()
                 .build(RouterPath.Gank.GANK_PHOTO_DETAIL)
-                .withInt(ParameterConstant.GankPhoto.position, position % mCount)
-                .withInt(ParameterConstant.GankPhoto.count, mCount)
-                .withInt(ParameterConstant.GankPhoto.page, mPage)
-                .withString(ParameterConstant.GankPhoto.imageUrl, mList[position].url)
                 .navigation()
         }
 
@@ -54,6 +54,17 @@ class GankMainActivity : BaseActivity(), GankPhotoContract.View {
             mPage++
             mPresenter.getGankPhoto(mCount, mPage)
         }, rv_gank_photo)
+    }
+
+    private fun initToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = "GankIO 图片"
+        //设置为ActionBar
+        setSupportActionBar(toolbar)
+        //显示那个箭头
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
     }
 
     override fun initData() {
