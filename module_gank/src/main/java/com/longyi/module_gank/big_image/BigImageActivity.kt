@@ -5,8 +5,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication
-import com.example.lib_common.constant.ParameterConstant
-import com.example.lib_common.model.GankPhoto
 import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.activity_big_image.*
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -17,16 +15,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import com.daimajia.numberprogressbar.OnProgressBarListener
 import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.model.ImageData
 import com.example.lib_common.utils.LogUtils
-import com.example.lib_common.utils.RxBus
-import com.example.lib_common.utils.registerInBus
+import com.example.lib_common.utils.rxbus.bus.RxBus
+import com.example.lib_common.utils.rxbus.bus.RxBusReceiver
 import com.longyi.lib_download.file_download.DownloadHelper
 import com.longyi.lib_download.file_download.DownloadListener
 import com.longyi.module_gank.event.ImageEvent
@@ -56,13 +52,6 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
 
     override fun getLayoutId(): Int {
-//        RxBus.observe<ImageEvent>().subscribe {
-//            Log.e("222","imageEvent:$it")
-//            mCount = it.count
-//            mPage = it.page
-//            mPosition = it.position
-//            mPhotoList = it.list
-//        }.registerInBus(this)
         return com.longyi.module_gank.R.layout.activity_big_image
     }
 
@@ -82,6 +71,25 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
             mPage++
             mPresenter.getGankPhoto(mCount,mPage)
         },rv_gank_photo_detail)
+
+        RxBus.receiveSticky(this,"imagesInfo",object :RxBusReceiver<Any>(){
+            override fun receive(data: Any) {
+                val imageInfo = data as ImageEvent
+                mCount = imageInfo.count
+                mPage = imageInfo.page
+                mPosition = imageInfo.position
+                mPhotoList.clear()
+                mPhotoList.addAll(imageInfo.list)
+
+                rv_gank_photo_detail.scrollToPosition(mPosition)
+                mLinearLayoutManager.scrollToPositionWithOffset(mPosition,0)
+
+                mBigImageAdapter.notifyDataSetChanged()
+
+            }
+
+        })
+
     }
 
     private fun initToolbar() {
@@ -93,20 +101,6 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    fun onMessageEvent(it: ImageEvent) {/* Do something */
-        mCount = it.count
-        mPage = it.page
-        mPosition = it.position
-        mPhotoList.clear()
-        mPhotoList.addAll(it.list)
-
-        rv_gank_photo_detail.scrollToPosition(mPosition)
-        mLinearLayoutManager.scrollToPositionWithOffset(mPosition,0)
-
-        mBigImageAdapter.notifyDataSetChanged()
     }
 
     override fun initData() {
@@ -171,7 +165,7 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
 
                 override fun onProgress(progress: Int) {
                     number_progress_bar.progress = progress
-                    LogUtils.d("下载进度：" + progress)
+                    LogUtils.d("下载进度：$progress")
                 }
 
                 override fun onFinishDownload(file: File) {
@@ -237,16 +231,6 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
     override fun showLoading() {}
 
     override fun hideLoading() {}
-
-    override fun onResume() {
-        super.onResume()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().unregister(this)
-    }
 
     override fun onDestroy() {
         mPresenter.detachView()

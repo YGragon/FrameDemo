@@ -11,6 +11,7 @@ import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.ImageData
 import com.example.lib_common.utils.ToastUtils
+import com.example.lib_common.utils.rxbus.bus.RxBus
 import com.longyi.module_gank.event.ImageEvent
 import kotlinx.android.synthetic.main.activity_gank_main.*
 import org.greenrobot.eventbus.EventBus
@@ -43,8 +44,7 @@ class GankMainActivity : BaseActivity(), GankPhotoContract.View {
 
         mAdapter.setOnItemClickListener { _, _, position ->
             // 传递数据
-            EventBus.getDefault().postSticky(ImageEvent(position,mPage,mCount,mList))
-
+            RxBus.postSticky("imagesInfo",ImageEvent(position,mPage,mCount,mList))
             ARouter.getInstance()
                 .build(RouterPath.Gank.GANK_PHOTO_DETAIL)
                 .navigation()
