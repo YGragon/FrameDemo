@@ -3,6 +3,7 @@ package com.example.framedemo.ui.mine
 
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.framedemo.R
 
@@ -69,7 +70,7 @@ class MineFragment : BaseFragment(),MineContract.View {
         checkUserLogin()
 
         val datas = DataSource.getFunData()
-        rv_mine_list.layoutManager = activity?.let { GridLayoutManager(it,3) }
+        rv_mine_list.layoutManager = LinearLayoutManager(activity)
         val mineAdapter = MineAdapter(datas)
         rv_mine_list.adapter = mineAdapter
         mineAdapter.notifyDataSetChanged()
@@ -104,28 +105,25 @@ class MineFragment : BaseFragment(),MineContract.View {
                 4 -> ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
                 5 -> ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
                 6 ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.CUSTOM_TAB).navigation()
+                7 -> getAllService()
             }
         }
-
-        btn_get_server.setOnClickListener {
-
-
-//            val isCheck = TestService.checkEnabledAccessibilityService(BaseApplication.context)
-//            if (isCheck){
-                val isRun = TestService.isRun(BaseApplication.context,"")
-                val enabled = TestService.enabled("",BaseApplication.context)
-                println(isRun)
-                println(enabled)
-//            }else{
-//                println("未获取权限")
-//            }
-        }
-
     }
 
+    private fun getAllService(){
+        val isCheck = TestService.checkEnabledAccessibilityService(BaseApplication.context)
+        if (isCheck){
+            val isRun = TestService.isRun(BaseApplication.context,"")
+            val enabled = TestService.enabled("",BaseApplication.context)
+            println(isRun)
+            println(enabled)
+        }else{
+            println("未获取权限")
+        }
+    }
     override fun setTvTitleBackgroundColor() {
-        tv_title.setBackgroundColor(resources.getColor(com.example.framedemo.R.color.colorPrimaryDark))
-        fake_status_bar.setBackgroundColor(resources.getColor(com.example.framedemo.R.color.colorPrimary))
+        tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
     }
 
     private fun checkUserLogin() {

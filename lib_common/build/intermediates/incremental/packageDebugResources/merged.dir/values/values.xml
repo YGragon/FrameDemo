@@ -18,7 +18,7 @@
     <color name="white_f4f5f6">#fff4f5f6</color>
     <color name="white_fc">#fffcfcfc</color>
     <dimen name="divider_1dp">0.5dp</dimen>
-    <dimen name="flipper_height">40dp</dimen>
+    <dimen name="flipper_height">56dp</dimen>
     <dimen name="flipper_text_size_16">16sp</dimen>
     <dimen name="statusbar_view_height">0dp</dimen>
     <string name="app_name">FrameDemo</string>
@@ -27,9 +27,9 @@
     <string name="menu_download">下载</string>
     <string name="menu_share">分享</string>
     <style name="ToolbarPopupTheme" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
-		<!--menu below-->
+		
 		<item name="overlapAnchor">false</item>
-		<!--menu text color-->
+		
 		<item name="android:textColor">@color/menu_text_color</item>
 		<item name="android:windowBackground">@color/background_material_light</item>
 		<item name="android:colorForeground">@color/foreground_material_light</item>
@@ -55,7 +55,7 @@
 		<item name="colorButtonNormal">@color/button_material_light</item>
 		<item name="colorSwitchThumbNormal">@color/switch_thumb_material_light</item>
 
-		<!-- Used by MediaRouter -->
+		
 		<item name="isLightTheme">true</item>
 	</style>
     <declare-styleable name="FlowLayout">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<dimen name="statusbar_view_height">0dp</dimen>
-	<dimen name="flipper_height">40dp</dimen>
+	<dimen name="flipper_height">56dp</dimen>
 	<dimen name="flipper_text_size_16">16sp</dimen>
 	<dimen name="divider_1dp">0.5dp</dimen>
 </resources>
