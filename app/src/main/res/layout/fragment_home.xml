@@ -6,17 +6,24 @@
 	android:layout_width="match_parent" android:layout_height="match_parent"
 	android:orientation="vertical"
 	tools:context=".ui.home.HomeFragment">
-	<View
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/rv_home_list"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior"
+		/>
+	<LinearLayout
+		android:id="@+id/layout_status_bar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:background="@color/colorAccent">
+		<View
 			android:id="@+id/fake_status_bar"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/statusbar_view_height"
-			android:background="@color/colorPrimary"/>
-	<com.google.android.material.appbar.AppBarLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:elevation="0dp"
-		android:background="@color/colorAccent"
-		android:layout_marginTop="@dimen/statusbar_view_height">
+			/>
 		<!--搜索布局-->
 		<ViewFlipper
 			android:id="@+id/mFlipperView"
@@ -27,12 +34,6 @@
 			android:inAnimation="@anim/bottom_in"
 			android:outAnimation="@anim/bottom_out"
 			/>
-	</com.google.android.material.appbar.AppBarLayout>
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/rv_home_list"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		app:layout_behavior="@string/appbar_scrolling_view_behavior"
-		/>
+	</LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

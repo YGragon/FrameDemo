@@ -8,6 +8,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/flipper_height"
 			android:textSize="@dimen/flipper_text_size_16"
-			android:textColor="@color/half_white"
+			android:textColor="@color/white"
 			android:gravity="center"/>
 </LinearLayout>

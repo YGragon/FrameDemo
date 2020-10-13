@@ -2,9 +2,12 @@ package com.example.framedemo.ui.home
 
 
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.framedemo.R
 import com.example.framedemo.ui.home.contract.HomeContract
@@ -55,7 +58,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_home
+        return com.example.framedemo.R.layout.fragment_home
     }
 
     override fun initData() {
@@ -63,10 +66,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
 
     override fun initView() {
-        rv_home_list.layoutManager = LinearLayoutManager(activity)
+        val linearLayoutManager = LinearLayoutManager(activity)
+        rv_home_list.layoutManager = linearLayoutManager
         mAdapter = HomeAdapter(mArticles)
-        val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner,null)
-        banner = headBanner.findViewById(R.id.banner)
+        val headBanner = LayoutInflater.from(activity).inflate(com.example.framedemo.R.layout.head_home_banner,null)
+        banner = headBanner.findViewById(com.example.framedemo.R.id.banner)
         mAdapter.addHeaderView(headBanner)
         rv_home_list.adapter = mAdapter
 
@@ -88,12 +92,34 @@ class HomeFragment : BaseFragment(), HomeContract.View {
                 .withString(ParameterConstant.Web.webUrl,mArticles[position].link)
                 .navigation()
         }
+        
+        // 滑动监听
+        rv_home_list.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val scrolledYDistance = getScrolledYDistance(linearLayoutManager)
+                val alpha = scrolledYDistance / (250*1.0f) + 0.3f
+                changeStatusBarColor(alpha)
 
+            }
+        })
+
+    }
+    // LinearLayoutManager 获取滑动的高度
+    fun getScrolledYDistance(layoutManager: LinearLayoutManager): Int {
+        val position = layoutManager.findFirstVisibleItemPosition()
+        val firstVisibleChildView = layoutManager.findViewByPosition(position)
+        val itemHeight = firstVisibleChildView!!.height
+        return position * itemHeight - firstVisibleChildView.top
+    }
+
+    private fun changeStatusBarColor(alpha:Float){
+        layout_status_bar.alpha = alpha
     }
 
     override fun setTvTitleBackgroundColor() {
 //        tv_title.setBackgroundColor(resources.getColor(R.color.colorAccent))
-        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
+//        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
     }
 
     override fun fragmentShowToUser() {
