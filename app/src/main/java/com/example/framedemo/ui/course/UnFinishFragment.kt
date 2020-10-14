@@ -13,12 +13,10 @@ import com.example.lib_common.utils.ToastUtils
 import kotlinx.android.synthetic.main.fragment_un_finish.*
 import android.widget.Toast
 import android.view.Gravity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
-import com.example.lib_common.widget.popupview.ToDoPopup
-import razerdp.basepopup.QuickPopupConfig
-import razerdp.basepopup.QuickPopupBuilder
 
 /**
  * 未完成
@@ -47,19 +45,19 @@ class UnFinishFragment:BaseFragment(),TodoContract.View {
     override fun initData() {}
 
     override fun initView() {
-        rv_un_finish.layoutManager = GridLayoutManager(activity,2)
+        rv_un_finish.layoutManager = LinearLayoutManager(activity)
         mAdapter = TodoAdapter(mUnFinishList)
         rv_un_finish.adapter = mAdapter
 
         srl_refresh_layout.setOnRefreshListener {
             mUnFinishList.clear()
             mPage = 0
-            mPresenter.getUnFinishList(page = mPage,type = mType,priority = mPriority)
+            mPresenter.getList(page = mPage,status = 0,type = mType,priority = mPriority)
         }
 
         mAdapter.setOnLoadMoreListener({
             mPage++
-            mPresenter.getUnFinishList(page = mPage,type = mType,priority = mPriority)
+            mPresenter.getList(page = mPage,status = 0,type = mType,priority = mPriority)
         },rv_un_finish)
 
         mAdapter.setOnItemClickListener { _, _, position ->
@@ -72,7 +70,7 @@ class UnFinishFragment:BaseFragment(),TodoContract.View {
     override fun setTvTitleBackgroundColor() {}
 
     override fun fragmentShowToUser() {
-        mPresenter.getUnFinishList(page = mPage,type = mType,priority = mPriority)
+        mPresenter.getList(page = mPage,status = 0,type = mType,priority = mPriority)
     }
 
     override fun fragmentHideToUser() {}
@@ -82,7 +80,7 @@ class UnFinishFragment:BaseFragment(),TodoContract.View {
         ToastUtils.show(BaseApplication.context,errorMsg)
     }
 
-    override fun showUnFinishList(curPage:Int, totalPage:Int, list: MutableList<Todo>) {
+    override fun showList(curPage:Int, totalPage:Int, list: MutableList<Todo>) {
         when (curPage) {
             in 1..totalPage -> {
                 mUnFinishList.addAll(list)

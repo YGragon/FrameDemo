@@ -7,8 +7,8 @@ import kotlinx.android.synthetic.main.mine_fragment.*
 import android.os.Handler
 import android.os.Message
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
+import com.longyi.module_android_jetpack.R
 
 class MineFragment : BaseFragment(),MineContract.View{
 
@@ -38,7 +38,7 @@ class MineFragment : BaseFragment(),MineContract.View{
     private val minePresenter = MinePresenter(this)
 
     override fun getLayoutId(): Int {
-        return com.longyi.module_android_jetpack.R.layout.mine_fragment
+        return R.layout.mine_fragment
     }
 
     override fun initData() {

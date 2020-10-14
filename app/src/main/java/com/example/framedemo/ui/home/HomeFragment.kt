@@ -92,7 +92,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
                 .withString(ParameterConstant.Web.webUrl,mArticles[position].link)
                 .navigation()
         }
-        
+
         // 滑动监听
         rv_home_list.addOnScrollListener(object :RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

@@ -16,22 +16,17 @@ interface TodoContract {
         fun showError(errorMsg:String)
 
         /**
-         * 显示 未完成列表
+         * 显示列表
          */
-        fun showUnFinishList(curPage:Int, totalPage:Int, list: MutableList<Todo>)
+        fun showList(curPage:Int, totalPage:Int, list: MutableList<Todo>)
 
     }
 
     interface Presenter:IPresenter<View>{
         /**
-         * 获取 未完成列表
+         * 获取列表
          */
-        fun getUnFinishList(page:Int,status:Int = 0,type:Int,priority:Int,orderby:Int = 4)
-
-        /**
-         * 获取完成列表
-         */
-        fun getFinishList(page:Int,status:Int = 1,type:Int,priority:Int,orderby:Int = 4)
+        fun getList(page:Int,status:Int,type:Int,priority:Int,orderby:Int = 4)
 
 
     }

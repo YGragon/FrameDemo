@@ -54,7 +54,7 @@ class MineViewModel(val view:LifecycleOwner) : BaseViewModel() {
 
         // 只处理成功，失败的可以处理可以不处理
         runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),Observable.intervalRange(0,100,1,1,TimeUnit.SECONDS),{
-            Log.e("222","time:$it")
+            Log.e("222","runRxLambdaViewModel-time:$it")
             mElapsedRealTime.postValue(it)
         })
     }
