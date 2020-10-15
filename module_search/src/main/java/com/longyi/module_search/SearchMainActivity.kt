@@ -102,6 +102,34 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
             ARouter.getInstance().build(RouterPath.Web.WEB_DETAIL).withString(ParameterConstant.Web.webUrl,mSearchList[position].link).navigation()
         }
 
+        // 搜索历史列表
+        val ivDelAllHistory = headerHistory.findViewById<ImageView>(R.id.iv_search_history_del_all)
+        val rvSearchHistory = headerHistory.findViewById<RecyclerView>(R.id.rt_search_history)
+
+        rvSearchHistory.layoutManager = LinearLayoutManager(this)
+        rvSearchHistory.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        mSearchHistoryAdapter = SearchHistoryAdapter(mSearchHistorys)
+        rvSearchHistory.adapter = mSearchHistoryAdapter
+        mSearchHistoryAdapter.setOnItemClickListener { adapter, view, position ->
+            val keyword = mSearchHistorys[position].keyWord?:""
+            searchView.setQuery(keyword,false)
+            mPresenter.getSearchResult(0, keyword)
+        }
+        mSearchHistoryAdapter.setOnItemChildClickListener { _, view, position ->
+            // 删除某个item
+            mPresenter.searchDao.delete(mSearchHistorys[position])
+            mSearchHistorys.removeAt(position)
+            mSearchHistoryAdapter.notifyItemRemoved(position)
+            if (mSearchHistoryAdapter.itemCount <= 0){
+                hideHistorys()
+            }
+        }
+        // 全部清空搜索历史
+        ivDelAllHistory.setOnClickListener {
+            mPresenter.searchDao.deleteAll()
+            hideHistorys()
+        }
+
         mSearchAdapter.notifyDataSetChanged()
     }
 
@@ -149,34 +177,9 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
     override fun showHistorys(searchHistory:MutableList<SearchHistory>) {
         mSearchHistorys.clear()
         mSearchHistorys.addAll(searchHistory)
-        // 搜索历史列表
-        val ivDelAllHistory = headerHistory.findViewById<ImageView>(R.id.iv_search_history_del_all)
-        val rvSearchHistory = headerHistory.findViewById<RecyclerView>(R.id.rt_search_history)
-
-        rvSearchHistory.layoutManager = LinearLayoutManager(this)
-        rvSearchHistory.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        mSearchHistoryAdapter = SearchHistoryAdapter(mSearchHistorys)
-        rvSearchHistory.adapter = mSearchHistoryAdapter
         mSearchHistoryAdapter.notifyDataSetChanged()
-        mSearchHistoryAdapter.setOnItemClickListener { adapter, view, position ->
-            val keyword = mSearchHistorys[position].keyWord?:""
-            searchView.setQuery(keyword,false)
-            mPresenter.getSearchResult(0, keyword)
-        }
-        mSearchHistoryAdapter.setOnItemChildClickListener { _, view, position ->
-            // 删除某个item
-            mPresenter.searchDao.delete(mSearchHistorys[position])
-            mSearchHistorys.removeAt(position)
-            mSearchHistoryAdapter.notifyItemRemoved(position)
-            if (mSearchHistoryAdapter.itemCount <= 0){
-                hideHistorys()
-            }
-        }
-        // 全部清空搜索历史
-        ivDelAllHistory.setOnClickListener {
-            mPresenter.searchDao.deleteAll()
-            hideHistorys()
-        }
+
+
     }
 
     override fun hideHistorys() {
@@ -195,11 +198,13 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         SoftKeyboardUtil.hideKeyboard(searchView)
     }
     override fun showSearchEmptyResult() {
+        mPresenter.getHistorys()
+        ToastUtils.show(this,"暂未搜索到相关数据")
 
-        mSearchAdapter.removeAllHeaderView()
-        val emptyLayout = LayoutInflater.from(this).inflate(R.layout.layout_empty,null)
-        mSearchAdapter.emptyView = emptyLayout
-        mSearchAdapter.notifyDataSetChanged()
+//        mSearchAdapter.removeAllHeaderView()
+//        val emptyLayout = LayoutInflater.from(this).inflate(R.layout.layout_empty,null)
+//        mSearchAdapter.emptyView = emptyLayout
+//        mSearchAdapter.notifyDataSetChanged()
 
         SoftKeyboardUtil.hideKeyboard(searchView)
     }
