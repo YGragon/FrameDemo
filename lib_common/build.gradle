@@ -81,13 +81,14 @@ dependencies {
     api rootProject.ext.dependencies["swipebacklayout"]
     api rootProject.ext.dependencies["bottom_navigation_bar"]
     api rootProject.ext.dependencies["arouter-api"]
-    api rootProject.ext.dependencies["easypermissions"]
+//    api rootProject.ext.dependencies["easypermissions"]
     api rootProject.ext.dependencies["BasePopup"]
     api rootProject.ext.dependencies["BRVAH"]
     api rootProject.ext.dependencies["crashreport_upgrade"]
     api rootProject.ext.dependencies["nativecrashreport"]
     api rootProject.ext.dependencies["banner"]
     api rootProject.ext.dependencies["agentweb"]
+    api Config.dependencies.permissionx
     api Config.dependencies.room
     kapt Config.dependencies.room_compiler
     api Config.dependencies.paging_runtime_ktx
@@ -97,9 +98,7 @@ dependencies {
     api Config.dependencies.navigation_fragment
     api Config.dependencies.navigation_ui
     api Config.dependencies.autodispose2
-//    api Config.dependencies.autodispose_lifecycle2
     api Config.dependencies.autodisposex_lifecycle2
-//    api Config.dependencies.autodispose_java
     debugImplementation Config.dependencies.leak_canary
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testrunner"]

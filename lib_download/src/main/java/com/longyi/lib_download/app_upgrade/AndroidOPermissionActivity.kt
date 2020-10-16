@@ -6,11 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.example.lib_common.base.BaseActivity
 import com.longyi.lib_download.R
-import pub.devrel.easypermissions.EasyPermissions
+import com.permissionx.guolindev.PermissionX
 
 class AndroidOPermissionActivity : BaseActivity() {
     private var mAlertDialog: AlertDialog? = null
@@ -38,29 +39,24 @@ class AndroidOPermissionActivity : BaseActivity() {
      * 6.0以下版本(系统自动申请) 不会弹框
      * 有些厂商修改了6.0系统申请机制，他们修改成系统自动申请权限了
      */
-    fun checkDownLoadPermission() {
-        val perms = arrayOf(
-            Manifest.permission.REQUEST_INSTALL_PACKAGES
-        )
-        EasyPermissions.requestPermissions(this, "应用需要以下权限，请允许", 0, *perms)
-    }
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-        if (requestCode == 0) {
-            if (perms.isNotEmpty()) {
-                if (perms.contains(Manifest.permission.READ_PHONE_STATE)
-                    && perms.contains(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    && perms.contains(Manifest.permission.CAMERA)
-                ) {
+    private fun checkDownLoadPermission() {
+
+        PermissionX.init(this)
+            .permissions(Manifest.permission.REQUEST_INSTALL_PACKAGES)
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted) {
                     // 拥有权限
                     sListener?.permissionSuccess()
                     finish()
+                    Toast.makeText(this, "All permissions are granted", Toast.LENGTH_LONG).show()
+                } else {
+                    showDialog()
+                    Toast.makeText(this, "These permissions are denied: $deniedList", Toast.LENGTH_LONG).show()
                 }
-            }else{
-                showDialog()
             }
-        }
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showDialog() {
         val builder = AlertDialog.Builder(this)
@@ -79,7 +75,7 @@ class AndroidOPermissionActivity : BaseActivity() {
         mAlertDialog?.show()
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun startInstallPermissionSettingActivity() {
         //注意这个是8.0新API
         val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:$packageName"))

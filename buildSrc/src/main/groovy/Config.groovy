@@ -12,7 +12,7 @@ class Config {
 
     static version = [
         androidSupportSdkVersion: "28.0.0",
-        kotlinSdkVersion        : "1.3.31",
+        kotlinSdkVersion        : "1.3.50",
         junit                   : "4.12",
         testrunner              : "1.0.2",
         espressoSdkVersion      : "3.0.2",
@@ -35,7 +35,7 @@ class Config {
         statusbarutil           : "1.5.1",
         swipebacklayout         : "1.2.0",
         bottom_navigation_bar   : "2.1.0",
-        easypermissions         : "3.0.0",
+        permissionx             : "1.4.0",
         BasePopup               : "2.2.1",
         BRVAH                   : "2.9.30",
         bugly                   : "latest.release",
@@ -84,7 +84,7 @@ class Config {
         "statusbarutil"            : "com.jaeger.statusbarutil:library:${version["statusbarutil"]}",
         "swipebacklayout"          : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}@aar",
         "bottom_navigation_bar"    : "com.ashokvarma.android:bottom-navigation-bar:${version["bottom_navigation_bar"]}",
-        "easypermissions"          : "pub.devrel:easypermissions:${version["easypermissions"]}",
+        "permissionx"              : "com.permissionx.guolindev:permissionx:${version["permissionx"]}",
         "BasePopup"                : "com.github.razerdp:BasePopup:${version["BasePopup"]}",
         "BRVAH"                    : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version["BRVAH"]}",
         "crashreport_upgrade"      : "com.tencent.bugly:crashreport_upgrade:${version["bugly"]}",

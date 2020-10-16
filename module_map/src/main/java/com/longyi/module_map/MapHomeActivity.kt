@@ -1,21 +1,18 @@
 package com.longyi.module_map
 
 import android.Manifest
-import android.content.Intent
+import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.RouterPath
 import com.baidu.location.LocationClientOption.LocationMode
-import com.example.lib_common.utils.LogUtils
 import com.baidu.location.*
-import com.example.lib_common.constant.BaseConstant
+import com.permissionx.guolindev.PermissionX
 import kotlinx.android.synthetic.main.activity_map_home.*
-import pub.devrel.easypermissions.AppSettingsDialog
-import pub.devrel.easypermissions.EasyPermissions
 
 
 @Route(path = RouterPath.Map.MAP_APP,name = "地图组件")
-class MapHomeActivity : BaseActivity() , EasyPermissions.PermissionCallbacks{
+class MapHomeActivity : BaseActivity() {
     override fun getLayoutId(): Int {
         return R.layout.activity_map_home
     }
@@ -28,15 +25,18 @@ class MapHomeActivity : BaseActivity() , EasyPermissions.PermissionCallbacks{
     }
 
     private fun checkCameraPermission() {
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            initLocationOption()
-        } else {
-            EasyPermissions.requestPermissions(
-                this,
-                "应用程序需要访问您的位置信息,您需要在下个弹窗中允许我们使用定位权限才能继续使用",
-                BaseConstant.CAMERA_REQUEST_CODE,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-        }
+
+        PermissionX.init(this)
+            .permissions(Manifest.permission.ACCESS_COARSE_LOCATION)
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted) {
+                    // 拥有权限
+                    initLocationOption()
+                    Toast.makeText(this, "All permissions are granted", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "These permissions are denied: $deniedList", Toast.LENGTH_LONG).show()
+                }
+            }
     }
 
     /**
@@ -120,16 +120,6 @@ class MapHomeActivity : BaseActivity() , EasyPermissions.PermissionCallbacks{
             val poi = poiList[0]
             tv_map_info.text = "纬度："+latitude+"\n经度："+longitude+"\n地址："+addr+poi.name
 
-        }
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
-            checkCameraPermission()
-        }else{
-            finish()
         }
     }
 }
