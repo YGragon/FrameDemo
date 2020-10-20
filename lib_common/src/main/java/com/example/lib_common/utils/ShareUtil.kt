@@ -1,4 +1,4 @@
-package com.longyi.module_share
+package com.example.lib_common.utils
 
 import android.app.Activity
 import android.content.ComponentName

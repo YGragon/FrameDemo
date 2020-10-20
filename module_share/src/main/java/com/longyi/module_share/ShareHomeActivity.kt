@@ -1,6 +1,5 @@
 package com.longyi.module_share
 
-import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import cn.sharesdk.onekeyshare.OnekeyShare
@@ -13,6 +12,7 @@ import com.example.lib_common.constant.ShareContentType
 import com.example.lib_common.service.ServiceFactory
 import com.example.lib_common.utils.FileUtil
 import com.example.lib_common.utils.LogUtils
+import com.example.lib_common.utils.ShareUtil
 import kotlinx.android.synthetic.main.activity_share_home.*
 
 @Route(path = RouterPath.Share.SHARE_APP,name = "分享主页")

@@ -15,21 +15,25 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.util.Log
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.numberprogressbar.OnProgressBarListener
 import com.example.lib_common.constant.BaseConstant
+import com.example.lib_common.constant.ShareContentType
 import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.model.ImageData
+import com.example.lib_common.utils.FileUtil
 import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.rxbus.bus.RxBus
 import com.example.lib_common.utils.rxbus.bus.RxBusReceiver
 import com.longyi.lib_download.file_download.DownloadHelper
 import com.longyi.lib_download.file_download.DownloadListener
+import com.longyi.module_gank.R
 import com.longyi.module_gank.event.ImageEvent
-import org.greenrobot.eventbus.EventBus
+import com.example.lib_common.utils.ShareUtil
 import java.io.File
-import org.greenrobot.eventbus.ThreadMode
-import org.greenrobot.eventbus.Subscribe
 
 
 @Route(path = RouterPath.Gank.GANK_PHOTO_DETAIL,name = "上下翻页的图片详情")
@@ -39,6 +43,8 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
     private lateinit var mBigImageAdapter: BigImageAdapter
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private var mPhotoList = mutableListOf<ImageData>()
+
+    private var currentIndex = 0
 
     private var mCount = 10
     private var mPage = 0
@@ -64,7 +70,18 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
         mBigImageAdapter = BigImageAdapter(mPhotoList)
         rv_gank_photo_detail.adapter = mBigImageAdapter
         // 垂直翻页
-        val snapHelper = PagerSnapHelper()
+        val snapHelper = object :PagerSnapHelper(){
+            override fun findTargetSnapPosition(
+                layoutManager: RecyclerView.LayoutManager?,
+                velocityX: Int,
+                velocityY: Int
+            ): Int {
+                val targetPos = super.findTargetSnapPosition(layoutManager, velocityX, velocityY)
+                currentIndex = targetPos
+                Toast.makeText(this@BigImageActivity, "滑到到 " + targetPos + "位置", Toast.LENGTH_SHORT).show()
+                return targetPos
+            }
+        }
         snapHelper.attachToRecyclerView(rv_gank_photo_detail)
 
         mBigImageAdapter.setOnLoadMoreListener({
@@ -146,12 +163,25 @@ class BigImageActivity : BaseActivity(), BigImageContract.View, OnProgressBarLis
                 return true
             }
             com.longyi.module_gank.R.id.toolbar_share ->{
+                startShare()
                 return true
             }
             else -> {
                 return super.onOptionsItemSelected(item)
             }
         }
+    }
+    private fun startShare(){
+        val imageData = mPhotoList[currentIndex]
+
+        Log.e("222","image:${imageData}")
+        ShareUtil.Builder(this)
+            .setContentType(ShareContentType.TEXT)
+            .setTextContent(imageData.toString())
+//            .setShareFileUri(Uri.parse(imageData.url))
+            .setTitle("分享至")
+            .build()
+            .shareBySystem()
     }
 
     private fun startDownLoad() {

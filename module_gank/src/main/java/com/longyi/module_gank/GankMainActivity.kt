@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseActivity
@@ -14,7 +15,6 @@ import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.utils.rxbus.bus.RxBus
 import com.longyi.module_gank.event.ImageEvent
 import kotlinx.android.synthetic.main.activity_gank_main.*
-import org.greenrobot.eventbus.EventBus
 
 @Route(path = RouterPath.Gank.GANK_PHOTO, name = "干货福利")
 class GankMainActivity : BaseActivity(), GankPhotoContract.View {
@@ -38,7 +38,7 @@ class GankMainActivity : BaseActivity(), GankPhotoContract.View {
 
         initToolbar()
 
-        rv_gank_photo.layoutManager = GridLayoutManager(this, 2)
+        rv_gank_photo.layoutManager = LinearLayoutManager(this)
         mAdapter = GankPhotoAdapter(mList)
         rv_gank_photo.adapter = mAdapter
 
@@ -59,6 +59,8 @@ class GankMainActivity : BaseActivity(), GankPhotoContract.View {
     private fun initToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = "GankIO 图片"
+        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+
         //设置为ActionBar
         setSupportActionBar(toolbar)
         //显示那个箭头
