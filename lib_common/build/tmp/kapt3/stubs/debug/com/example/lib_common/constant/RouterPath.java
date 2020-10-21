@@ -5,7 +5,7 @@ import java.lang.System;
 /**
  * 路由中心
  */
-@kotlin.Metadata(mv = {1, 1, 15}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\n\b\u00c6\u0002\u0018\u00002\u00020\u0001:\b\u0003\u0004\u0005\u0006\u0007\b\t\nB\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002\u00a8\u0006\u000b"}, d2 = {"Lcom/example/lib_common/constant/RouterPath;", "", "()V", "AndroidJetPack", "Gank", "Map", "Search", "Share", "Todo", "UserCenter", "Web", "lib_common_debug"})
+@kotlin.Metadata(mv = {1, 1, 15}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\f\b\u00c6\u0002\u0018\u00002\u00020\u0001:\n\u0003\u0004\u0005\u0006\u0007\b\t\n\u000b\fB\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002\u00a8\u0006\r"}, d2 = {"Lcom/example/lib_common/constant/RouterPath;", "", "()V", "AndroidJetPack", "Course", "Gank", "Home", "Map", "Search", "Share", "Todo", "UserCenter", "Web", "lib_common_debug"})
 public final class RouterPath {
     public static final com.example.lib_common.constant.RouterPath INSTANCE = null;
     
@@ -13,7 +13,7 @@ public final class RouterPath {
         super();
     }
     
-    @kotlin.Metadata(mv = {1, 1, 15}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0014\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0003\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0006\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0007"}, d2 = {"Lcom/example/lib_common/constant/RouterPath$UserCenter;", "", "()V", "COLLECT", "", "LOGIN", "REGISTER", "lib_common_debug"})
+    @kotlin.Metadata(mv = {1, 1, 15}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0014\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0004\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0006\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0007\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\b"}, d2 = {"Lcom/example/lib_common/constant/RouterPath$UserCenter;", "", "()V", "COLLECT", "", "LOGIN", "MINE", "REGISTER", "lib_common_debug"})
     public static final class UserCenter {
         @org.jetbrains.annotations.NotNull()
         public static final java.lang.String LOGIN = "/user_center/login";
@@ -21,6 +21,8 @@ public final class RouterPath {
         public static final java.lang.String REGISTER = "/user_center/register";
         @org.jetbrains.annotations.NotNull()
         public static final java.lang.String COLLECT = "/user_center/collect";
+        @org.jetbrains.annotations.NotNull()
+        public static final java.lang.String MINE = "/user_center/mine";
         public static final com.example.lib_common.constant.RouterPath.UserCenter INSTANCE = null;
         
         private UserCenter() {
@@ -74,6 +76,28 @@ public final class RouterPath {
         public static final com.example.lib_common.constant.RouterPath.Todo INSTANCE = null;
         
         private Todo() {
+            super();
+        }
+    }
+    
+    @kotlin.Metadata(mv = {1, 1, 15}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0012\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0000\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0005"}, d2 = {"Lcom/example/lib_common/constant/RouterPath$Home;", "", "()V", "HOME", "", "lib_common_debug"})
+    public static final class Home {
+        @org.jetbrains.annotations.NotNull()
+        public static final java.lang.String HOME = "/home/home";
+        public static final com.example.lib_common.constant.RouterPath.Home INSTANCE = null;
+        
+        private Home() {
+            super();
+        }
+    }
+    
+    @kotlin.Metadata(mv = {1, 1, 15}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u0012\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0000\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0086T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0005"}, d2 = {"Lcom/example/lib_common/constant/RouterPath$Course;", "", "()V", "COURSE", "", "lib_common_debug"})
+    public static final class Course {
+        @org.jetbrains.annotations.NotNull()
+        public static final java.lang.String COURSE = "/course/course";
+        public static final com.example.lib_common.constant.RouterPath.Course INSTANCE = null;
+        
+        private Course() {
             super();
         }
     }

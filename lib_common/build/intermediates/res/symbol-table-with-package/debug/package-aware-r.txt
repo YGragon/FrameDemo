@@ -19,6 +19,8 @@ anim bga_sbl_activity_forward_enter
 anim bga_sbl_activity_forward_exit
 anim bga_sbl_activity_swipeback_enter
 anim bga_sbl_activity_swipeback_exit
+anim bottom_in
+anim bottom_out
 anim btn_checkbox_to_checked_box_inner_merged_animation
 anim btn_checkbox_to_checked_box_outer_merged_animation
 anim btn_checkbox_to_checked_icon_null_animation

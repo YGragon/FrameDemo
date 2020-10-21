@@ -2,36 +2,29 @@ package com.example.framedemo
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.base.BaseActivity
-import com.example.lib_common.event.LoginEvent
 import kotlinx.android.synthetic.main.activity_main.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
-import com.example.framedemo.ui.course.CourseFragment
-import com.example.framedemo.ui.home.HomeFragment
-import com.example.framedemo.ui.mine.MineFragment
 import androidx.fragment.app.FragmentPagerAdapter
 import com.jaeger.library.StatusBarUtil
+import com.alibaba.android.arouter.launcher.ARouter
+import com.example.lib_common.constant.RouterPath
 
 /**
  * 首页
  */
 class MainActivity : BaseActivity() {
     private val mFragmentList = ArrayList<Fragment>()
-    private var mHomeFragment =  HomeFragment.newInstance()
-    private var mCourseFragment = CourseFragment.newInstance()
-    private var mMineFragment = MineFragment.newInstance()
-
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
 
     override fun initView() {
+        val mHomeFragment = ARouter.getInstance().build(RouterPath.Home.HOME).navigation() as Fragment
+        val mMineFragment = ARouter.getInstance().build(RouterPath.UserCenter.MINE).navigation() as Fragment
+        val mCourseFragment = ARouter.getInstance().build(RouterPath.Course.COURSE).navigation() as Fragment
         mFragmentList.add(mHomeFragment)
         mFragmentList.add(mCourseFragment)
         mFragmentList.add(mMineFragment)

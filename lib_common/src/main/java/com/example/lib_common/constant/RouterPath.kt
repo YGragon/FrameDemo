@@ -8,6 +8,7 @@ object RouterPath {
         const val LOGIN = "/user_center/login"
         const val REGISTER = "/user_center/register"
         const val COLLECT = "/user_center/collect"
+        const val MINE = "/user_center/mine"
     }
 
     object Share{
@@ -29,6 +30,13 @@ object RouterPath {
         const val TODO_DETAIL = "/todo/detail"
     }
 
+    object Home{
+        const val HOME = "/home/home"
+    }
+
+    object Course{
+        const val COURSE = "/course/course"
+    }
 
     object Web{
         const val WEB_DETAIL = "/web/detail"
