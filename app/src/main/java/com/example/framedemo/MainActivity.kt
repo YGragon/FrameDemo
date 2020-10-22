@@ -17,17 +17,17 @@ import com.example.lib_common.constant.RouterPath
 class MainActivity : BaseActivity() {
     private val mFragmentList = ArrayList<Fragment>()
 
+    private val mPagerAdapter = object : FragmentPagerAdapter(supportFragmentManager) {
+        override fun getItem(position: Int): Fragment { return mFragmentList[position] }
+        override fun getCount(): Int { return mFragmentList.size }
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
 
     override fun initView() {
-        val mHomeFragment = ARouter.getInstance().build(RouterPath.Home.HOME).navigation() as Fragment
-        val mMineFragment = ARouter.getInstance().build(RouterPath.UserCenter.MINE).navigation() as Fragment
-        val mCourseFragment = ARouter.getInstance().build(RouterPath.Course.COURSE).navigation() as Fragment
-        mFragmentList.add(mHomeFragment)
-        mFragmentList.add(mCourseFragment)
-        mFragmentList.add(mMineFragment)
+
 
         bottom_navigation_bar
             .addItem(BottomNavigationItem(R.mipmap.home_select, "Home"))
@@ -36,44 +36,40 @@ class MainActivity : BaseActivity() {
             .setFirstSelectedPosition(0)
             .initialise()
 
+        initListener()
+
+
+    }
+
+    override fun initData() {
+        val mHomeFragment = ARouter.getInstance().build(RouterPath.Home.HOME).navigation() as Fragment
+        val mMineFragment = ARouter.getInstance().build(RouterPath.UserCenter.MINE).navigation() as Fragment
+        val mCourseFragment = ARouter.getInstance().build(RouterPath.Course.COURSE).navigation() as Fragment
+        mFragmentList.add(mHomeFragment)
+        mFragmentList.add(mCourseFragment)
+        mFragmentList.add(mMineFragment)
+
+        vp_home.adapter = mPagerAdapter
+
+    }
+
+    private fun initListener(){
         bottom_navigation_bar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
-            override fun onTabSelected(position: Int) {
-                vp_home.currentItem = position
-            }
+            override fun onTabSelected(position: Int) { vp_home.currentItem = position }
             override fun onTabUnselected(position: Int) {}
             override fun onTabReselected(position: Int) {}
         })
 
         vp_home.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                bottom_navigation_bar.selectTab(position)
-            }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageSelected(position: Int) { bottom_navigation_bar.selectTab(position) }
 
         })
-        vp_home.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
-            override fun getItem(position: Int): Fragment {
-                return mFragmentList[position]
-            }
-
-            override fun getCount(): Int {
-                return mFragmentList.size
-            }
-        }
     }
 
-     override fun setStatusBar() {
+    override fun setStatusBar() {
         StatusBarUtil.setTranslucentForImageViewInFragment(this, null)
     }
-
-    override fun initData() {}
-
-
-
-
 
 }

@@ -1,5 +1,7 @@
 package com.longyi.module_home
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -90,7 +92,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val scrolledYDistance = getScrolledYDistance(linearLayoutManager)
-                val alpha = scrolledYDistance / (250*1.0f) + 0.3f
+                val alpha = scrolledYDistance / (250*1.0f)
                 changeStatusBarColor(alpha)
 
             }
@@ -106,7 +108,12 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     private fun changeStatusBarColor(alpha:Float){
-        layout_status_bar.alpha = alpha
+        if(alpha < 0.5f){
+            layout_status_bar.setBackgroundColor(resources.getColor(R.color.color_30000000))
+        }else{
+            layout_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
+            layout_status_bar.alpha = alpha
+        }
     }
 
     override fun setTvTitleBackgroundColor() {

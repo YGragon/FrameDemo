@@ -1,10 +1,9 @@
-package com.example.framedemo
+package com.longyi.module_web
 
 
 import com.example.lib_common.base.BaseActivity
 import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.example.framedemo.R
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.just.agentweb.AgentWeb

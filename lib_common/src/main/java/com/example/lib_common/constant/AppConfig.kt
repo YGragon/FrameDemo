@@ -12,6 +12,7 @@ object AppConfig {
     private const val ModuleHome = "com.longyi.module_home.HomeApplication"
     private const val ModuleCourse = "com.longyi.module_course.CourseApplication"
     private const val ModuleJetPack = "com.longyi.module_android_jetpack.JetpackApplication"
+    private const val ModuleWeb = "com.longyi.module_web.WebApplication"
 
-    var moduleApps = arrayOf( ModuleGank, ModuleMap, ModuleSearch, ModuleShare,ModuleHome, ModuleCourse,ModuleUserCenter, ModuleJetPack)
+    var moduleApps = arrayOf( ModuleGank, ModuleMap, ModuleSearch, ModuleShare,ModuleHome, ModuleCourse,ModuleUserCenter, ModuleJetPack,ModuleWeb)
 }

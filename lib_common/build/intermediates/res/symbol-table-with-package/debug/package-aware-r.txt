@@ -734,6 +734,7 @@ color colorAccent
 color colorPrimary
 color colorPrimaryDark
 color colorWhite
+color color_30000000
 color design_bottom_navigation_shadow_color
 color design_default_color_primary
 color design_default_color_primary_dark
