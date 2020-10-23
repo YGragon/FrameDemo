@@ -10,10 +10,23 @@ import com.example.lib_common.model.Article
  */
 class HomeAdapter(list:MutableList<Article>)
     : BaseQuickAdapter<Article,BaseViewHolder>(R.layout.item_article,list) {
-    override fun convert(helper: BaseViewHolder?, item: Article?) {
-        helper?.setText(R.id.tv_title,item?.title)
-        helper?.setText(R.id.tv_author,item?.shareUser)
-        helper?.setText(R.id.tv_nice_date,item?.niceDate)
+    override fun convert(helper: BaseViewHolder?, item: Article) {
+        helper?.setText(R.id.tv_title,item.title)
+        val author = if(item.shareUser.isNotEmpty()){item.shareUser}else{ item.author }
+        helper?.setText(R.id.tv_author,"作者: $author")
+        helper?.setText(R.id.tv_nice_date,item.niceDate)
+        helper?.setText(R.id.tv_super_chapter_name,item.superChapterName)
+
+        if(item.fresh){
+            helper?.setText(R.id.tv_fresh,"新")
+            helper?.setVisible(R.id.tv_fresh,true)
+        }else{
+            helper?.setGone(R.id.tv_fresh,false)
+        }
+
+
+        helper?.addOnClickListener(R.id.layout_chapter)
+        helper?.addOnClickListener(R.id.layout_card)
 
     }
 }

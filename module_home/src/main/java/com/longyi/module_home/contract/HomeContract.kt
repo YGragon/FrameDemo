@@ -19,7 +19,7 @@ interface HomeContract {
         /**
          * 显示 banner
          */
-        fun showBanners(banners: MutableList<Banner>)
+        fun showBanners(images: MutableList<String>,titles:MutableList<String>)
 
         /**
          * 显示 hotkey
@@ -29,12 +29,12 @@ interface HomeContract {
         /**
          * 加载完成显示 article
          */
-        fun showLoadCompleteArticles(articles: MutableList<Article>)
+        fun showLoadCompleteArticles()
 
         /**
          * 全部显示 article
          */
-        fun showLoadEndArticles(articles: MutableList<Article>)
+        fun showLoadEndArticles()
     }
 
     interface Presenter: IPresenter<View> {
@@ -48,10 +48,19 @@ interface HomeContract {
          * 获取 banner
          */
         fun getBanners()
+        fun getBannerUrl(position:Int):String
 
         /**
          * 获取首页文章列表
          */
         fun getArticles(page:Int)
+        fun getArticleUrl(position:Int):String
+        fun getArticleChapterUrl(position:Int):String
+
+        /**
+         * 跳转网页详情
+         * url 网址
+         */
+        fun toWebDetail(url:String)
     }
 }

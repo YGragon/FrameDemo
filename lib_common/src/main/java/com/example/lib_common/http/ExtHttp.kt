@@ -50,9 +50,9 @@ fun <T> runRxViewModel(provider: ScopeProvider, observable: Observable<T>, obser
 fun <T> runRxLambdaViewModel(provider: ScopeProvider, observable: Observable<T>,
                              next: (T) -> Unit,
                              error: (error: Throwable) -> Unit = {
-//                        val errorStr = ExceptionHandle.handleException(it)
-//                        Log.e("runRxLambda", "error:$errorStr")
-                    },
+                                val errorStr = ExceptionHandle.handleException(it)
+                                Log.e("runRxLambdaViewModel", "error:$errorStr")
+                            },
                              subscribe: (d: Disposable) -> Unit = { Log.e("runRxLambdaViewModel", "Disposable") },
                              completed: () -> Unit = { Log.e("runRxLambdaViewModel", "completed") }) {
 

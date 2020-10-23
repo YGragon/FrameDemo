@@ -19,6 +19,8 @@ import com.example.lib_common.model.Banner
 import com.example.lib_common.model.Hotkey
 import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.utils.imageloader.GlideImageLoader
+import com.longyi.module_home.data.HomeDataSource.mArticles
+import com.longyi.module_home.data.HomeDataSource.mBanners
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -30,10 +32,8 @@ import kotlinx.android.synthetic.main.home_fragment.*
 @Route(path =  RouterPath.Home.HOME,name = "首页")
 class HomeFragment : BaseFragment(), HomeContract.View {
 
-    private var mArticles = mutableListOf<Article>()
-    private var mBanners = mutableListOf<Banner>()
+    private val linearLayoutManager = LinearLayoutManager(activity)
     private var mPage = 0
-
     private var isShowToUser = true
 
     private lateinit var mAdapter:HomeAdapter
@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     /**
      * 懒加载Presenter
      */
-    private val mPresenter by lazy { HomePresenter() }
+    private val mPresenter by lazy { HomePresenter(this) }
     init {
         mPresenter.attachView(this)
     }
@@ -55,12 +55,10 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         return R.layout.home_fragment
     }
 
-    override fun initData() {
-    }
+    override fun initData() {}
 
 
     override fun initView() {
-        val linearLayoutManager = LinearLayoutManager(activity)
         rv_home_list.layoutManager = linearLayoutManager
         mAdapter = HomeAdapter(mArticles)
         val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner,null)
@@ -68,23 +66,27 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         mAdapter.addHeaderView(headBanner)
         rv_home_list.adapter = mAdapter
 
-        banner.setOnBannerListener {
-            ARouter.getInstance()
-                .build(RouterPath.Web.WEB_DETAIL)
-                .withString(ParameterConstant.Web.webUrl,mBanners[it].url)
-                .navigation()
-        }
+        initListener()
+    }
+
+    private fun initListener(){
+        banner.setOnBannerListener { mPresenter.toWebDetail(mPresenter.getBannerUrl(it)) }
 
         mAdapter.setOnLoadMoreListener({
             mPage++
             mPresenter.getArticles(mPage)
         },rv_home_list)
 
-        mAdapter.setOnItemClickListener { _, _, position ->
-            ARouter.getInstance()
-                .build(RouterPath.Web.WEB_DETAIL)
-                .withString(ParameterConstant.Web.webUrl,mArticles[position].link)
-                .navigation()
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                R.id.layout_chapter -> {
+                    val articleChapterUrl = mPresenter.getArticleChapterUrl(position)
+                    if (articleChapterUrl.isNotEmpty()){
+                        mPresenter.toWebDetail(articleChapterUrl)
+                    }
+                }
+                R.id.layout_card -> mPresenter.toWebDetail(mPresenter.getArticleUrl(position))
+            }
         }
 
         // 滑动监听
@@ -97,10 +99,10 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
             }
         })
-
     }
+
     // LinearLayoutManager 获取滑动的高度
-    fun getScrolledYDistance(layoutManager: LinearLayoutManager): Int {
+   private fun getScrolledYDistance(layoutManager: LinearLayoutManager): Int {
         val position = layoutManager.findFirstVisibleItemPosition()
         val firstVisibleChildView = layoutManager.findViewByPosition(position)
         val itemHeight = firstVisibleChildView!!.height
@@ -172,32 +174,21 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }
     }
 
-    override fun showBanners(banners: MutableList<Banner>) {
-        mBanners.clear()
-        mBanners.addAll(banners)
-        val imageUrls = mutableListOf<String>()
-        val titles = mutableListOf<String>()
-        for (i in banners){
-            imageUrls.add(i.imagePath)
-        }
-        for (i in banners){
-            titles.add(i.desc)
-        }
-        banner.setImages(imageUrls)
+    override fun showBanners(images: MutableList<String>,titles:MutableList<String>) {
+
+        banner.setImages(images)
             .setBannerTitles(titles)
             .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
             .setBannerAnimation(Transformer.DepthPage)
             .setImageLoader(GlideImageLoader())
             .start()
     }
-    override fun showLoadCompleteArticles(articles: MutableList<Article>) {
-        mArticles.addAll(articles)
+    override fun showLoadCompleteArticles() {
         mAdapter.loadMoreComplete()
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun showLoadEndArticles(articles: MutableList<Article>) {
-        mArticles.addAll(articles)
+    override fun showLoadEndArticles() {
         mAdapter.loadMoreEnd()
         mAdapter.notifyDataSetChanged()
     }

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-		xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-		android:orientation="vertical"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:cardCornerRadius="10dp"
-		android:layout_margin="10dp">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	app:cardCornerRadius="10dp"
+	android:layout_margin="10dp">
 	<LinearLayout
+		android:id="@+id/layout_card"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
@@ -15,22 +17,52 @@
 				android:id="@+id/tv_title"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:textStyle="bold"/>
+				android:textStyle="bold"
+			tools:text="title"/>
+
+
+		<LinearLayout
+			android:id="@+id/layout_chapter"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:paddingTop="10dp"
+			android:paddingBottom="10dp">
+
+			<TextView
+				android:id="@+id/tv_fresh"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/shape_new"
+				android:textColor="@color/colorAccent"
+				android:layout_marginEnd="10dp"
+				tools:text="fresh"/>
+			<TextView
+				android:id="@+id/tv_super_chapter_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/shape_chapter"
+				android:textColor="@color/colorPrimary"
+				tools:text="super chapter name"
+				/>
+		</LinearLayout>
 
 		<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
-				android:layout_marginTop="10dp">
+				>
 			<TextView
 					android:id="@+id/tv_author"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"/>
+					android:layout_height="wrap_content"
+				tools:text="author"/>
 			<TextView
 					android:id="@+id/tv_nice_date"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="20dp"/>
+					android:layout_marginStart="20dp"
+				tools:text="nice date"/>
 		</LinearLayout>
 
 	</LinearLayout>

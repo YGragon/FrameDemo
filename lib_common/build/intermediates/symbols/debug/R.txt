@@ -1342,9 +1342,11 @@ int drawable sample_footer_loading 0x7f080098
 int drawable sample_footer_loading_progress 0x7f080099
 int drawable selector_pickerview_btn 0x7f08009a
 int drawable shape_btn_confirm 0x7f08009b
-int drawable tooltip_frame_dark 0x7f08009c
-int drawable tooltip_frame_light 0x7f08009d
-int drawable white_radius 0x7f08009e
+int drawable shape_chapter 0x7f08009c
+int drawable shape_new 0x7f08009d
+int drawable tooltip_frame_dark 0x7f08009e
+int drawable tooltip_frame_light 0x7f08009f
+int drawable white_radius 0x7f0800a0
 int id ALT 0x7f0b0001
 int id BaseQuickAdapter_databinding_support 0x7f0b0002
 int id BaseQuickAdapter_dragging_support 0x7f0b0003

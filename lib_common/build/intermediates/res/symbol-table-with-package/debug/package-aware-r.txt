@@ -1343,6 +1343,8 @@ drawable sample_footer_loading
 drawable sample_footer_loading_progress
 drawable selector_pickerview_btn
 drawable shape_btn_confirm
+drawable shape_chapter
+drawable shape_new
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable white_radius
