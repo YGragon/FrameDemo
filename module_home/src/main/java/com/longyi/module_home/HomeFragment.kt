@@ -32,7 +32,6 @@ import kotlinx.android.synthetic.main.home_fragment.*
 @Route(path =  RouterPath.Home.HOME,name = "首页")
 class HomeFragment : BaseFragment(), HomeContract.View {
 
-    private val linearLayoutManager = LinearLayoutManager(activity)
     private var mPage = 0
     private var isShowToUser = true
 
@@ -59,6 +58,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
 
     override fun initView() {
+        val linearLayoutManager = LinearLayoutManager(activity)
         rv_home_list.layoutManager = linearLayoutManager
         mAdapter = HomeAdapter(mArticles)
         val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner,null)
@@ -66,10 +66,10 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         mAdapter.addHeaderView(headBanner)
         rv_home_list.adapter = mAdapter
 
-        initListener()
+        initListener(linearLayoutManager)
     }
 
-    private fun initListener(){
+    private fun initListener(linearLayoutManager:LinearLayoutManager){
         banner.setOnBannerListener { mPresenter.toWebDetail(mPresenter.getBannerUrl(it)) }
 
         mAdapter.setOnLoadMoreListener({
