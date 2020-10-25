@@ -11,7 +11,7 @@ interface LoginContract {
         /**
          * 显示错误信息
          */
-        fun showError(errorMsg:String)
+        fun showLoginError(errorMsg:String)
 
         /**
          * 显示 注册成功

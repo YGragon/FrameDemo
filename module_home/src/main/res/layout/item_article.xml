@@ -2,69 +2,76 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/layout_card"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	app:cardCornerRadius="10dp"
 	android:layout_margin="10dp">
-	<LinearLayout
-		android:id="@+id/layout_card"
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/tv_title"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:padding="10dp">
-		<TextView
-				android:id="@+id/tv_title"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textStyle="bold"
+			android:textStyle="bold"
+			android:padding="10dp"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
 			tools:text="title"/>
-
-
-		<LinearLayout
-			android:id="@+id/layout_chapter"
+		<TextView
+			android:id="@+id/tv_fresh"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			android:paddingTop="10dp"
-			android:paddingBottom="10dp">
+			android:background="@drawable/shape_new"
+			android:textColor="@color/colorAccent"
+			android:visibility="gone"
+			android:layout_marginStart="10dp"
+			app:layout_constraintTop_toBottomOf="@+id/tv_title"
+			app:layout_constraintStart_toStartOf="parent"
+			tools:text="fresh"/>
+		<TextView
+			android:id="@+id/tv_super_chapter_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@drawable/shape_chapter"
+			android:textColor="@color/colorPrimary"
+			android:layout_marginStart="10dp"
+			app:layout_constraintTop_toBottomOf="@+id/tv_title"
+			app:layout_constraintStart_toEndOf="@+id/tv_fresh"
+			tools:text="super chapter name"
+			/>
 
-			<TextView
-				android:id="@+id/tv_fresh"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:background="@drawable/shape_new"
-				android:textColor="@color/colorAccent"
-				android:layout_marginEnd="10dp"
-				tools:text="fresh"/>
-			<TextView
-				android:id="@+id/tv_super_chapter_name"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:background="@drawable/shape_chapter"
-				android:textColor="@color/colorPrimary"
-				tools:text="super chapter name"
-				/>
-		</LinearLayout>
+		<ImageView
+			android:id="@+id/iv_like"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			app:layout_constraintTop_toBottomOf="@+id/tv_title"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/tv_super_chapter_name"
+			app:layout_constraintBottom_toBottomOf="@+id/tv_super_chapter_name"
+			android:layout_marginEnd="10dp"
+			android:src="@mipmap/unlike"
+			/>
 
-		<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				>
-			<TextView
-					android:id="@+id/tv_author"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-				tools:text="author"/>
-			<TextView
-					android:id="@+id/tv_nice_date"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="20dp"
-				tools:text="nice date"/>
-		</LinearLayout>
-
-	</LinearLayout>
+		<TextView
+			android:id="@+id/tv_author"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="10dp"
+			app:layout_constraintTop_toBottomOf="@+id/tv_super_chapter_name"
+			app:layout_constraintStart_toStartOf="parent"
+			tools:text="author"/>
+		<TextView
+			android:id="@+id/tv_nice_date"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="20dp"
+			app:layout_constraintTop_toTopOf="@+id/tv_author"
+			app:layout_constraintBottom_toBottomOf="@+id/tv_author"
+			app:layout_constraintStart_toEndOf="@+id/tv_author"
+			tools:text="nice date"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

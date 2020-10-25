@@ -74,13 +74,11 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         }
     }
 
-    override fun showError(errorMsg: String) {
+    override fun showLoginError(errorMsg: String) {
         ToastUtils.show(BaseApplication.context,errorMsg)
     }
 
     override fun showLoginSuccess(successMsg: String) {
-        PreferenceUtils.saveValue(BaseConstant.IS_LOGIN_KEY, BaseConstant.IS_LOGIN_TRUE)
-        PreferenceUtils.saveValue(BaseConstant.USER_NAME, et_login_username.text.toString())
         EventBus.getDefault().postSticky(LoginEvent(successMsg))
         finish()
     }

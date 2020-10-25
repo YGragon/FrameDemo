@@ -20,10 +20,11 @@ abstract class StudentDb:RoomDatabase() {
                 instance = Room.databaseBuilder(applicationContext,
                     StudentDb::class.java, "StudentDatabase").build()
             }
+            initData()
             return instance!!
         }
         // 默认数据
-        fun initData(){
+        private fun initData(){
             ioThread {
                 // 单线程池
                 get().studentDao().insert(

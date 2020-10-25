@@ -79,13 +79,14 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
-                R.id.layout_chapter -> {
+                R.id.tv_super_chapter_name -> {
                     val articleChapterUrl = mPresenter.getArticleChapterUrl(position)
                     if (articleChapterUrl.isNotEmpty()){
                         mPresenter.toWebDetail(articleChapterUrl)
                     }
                 }
                 R.id.layout_card -> mPresenter.toWebDetail(mPresenter.getArticleUrl(position))
+                R.id.iv_like -> mPresenter.bindLike(position)
             }
         }
 

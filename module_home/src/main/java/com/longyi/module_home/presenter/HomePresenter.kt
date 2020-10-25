@@ -19,12 +19,49 @@ import com.example.lib_common.http.runRxLambdaViewModel
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
 import com.longyi.module_home.data.HomeDataSource
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.example.lib_common.service.user_center.LoginService
+import kotlin.math.log
+
 
 /**
  * 首页 Presenter
  */
 class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContract.View>(), HomeContract.Presenter{
 
+    override fun bindLike(position: Int) {
+
+        // 是否登录，未登录不可收藏
+        val loginService = ARouter.getInstance().build("/provider/LoginService").navigation() as LoginService
+        val login = loginService.isLogin()
+        Log.e("222", "bindLike login:$login")
+        if (login){
+            val article = HomeDataSource.mArticles[position]
+            if (article.collect){
+                unLike(article.id)
+            }else{
+                like(article.id)
+            }
+        }else{
+            mRootView?.showError("你还未登录哟")
+        }
+
+
+    }
+
+    private fun unLike(articleId:Int){
+        // runRxLambda 网络请求工具使用
+        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionUnCollect(articleId),{
+            Log.e("222", "unLike:$it")
+        })
+    }
+    private fun like(articleId:Int){
+        // runRxLambda 网络请求工具使用
+        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionCollect(articleId),{
+
+           Log.e("222", "like:$it")
+        })
+    }
 
 
     override fun getBannerUrl(position:Int): String {

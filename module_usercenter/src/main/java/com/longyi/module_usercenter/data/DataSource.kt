@@ -18,7 +18,7 @@ object DataSource {
     const val LOG_OUT = 9
 
 
-    fun getFunData():MutableList<MineItemBean>{
+    fun getFunData(isLogin:Boolean):MutableList<MineItemBean>{
         val list = mutableListOf<MineItemBean>()
         list.add(MineItemBean(DOWN_LOAD_APK,"点击下载Apk",""))
         list.add(MineItemBean(DOWN_LOAD_FILE,"点击下载文件",""))
@@ -29,7 +29,9 @@ object DataSource {
         list.add(MineItemBean(TO_JETPACK_MODULE,"Android JetPack & 微信朋友圈效果",""))
         list.add(MineItemBean(GET_ALL_SERVICE,"获取所有后台服务",""))
         list.add(MineItemBean(GET_COLLECT,"收藏中心",""))
-        list.add(MineItemBean(LOG_OUT,"退出登录",""))
+        if (isLogin){
+            list.add(MineItemBean(LOG_OUT,"退出登录",""))
+        }
         return list
     }
 }

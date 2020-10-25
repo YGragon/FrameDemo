@@ -4,8 +4,6 @@ import com.example.lib_common.base.BasePresenter
 import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.runRxLambda
-import com.example.lib_common.http.scheduler.SchedulerUtils
-import com.example.lib_common.model.UserControl
 
 /**
  * 注册页面 处理层

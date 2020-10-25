@@ -1,10 +1,11 @@
 package com.longyi.module_usercenter.ui.mine
 
 
-import android.view.View
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.framedemo.data.bean.MineItemBean
 import com.longyi.module_usercenter.data.DataSource
 
 import com.longyi.module_usercenter.ui.mine.contract.MineContract
@@ -18,6 +19,8 @@ import com.example.lib_common.model.UserControl
 import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
 import com.longyi.module_usercenter.R
+import com.longyi.module_usercenter.ui.login.LoginContract
+import com.longyi.module_usercenter.ui.login.LoginPresenter
 import com.tencent.bugly.beta.Beta
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.greenrobot.eventbus.EventBus
@@ -30,14 +33,22 @@ import org.greenrobot.eventbus.ThreadMode
  *
  */
 @Route(path =  RouterPath.UserCenter.MINE,name = "我的")
-class MineFragment : BaseFragment(), MineContract.View {
+class MineFragment : BaseFragment(), MineContract.View, LoginContract.View {
 
+
+    private val TAG = "MineFragment"
+    private lateinit var mMineAdapter:MineAdapter
+    private lateinit var mItemDatas:MutableList<MineItemBean>
     /**
      * 懒加载Presenter
      */
     private val mPresenter by lazy { MinePresenter() }
+    private val mLoginPresenter by lazy { LoginPresenter() }
+
     init {
         mPresenter.attachView(this)
+        mLoginPresenter.attachView(this)
+
     }
 
     companion object {
@@ -63,14 +74,13 @@ class MineFragment : BaseFragment(), MineContract.View {
     override fun initView() {
         checkUserLogin()
 
-        val datas = DataSource.getFunData()
         rv_mine_list.layoutManager = LinearLayoutManager(activity)
-        val mineAdapter = MineAdapter(datas)
-        rv_mine_list.adapter = mineAdapter
-        mineAdapter.notifyDataSetChanged()
+        mMineAdapter = MineAdapter(mItemDatas)
+        rv_mine_list.adapter = mMineAdapter
+        mMineAdapter.notifyDataSetChanged()
 
-        mineAdapter.setOnItemClickListener { adapter, view, position ->
-            when(datas[position].mID){
+        mMineAdapter.setOnItemClickListener { adapter, view, position ->
+            when(mItemDatas[position].mID){
                 DataSource.DOWN_LOAD_APK -> Beta.checkUpgrade()
                 DataSource.DOWN_LOAD_FILE -> ToastUtils.show(BaseApplication.context,"下载文件使用")
                 DataSource.DOWN_UPLOAD_FILE -> ToastUtils.show(BaseApplication.context,"上传文件使用")
@@ -85,15 +95,16 @@ class MineFragment : BaseFragment(), MineContract.View {
         }
     }
 
+    // TODO 优化展示获取的所有服务
     private fun getAllService(){
         val isCheck = TestService.checkEnabledAccessibilityService(BaseApplication.context)
         if (isCheck){
             val isRun = TestService.isRun(BaseApplication.context,"")
             val enabled = TestService.enabled("",BaseApplication.context)
-            println(isRun)
-            println(enabled)
+            Log.e(TAG, "getAllService:$isRun")
+            Log.e(TAG, "getAllService:$enabled")
         }else{
-            println("未获取权限")
+            Log.e(TAG, "getAllService :未获取权限")
         }
     }
     override fun setTvTitleBackgroundColor() {
@@ -101,21 +112,40 @@ class MineFragment : BaseFragment(), MineContract.View {
 //        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
     }
 
+    // TODO 提供 接口给外部(首页收藏、详情收藏)判断用户是否登录
     private fun checkUserLogin() {
         if (UserControl.isLogin()) {
-            val userName = PreferenceUtils.getString(BaseConstant.USER_NAME)
-            tv_login.text = "欢迎你，$userName"
-            tv_login_out.visibility = View.VISIBLE
+            val username = PreferenceUtils.getString(BaseConstant.USER_NAME)
+            val user = UserControl.getUserByName(username)
+            if (user == null){
+                // 未登录
+                Log.e(TAG,"当前处于未登录状态")
+            }else{
+                mLoginPresenter.postLoginInfo(user.username,user.password)
+
+            }
         } else {
-            tv_login.text = "点击登录"
-            tv_login_out.visibility = View.GONE
+            // 未登录
+            Log.e(TAG,"当前处于未登录状态")
         }
+    }
+    override fun showLoginSuccess(successMsg: String) {
+        val username = PreferenceUtils.getString(BaseConstant.USER_NAME)
+        tv_login.text = "欢迎你，$username"
+
+        // 刷新下方列表
+        mItemDatas = DataSource.getFunData(true)
+        mMineAdapter.notifyDataSetChanged()
+    }
+    override fun showLoginError(errorMsg: String) {
+        tv_login.text = "点击登录"
+        mItemDatas = DataSource.getFunData(false)
+        mMineAdapter.notifyDataSetChanged()
     }
 
     override fun fragmentShowToUser() {
         if (isAdded){
             checkUserLogin()
-
         }
     }
 

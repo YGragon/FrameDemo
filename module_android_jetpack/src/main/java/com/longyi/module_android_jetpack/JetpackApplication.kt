@@ -17,7 +17,7 @@ class JetpackApplication : BaseApplication()  {
      * 通过反射，完成了组件 Application 的初始化操作，也实现了组件与化中的解耦需求
      */
     override fun initData(application: Application) {
-        StudentDb.initData()
+//        StudentDb.initData()
 //        for (moduleApp in AppConfig.moduleApps) {
 //            try {
 //                val clazz = Class.forName(moduleApp)

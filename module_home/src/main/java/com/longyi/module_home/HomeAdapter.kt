@@ -25,7 +25,8 @@ class HomeAdapter(list:MutableList<Article>)
         }
 
 
-        helper?.addOnClickListener(R.id.layout_chapter)
+        helper?.addOnClickListener(R.id.tv_super_chapter_name)
+        helper?.addOnClickListener(R.id.iv_like)
         helper?.addOnClickListener(R.id.layout_card)
 
     }

@@ -28,9 +28,9 @@
     <string name="menu_download">下载</string>
     <string name="menu_share">分享</string>
     <style name="ToolbarPopupTheme" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
-		
+		<!--menu below-->
 		<item name="overlapAnchor">false</item>
-		
+		<!--menu text color-->
 		<item name="android:textColor">@color/menu_text_color</item>
 		<item name="android:windowBackground">@color/background_material_light</item>
 		<item name="android:colorForeground">@color/foreground_material_light</item>
@@ -56,7 +56,7 @@
 		<item name="colorButtonNormal">@color/button_material_light</item>
 		<item name="colorSwitchThumbNormal">@color/switch_thumb_material_light</item>
 
-		
+		<!-- Used by MediaRouter -->
 		<item name="isLightTheme">true</item>
 	</style>
     <declare-styleable name="FlowLayout">

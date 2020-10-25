@@ -62,5 +62,8 @@ interface HomeContract {
          * url 网址
          */
         fun toWebDetail(url:String)
+
+
+        fun bindLike(position:Int)
     }
 }
