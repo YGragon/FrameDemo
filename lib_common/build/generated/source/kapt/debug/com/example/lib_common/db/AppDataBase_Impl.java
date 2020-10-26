@@ -18,6 +18,8 @@ import com.example.lib_common.db.dao.HotKeyDao;
 import com.example.lib_common.db.dao.HotKeyDao_Impl;
 import com.example.lib_common.db.dao.SearchHistoryDao;
 import com.example.lib_common.db.dao.SearchHistoryDao_Impl;
+import com.example.lib_common.db.dao.UserDao;
+import com.example.lib_common.db.dao.UserDao_Impl;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -31,6 +33,8 @@ public final class AppDataBase_Impl extends AppDataBase {
 
   private volatile HotKeyDao _hotKeyDao;
 
+  private volatile UserDao _userDao;
+
   @Override
   protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration configuration) {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
@@ -38,14 +42,16 @@ public final class AppDataBase_Impl extends AppDataBase {
       public void createAllTables(SupportSQLiteDatabase _db) {
         _db.execSQL("CREATE TABLE IF NOT EXISTS `shistory` (`sId` INTEGER, `key_word` TEXT, PRIMARY KEY(`sId`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `hotkey` (`id` INTEGER NOT NULL, `link` TEXT NOT NULL, `name` TEXT NOT NULL, `order` INTEGER NOT NULL, `visible` INTEGER NOT NULL, PRIMARY KEY(`id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `user` (`chapterTops` TEXT, `collectIds` TEXT, `email` TEXT NOT NULL, `icon` TEXT NOT NULL, `id` INTEGER NOT NULL, `password` TEXT NOT NULL, `token` TEXT NOT NULL, `type` INTEGER NOT NULL, `username` TEXT NOT NULL, PRIMARY KEY(`id`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '877a94d0b4b542f265cb564769fd66ff')");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3c43d5c440ef905f0484fb31ea88bf66')");
       }
 
       @Override
       public void dropAllTables(SupportSQLiteDatabase _db) {
         _db.execSQL("DROP TABLE IF EXISTS `shistory`");
         _db.execSQL("DROP TABLE IF EXISTS `hotkey`");
+        _db.execSQL("DROP TABLE IF EXISTS `user`");
         if (mCallbacks != null) {
           for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
             mCallbacks.get(_i).onDestructiveMigration(_db);
@@ -111,9 +117,28 @@ public final class AppDataBase_Impl extends AppDataBase {
                   + " Expected:\n" + _infoHotkey + "\n"
                   + " Found:\n" + _existingHotkey);
         }
+        final HashMap<String, TableInfo.Column> _columnsUser = new HashMap<String, TableInfo.Column>(9);
+        _columnsUser.put("chapterTops", new TableInfo.Column("chapterTops", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("collectIds", new TableInfo.Column("collectIds", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("email", new TableInfo.Column("email", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("icon", new TableInfo.Column("icon", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("password", new TableInfo.Column("password", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("token", new TableInfo.Column("token", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("type", new TableInfo.Column("type", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("username", new TableInfo.Column("username", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysUser = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesUser = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoUser = new TableInfo("user", _columnsUser, _foreignKeysUser, _indicesUser);
+        final TableInfo _existingUser = TableInfo.read(_db, "user");
+        if (! _infoUser.equals(_existingUser)) {
+          return new RoomOpenHelper.ValidationResult(false, "user(com.example.lib_common.model.User).\n"
+                  + " Expected:\n" + _infoUser + "\n"
+                  + " Found:\n" + _existingUser);
+        }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "877a94d0b4b542f265cb564769fd66ff", "3603ddb5d758bc966cf0210d9bbf1707");
+    }, "3c43d5c440ef905f0484fb31ea88bf66", "c1dc94402c660550cd3b0628c911381f");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)
@@ -126,7 +151,7 @@ public final class AppDataBase_Impl extends AppDataBase {
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
     HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
-    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "shistory","hotkey");
+    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "shistory","hotkey","user");
   }
 
   @Override
@@ -137,6 +162,7 @@ public final class AppDataBase_Impl extends AppDataBase {
       super.beginTransaction();
       _db.execSQL("DELETE FROM `shistory`");
       _db.execSQL("DELETE FROM `hotkey`");
+      _db.execSQL("DELETE FROM `user`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
@@ -171,6 +197,20 @@ public final class AppDataBase_Impl extends AppDataBase {
           _hotKeyDao = new HotKeyDao_Impl(this);
         }
         return _hotKeyDao;
+      }
+    }
+  }
+
+  @Override
+  public UserDao getUserDao() {
+    if (_userDao != null) {
+      return _userDao;
+    } else {
+      synchronized(this) {
+        if(_userDao == null) {
+          _userDao = new UserDao_Impl(this);
+        }
+        return _userDao;
       }
     }
   }

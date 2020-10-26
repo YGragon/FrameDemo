@@ -68,6 +68,7 @@ int animator mtrl_fab_show_motion_spec 0x7f020008
 int animator mtrl_fab_transformation_sheet_collapse_spec 0x7f020009
 int animator mtrl_fab_transformation_sheet_expand_spec 0x7f02000a
 int animator scale_with_alpha 0x7f02000b
+int animator show_toolbar 0x7f02000c
 int attr action 0x7f040001
 int attr actionBarDivider 0x7f040002
 int attr actionBarItemBackground 0x7f040003

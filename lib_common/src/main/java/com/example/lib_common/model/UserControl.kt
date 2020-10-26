@@ -1,6 +1,8 @@
 package com.example.lib_common.model
 
+import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.constant.BaseConstant
+import com.example.lib_common.db.AppDataBase
 import com.example.lib_common.utils.PreferenceUtils
 
 /**
@@ -8,9 +10,8 @@ import com.example.lib_common.utils.PreferenceUtils
  */
 object UserControl {
 
+    val userDao = AppDataBase.instance(BaseApplication.context).getUserDao()
 
-    // 用于信息
-    private lateinit var user:User
 
     fun isLogin(): Boolean {
         return PreferenceUtils.getBoolean(BaseConstant.IS_LOGIN_KEY, false)
@@ -18,11 +19,14 @@ object UserControl {
 
 
 
-    fun setUser(userInfo:User) {
-        this.user = userInfo
+    fun setUser(userInfo: User) {
+        PreferenceUtils.saveValue(BaseConstant.IS_LOGIN_KEY, BaseConstant.IS_LOGIN_TRUE)
+        PreferenceUtils.saveValue(BaseConstant.USER_NAME, userInfo.username)
+        userDao.insertUser(userInfo)
+
     }
-    fun getUser(): User {
-        return user
+    fun getUserByName(name:String): User? {
+        return userDao.findUserByName(name)
     }
 
 }

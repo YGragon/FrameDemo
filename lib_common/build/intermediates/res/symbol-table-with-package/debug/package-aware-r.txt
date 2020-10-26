@@ -69,6 +69,7 @@ animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
 animator scale_with_alpha
+animator show_toolbar
 attr action
 attr actionBarDivider
 attr actionBarItemBackground

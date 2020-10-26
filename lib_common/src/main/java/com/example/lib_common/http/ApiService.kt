@@ -1,6 +1,5 @@
 package com.example.lib_common.http
 
-import com.example.lib_common.http.response.BaseGankResponse
 import com.example.lib_common.http.response.BaseResponse
 import com.example.lib_common.model.*
 import io.reactivex.rxjava3.core.Observable
@@ -47,7 +46,18 @@ interface ApiService {
     @GET("lg/collect/list/{page}/json")
     fun getCollects(@Path("page") page:Int): Observable<BaseResponse<CollectBean>>
 
+    /**
+     * 收藏站内文章
+     */
+    @POST("lg/collect/{id}/json")
+    fun regionCollect(@Path("id") id:Int): Observable<BaseResponse<CollectBean>>
 
+    /**
+     * 取消收藏站内文章
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    fun regionUnCollect(@Path("id") id:Int): Observable<BaseResponse<CollectBean>>
+    
     /**
      * 获取 首页文章 列表
      */

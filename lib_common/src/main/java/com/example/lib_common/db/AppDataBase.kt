@@ -8,19 +8,22 @@ import androidx.room.RoomDatabase
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.db.dao.HotKeyDao
 import com.example.lib_common.db.dao.SearchHistoryDao
+import com.example.lib_common.db.dao.UserDao
 import com.example.lib_common.model.Hotkey
 import com.example.lib_common.model.SearchHistory
+import com.example.lib_common.model.User
 
 /**
  * 数据库示例
  */
-@Database(entities = [SearchHistory::class, Hotkey::class], version = 1)
+@Database(entities = [SearchHistory::class, Hotkey::class, User::class], version = 1)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun getSearchHistoryDao(): SearchHistoryDao
     abstract fun getHotKeyDao(): HotKeyDao
+    abstract fun getUserDao(): UserDao
 
     companion object {
-        val DB_NAME = "FrameDemo.db"
+        private const val DB_NAME = "FrameDemo.db"
 
         @Volatile
         private var INSTANCE: AppDataBase? = null

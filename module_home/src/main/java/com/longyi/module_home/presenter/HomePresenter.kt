@@ -14,14 +14,9 @@ import com.example.lib_common.db.dao.HotKeyDao
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.http.exception.ExceptionHandle
-import com.example.lib_common.http.runRxLambda
 import com.example.lib_common.http.runRxLambdaViewModel
-import com.example.lib_common.model.Article
-import com.example.lib_common.model.Banner
 import com.longyi.module_home.data.HomeDataSource
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.example.lib_common.service.user_center.LoginService
-import kotlin.math.log
+import com.example.lib_common.service.user_center.ILoginService
 
 
 /**
@@ -32,7 +27,7 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
     override fun bindLike(position: Int) {
 
         // 是否登录，未登录不可收藏
-        val loginService = ARouter.getInstance().build("/provider/LoginService").navigation() as LoginService
+        val loginService = ARouter.getInstance().build("/provider/ILoginService").navigation() as ILoginService
         val login = loginService.isLogin()
         Log.e("222", "bindLike login:$login")
         if (login){

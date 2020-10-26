@@ -4,13 +4,13 @@ import android.content.Context
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.model.UserControl
-import com.example.lib_common.service.user_center.LoginService
+import com.example.lib_common.service.user_center.ILoginService
 
 /**
  * 服务的实现
  */
-@Route(path = "/provider/LoginService", name = "Login Service")
-class LoginServiceImpl: LoginService {
+@Route(path = "/provider/ILoginService", name = "Login Service")
+class LoginServiceImpl: ILoginService {
     override fun isLogin(): Boolean {
         return UserControl.isLogin()
     }
