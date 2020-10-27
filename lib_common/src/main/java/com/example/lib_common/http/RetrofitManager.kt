@@ -47,9 +47,9 @@ object RetrofitManager {
             .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApplication.context)))
             .addInterceptor(ChangeBaseUrlInterceptor())
             .addInterceptor(CacheInterceptor())
-//            .addNetworkInterceptor(logInterceptor)
+            .addNetworkInterceptor(logInterceptor)
+//            .addInterceptor(CheckLoginInterceptor()) // 魅族16s手机-性能优化-日志-勾选全部输出
             .addInterceptor(logInterceptor)
-            .addInterceptor(CheckLoginInterceptor())
             .build()
     }
 
