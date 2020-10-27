@@ -2,7 +2,9 @@ package com.longyi.module_usercenter.ui.mine
 
 
 import android.util.Log
+import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.isGone
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -25,6 +27,8 @@ import com.example.lib_common.service.user_center.ILoginService
 import com.example.lib_common.utils.GlideUtils
 import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
+import com.example.lib_common.utils.rxbus.bus.RxBus
+import com.example.lib_common.utils.rxbus.bus.RxBusReceiver
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.longyi.module_usercenter.R
 import com.longyi.module_usercenter.ui.login.LoginContract
@@ -79,7 +83,6 @@ class MineFragment : BaseFragment(), MineContract.View {
 
     override fun initView() {
         // 从gank 组件获取一张图片
-        // TODO 先从缓存中获取
         val mineHeadImg = PreferenceUtils.getString("mine_head_img")
         if (mineHeadImg.isNotEmpty()){
             GlideUtils.showImageView(BaseApplication.context,iv_bg,mineHeadImg)
@@ -96,6 +99,14 @@ class MineFragment : BaseFragment(), MineContract.View {
 
             override fun fail(msg: String) {
                 ToastUtils.show(BaseApplication.context,msg)
+            }
+        })
+
+        RxBus.receiveSticky(this,"login_success",object :RxBusReceiver<Any>(){
+            override fun receive(data: Any) {
+                val loginData = data as LoginEvent
+                Log.e("222","登录回调："+loginData)
+                checkUserLogin()
             }
         })
 
@@ -140,7 +151,6 @@ class MineFragment : BaseFragment(), MineContract.View {
 //        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
     }
 
-    // TODO 提供 接口给外部(首页收藏、详情收藏)判断用户是否登录
     private fun checkUserLogin() {
         if (UserControl.isLogin()) {
             val username = PreferenceUtils.getString(BaseConstant.USER_NAME)
@@ -154,29 +164,26 @@ class MineFragment : BaseFragment(), MineContract.View {
                 mToolBarLayoutTitle = "欢迎你，${user.username}"
                 toolbar_layout.title = mToolBarLayoutTitle
                 // 隐藏登录按钮
-                hideAppBarFab(fabButton)
+                fabButton.isGone = true
                 // 刷新下方列表
-                mMineItems = DataSource.getFunData(true)
+                mMineItems.clear()
+                mMineItems.addAll(DataSource.getFunData(true))
                 mMineAdapter.notifyDataSetChanged()
             }
         } else {
             // 未登录
+            mToolBarLayoutTitle = "点击加号按钮登录"
+            toolbar_layout.title = mToolBarLayoutTitle
+            // 显示登录按钮
+            fabButton.isGone = false
+            mMineItems.clear()
+            mMineItems.addAll(DataSource.getFunData(false))
+            mMineAdapter.notifyDataSetChanged()
             Log.e(TAG,"当前处于未登录状态 user.isLogin == false")
         }
     }
 
-    private fun hideAppBarFab(fab: FloatingActionButton) {
-//        val params = fab.layoutParams as CoordinatorLayout.LayoutParams
-//        val behavior = params.behavior as FloatingActionButton.Behavior
-//        behavior.isAutoHideEnabled = false
-        fab.hide()
-    }
-
-    override fun fragmentShowToUser() {
-        if (isAdded){
-            checkUserLogin()
-        }
-    }
+    override fun fragmentShowToUser() {}
 
     override fun fragmentHideToUser() {}
 
@@ -199,17 +206,6 @@ class MineFragment : BaseFragment(), MineContract.View {
 
     override fun onResume() {
         super.onResume()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        EventBus.getDefault().unregister(this)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: LoginEvent) {
         checkUserLogin()
     }
-
 }

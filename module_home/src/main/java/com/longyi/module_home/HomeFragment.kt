@@ -32,6 +32,8 @@ import kotlinx.android.synthetic.main.home_fragment.*
 @Route(path =  RouterPath.Home.HOME,name = "首页")
 class HomeFragment : BaseFragment(), HomeContract.View {
 
+
+
     private var mPage = 0
     private var isShowToUser = true
 
@@ -58,7 +60,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
 
     override fun initView() {
-        val linearLayoutManager = LinearLayoutManager(activity)
+        val linearLayoutManager = LinearLayoutManager(requireActivity())
         rv_home_list.layoutManager = linearLayoutManager
         mAdapter = HomeAdapter(mArticles)
         val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner,null)
@@ -194,6 +196,15 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         mAdapter.notifyDataSetChanged()
     }
 
+    override fun showBindLikeSuccess(msg: String, isLike:Boolean, position: Int) {
+        ToastUtils.show(requireActivity(),msg)
+        mArticles[position].collect = isLike
+        mAdapter.notifyDataSetChanged()
+    }
+
+    override fun showBindLikeFail(msg: String, position: Int) {
+        ToastUtils.show(requireActivity(),msg)
+    }
 
     override fun showLoading() {}
 

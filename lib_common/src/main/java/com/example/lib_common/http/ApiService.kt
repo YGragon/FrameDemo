@@ -50,13 +50,13 @@ interface ApiService {
      * 收藏站内文章
      */
     @POST("lg/collect/{id}/json")
-    fun regionCollect(@Path("id") id:Int): Observable<BaseResponse<CollectBean>>
+    fun regionCollect(@Path("id") id:Int): Observable<BaseResponse<ResponseBody>>
 
     /**
      * 取消收藏站内文章
      */
     @POST("lg/uncollect_originId/{id}/json")
-    fun regionUnCollect(@Path("id") id:Int): Observable<BaseResponse<CollectBean>>
+    fun regionUnCollect(@Path("id") id:Int): Observable<BaseResponse<ResponseBody>>
     
     /**
      * 获取 首页文章 列表

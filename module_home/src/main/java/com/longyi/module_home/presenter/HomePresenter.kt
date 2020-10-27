@@ -33,9 +33,9 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
         if (login){
             val article = HomeDataSource.mArticles[position]
             if (article.collect){
-                unLike(article.id)
+                unLike(article.id,position)
             }else{
-                like(article.id)
+                like(article.id,position)
             }
         }else{
             mRootView?.showError("你还未登录哟")
@@ -44,17 +44,28 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
 
     }
 
-    private fun unLike(articleId:Int){
+    private fun unLike(articleId:Int,position: Int){
         // runRxLambda 网络请求工具使用
         runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionUnCollect(articleId),{
-            Log.e("222", "unLike:$it")
+            if (it.errorCode == 0){
+                // 成功
+                mRootView?.showBindLikeSuccess("取消收藏成功",false, position)
+            }else{
+                // 失败
+                mRootView?.showBindLikeFail("取消收藏失败：${it.errorMsg}",position)
+            }
         })
     }
-    private fun like(articleId:Int){
+    private fun like(articleId:Int,position: Int){
         // runRxLambda 网络请求工具使用
         runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionCollect(articleId),{
-
-           Log.e("222", "like:$it")
+            if (it.errorCode == 0){
+                // 成功
+                mRootView?.showBindLikeSuccess("收藏成功",true, position)
+            }else{
+                // 失败
+                mRootView?.showBindLikeFail("收藏失败：${it.errorMsg}",position)
+            }
         })
     }
 

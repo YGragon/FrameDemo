@@ -35,6 +35,12 @@ interface HomeContract {
          * 全部显示 article
          */
         fun showLoadEndArticles()
+
+        /**
+         * 点击收藏、取消收藏成功
+         */
+        fun showBindLikeSuccess(msg:String, isLike:Boolean,position: Int)
+        fun showBindLikeFail(msg:String,position: Int)
     }
 
     interface Presenter: IPresenter<View> {

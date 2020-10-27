@@ -4,6 +4,7 @@ package com.longyi.module_home
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_common.model.Article
+import com.example.lib_common.utils.GlideUtils
 
 /**
  * 首页 adapter
@@ -24,6 +25,11 @@ class HomeAdapter(list:MutableList<Article>)
             helper?.setGone(R.id.tv_fresh,false)
         }
 
+        if (item.collect){
+            helper?.setImageResource(R.id.iv_like,R.mipmap.like)
+        }else{
+            helper?.setImageResource(R.id.iv_like,R.mipmap.unlike)
+        }
 
         helper?.addOnClickListener(R.id.tv_super_chapter_name)
         helper?.addOnClickListener(R.id.iv_like)

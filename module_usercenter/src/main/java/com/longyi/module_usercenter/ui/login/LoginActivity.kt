@@ -13,6 +13,7 @@ import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.event.LoginEvent
 import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
+import com.example.lib_common.utils.rxbus.bus.RxBus
 import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import com.longyi.module_usercenter.R
@@ -79,7 +80,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun showLoginSuccess(successMsg: String) {
-        EventBus.getDefault().postSticky(LoginEvent(successMsg))
+        RxBus.postSticky("login_success",LoginEvent(successMsg))
         finish()
     }
 
