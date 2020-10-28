@@ -1,15 +1,14 @@
 package com.longyi.module_usercenter.ui.mine
 
 
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import android.view.ViewGroup
 import androidx.core.view.isGone
-import androidx.core.widget.NestedScrollView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.example.framedemo.data.bean.MineItemBean
 import com.longyi.module_usercenter.data.DataSource
 
 import com.longyi.module_usercenter.ui.mine.contract.MineContract
@@ -17,27 +16,22 @@ import com.longyi.module_usercenter.ui.mine.presenter.MinePresenter
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.BaseConstant
-import com.example.lib_common.constant.ParameterConstant.GankPhoto.imageUrl
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.event.LoginEvent
 import com.example.lib_common.model.UserControl
 import com.example.lib_common.service.gank.IGankPhotoCallBack
 import com.example.lib_common.service.gank.IGankService
-import com.example.lib_common.service.user_center.ILoginService
 import com.example.lib_common.utils.GlideUtils
 import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.utils.rxbus.bus.RxBus
 import com.example.lib_common.utils.rxbus.bus.RxBusReceiver
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.longyi.lib_base_item.BaseItemLayout
 import com.longyi.module_usercenter.R
-import com.longyi.module_usercenter.ui.login.LoginContract
-import com.longyi.module_usercenter.ui.login.LoginPresenter
 import com.tencent.bugly.beta.Beta
 import kotlinx.android.synthetic.main.fragment_mine.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import com.longyi.lib_base_item.config.ConfigAttrs
+import com.longyi.lib_base_item.config.Mode
 
 
 /**
@@ -82,6 +76,24 @@ class MineFragment : BaseFragment(), MineContract.View {
     }
 
     override fun initView() {
+        val baseItemLayout = BaseItemLayout(requireActivity())
+        val valueList = mutableListOf<String>()
+        val resIdList = mutableListOf<Int>()
+        for (i in mMineItems){
+            valueList.add(i.mName)
+            resIdList.add(R.mipmap.ic_launcher)
+        }
+        val attrs = ConfigAttrs() // 把全部参数的配置，委托给ConfigAttrs类处理。
+        //参数 使用链式方式配置
+        attrs.setValueList(valueList)  // 文字 list
+            .setResIdList(resIdList) // icon list
+            .setIconWidth(24)  //设置icon 的大小
+            .setIconHeight(24)
+            .setItemMode(Mode.NORMAL)
+        baseItemLayout.setConfigAttrs(attrs)
+            .create(requireActivity()) //
+        layout.addView(baseItemLayout)
+
         // 从gank 组件获取一张图片
         val mineHeadImg = PreferenceUtils.getString("mine_head_img")
         if (mineHeadImg.isNotEmpty()){
@@ -110,8 +122,11 @@ class MineFragment : BaseFragment(), MineContract.View {
             }
         })
 
-        rv_mine_list.layoutManager = LinearLayoutManager(activity)
-        rv_mine_list.adapter = mMineAdapter
+//        rv_mine_list.layoutManager = LinearLayoutManager(activity)
+//        rv_mine_list.adapter = mMineAdapter
+
+
+
 
         // 检测是否登录
         checkUserLogin()

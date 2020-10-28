@@ -55,12 +55,16 @@
 		android:paddingTop="36dp"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/rv_mine_list"
+<!--		<androidx.recyclerview.widget.RecyclerView-->
+<!--			android:id="@+id/rv_mine_list"-->
+<!--			android:layout_width="match_parent"-->
+<!--			android:layout_height="match_parent"-->
+<!--			android:nestedScrollingEnabled="false"-->
+<!--			/>-->
+		<FrameLayout
+			android:id="@+id/layout"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:nestedScrollingEnabled="false"
-			/>
+			android:layout_height="wrap_content"/>
 
 	</androidx.core.widget.NestedScrollView>
 

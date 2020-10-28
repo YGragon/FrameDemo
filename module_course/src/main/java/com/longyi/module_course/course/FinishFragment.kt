@@ -72,7 +72,7 @@ class FinishFragment : BaseFragment(), TodoContract.View {
     }
 
     override fun fragmentShowToUser() {
-        mPresenter.getList(page = mPage,status = 1,type = mType,priority = mPriority)
+        mPresenter.getList(page = 0,status = 1,type = mType,priority = mPriority)
     }
 
     override fun fragmentHideToUser() {
