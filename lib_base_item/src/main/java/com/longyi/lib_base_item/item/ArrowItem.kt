@@ -22,7 +22,7 @@ class ArrowItem:AbstractItem {
 
     override fun createWidget() {
 
-        arrowImg = ImageView(mContext)
+        arrowImg = ImageView(context)
         arrowImg.id = R.id.arrow_id
     }
 

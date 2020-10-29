@@ -14,11 +14,10 @@ import com.longyi.lib_base_item.SwitchImageView
 /**
  * Created by Aller on 2020/10/28.
  */
-class NormalItem:AbstractItem {
+class NormalItem(context: Context):AbstractItem(context) {
 
-    constructor(context: Context):super(context){}
-    constructor(context: Context, attributeSet: AttributeSet):super(context,attributeSet){}
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int):super(context, attributeSet, defStyleAttr){}
+    constructor(context: Context, attributeSet: AttributeSet):this(context){}
+    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int):this(context, attributeSet){}
 
     override fun createWidget() {
     }

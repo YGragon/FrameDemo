@@ -43,16 +43,17 @@ class BaseItemLayout(context: Context): LinearLayout(context) {
 
 
     constructor(context: Context, attributeSet: AttributeSet): this(context){
-        initData(context)
+        initData(context,attributeSet)
     }
 
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int): this(context, attributeSet){
-        initCustomerArrts(context, attributeSet)
-        initData(context)
+        initData(context,attributeSet)
 
     }
 
-    private fun initData(context: Context){
+    private fun initData(context: Context,attributeSet: AttributeSet){
+        initCustomerArrts(context, attributeSet)
+
         this.mContext = context
         mFactory = ItemFactory(mContext)
         orientation = VERTICAL

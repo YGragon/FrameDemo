@@ -8,11 +8,7 @@ import com.longyi.lib_base_item.item.AbstractItem
 /**
  * Created by Aller on 2020/10/28.
  */
-abstract class AbstractItemFactory {
-    protected lateinit var mContext: Context
-    constructor(context: Context): super(){
-        this.mContext = context
-    }
+abstract class AbstractItemFactory(val mContext: Context) {
 
     abstract fun createItem(mode: Mode, attrs: ConfigAttrs): AbstractItem
 }

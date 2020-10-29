@@ -61,10 +61,28 @@
 <!--			android:layout_height="match_parent"-->
 <!--			android:nestedScrollingEnabled="false"-->
 <!--			/>-->
-		<FrameLayout
+<!--		<FrameLayout-->
+<!--			android:id="@+id/layout"-->
+<!--			android:layout_width="match_parent"-->
+<!--			android:layout_height="wrap_content"/>-->
+
+		<com.maiml.library.BaseItemLayout
 			android:id="@+id/layout"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
+			android:layout_height="wrap_content"
+			app:text_size  = "14"
+			app:text_color = "@color/black_999"
+			app:icon_margin_left = "10"
+			app:icon_text_margin = "10"
+			app:margin_right = "10"
+			app:item_height = "44"
+			app:line_color = "@color/black_999"
+			app:right_text_size = "12"
+			app:right_text_color  = "@color/black_999"
+			app:right_text_margin = "10"
+			>
+
+		</com.maiml.library.BaseItemLayout>
 
 	</androidx.core.widget.NestedScrollView>
 

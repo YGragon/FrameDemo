@@ -29,9 +29,9 @@ class RedTextItem:AbstractItem {
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int):super(context, attributeSet, defStyleAttr){}
 
     override fun createWidget() {
-        redTextView = TextView(mContext);
+        redTextView = TextView(context);
         redTextView.setId(com.longyi.lib_base_item.R.id.red_text_id);
-        arrowView = ImageView(mContext);
+        arrowView = ImageView(context);
     }
 
     override fun createWidgetLayoutParams() {

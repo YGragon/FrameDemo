@@ -25,9 +25,9 @@ class TextItem:AbstractItem {
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int):super(context, attributeSet, defStyleAttr){}
 
     override fun createWidget() {
-        rightTextView = TextView(mContext);
+        rightTextView = TextView(context)
 
-        rightTextView.id = com.longyi.lib_base_item.R.id.right_text_id;
+        rightTextView.id = R.id.right_text_id;
     }
 
     override fun createWidgetLayoutParams() {

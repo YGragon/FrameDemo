@@ -26,7 +26,7 @@ class ButtonItem:AbstractItem {
 
     override fun createWidget() {
 
-        switchImageView = SwitchImageView(mContext)
+        switchImageView = SwitchImageView(context)
     }
 
     override fun createWidgetLayoutParams() {

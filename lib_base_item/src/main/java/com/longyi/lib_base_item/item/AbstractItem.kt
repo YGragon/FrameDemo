@@ -2,6 +2,7 @@ package com.longyi.lib_base_item.item
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.longyi.lib_base_item.config.ConfigAttrs
@@ -14,29 +15,32 @@ import com.longyi.lib_base_item.utils.dip2px
 /**
  * Created by Aller on 2020/10/28.
  */
-abstract class AbstractItem:RelativeLayout {
-    protected lateinit var mContext: Context
-    protected var iconImg: ImageView
-    protected var textView: TextView
-    protected var txtLp: RelativeLayout.LayoutParams
-    protected var iconLp: RelativeLayout.LayoutParams
+abstract class AbstractItem(context: Context):RelativeLayout(context) {
+    protected lateinit var iconImg: ImageView
+    protected lateinit var textView1: TextView
+    protected lateinit var txtLp: RelativeLayout.LayoutParams
+    protected lateinit var iconLp: RelativeLayout.LayoutParams
 
 
     protected lateinit var configAttrs: ConfigAttrs
 
-    constructor(context:Context):super(context){}
-    constructor(context:Context,attributeSet: AttributeSet):super(context,attributeSet){}
-    constructor(context:Context,attributeSet: AttributeSet, defStyleAttr: Int):super(context, attributeSet, defStyleAttr){
-        this.mContext = context
+    constructor(context:Context,attributeSet: AttributeSet):this(context){
+        initData(context)
+    }
+    constructor(context:Context,attributeSet: AttributeSet, defStyleAttr: Int):this(context, attributeSet){
+        initData(context)
     }
 
-    init {
+    private fun initData(context: Context) {
+
         setBackgroundResource(R.drawable.btn_list_item_black_bg)
 
-        iconImg = ImageView(mContext)
+        iconImg = ImageView(context)
         iconImg.id = R.id.img_id
-        textView = TextView(mContext)
-        textView.id = R.id.txt_id
+        Log.e("222","-------------------------")
+        textView1 = TextView(context)
+        Log.e("222",textView1.toString())
+        textView1.id = R.id.txt_id
         iconLp = RelativeLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -61,7 +65,7 @@ abstract class AbstractItem:RelativeLayout {
 
     open fun addWidget() {
 
-        addView(textView, txtLp)
+        addView(textView1, txtLp)
         addView(iconImg, iconLp)
 
 
@@ -74,6 +78,8 @@ abstract class AbstractItem:RelativeLayout {
      */
     fun create(configAttrs: ConfigAttrs) {
         this.configAttrs = configAttrs
+
+        initData(context)
 
         setBackgroundResource(configAttrs.getItemBgSelector())
         createWidget()
@@ -89,11 +95,6 @@ abstract class AbstractItem:RelativeLayout {
 
 
     fun setLayoutParams() {
-
-
-        if (configAttrs == null) {
-            throw RuntimeException("config arrts is null")
-        }
 
 
         if (configAttrs.getItemHeight() <= 0) {
@@ -115,16 +116,10 @@ abstract class AbstractItem:RelativeLayout {
     fun setTextStyle() {
 
 
-        if (configAttrs == null) {
-            throw RuntimeException("config arrts is null")
-        }
-
-
-
         txtLp.leftMargin = configAttrs.getIconTextMargin().dip2px().toInt()
-        textView.setTextColor(configAttrs.getTextColor())
-        textView.textSize = configAttrs.getTextSize().toFloat()
-        textView.text = configAttrs.getValueList()!![configAttrs.getPosition()]
+        textView1.setTextColor(configAttrs.getTextColor())
+        textView1.textSize = configAttrs.getTextSize().toFloat()
+        textView1.text = configAttrs.getValueList()!![configAttrs.getPosition()]
 
     }
 
@@ -133,10 +128,6 @@ abstract class AbstractItem:RelativeLayout {
      * 设置 icon 样式
      */
     fun setIconStyle() {
-
-        if (configAttrs == null) {
-            throw RuntimeException("config arrts is null")
-        }
 
 
         if (configAttrs.getIconHeight() <= 0) {
