@@ -1,10 +1,10 @@
-package com.example.uitestdemo.data.db
+package com.example.lib_common.db.dao
 
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.longyi.module_android_jetpack.data.local.Student
+import com.example.lib_common.model.Student
 
 @Dao
 interface StudentDao {

@@ -1,12 +1,10 @@
 package com.longyi.module_android_jetpack
 
 import android.app.Application
-import android.util.Log
 import com.example.lib_common.base.BaseApplication
-import com.example.lib_common.constant.AppConfig
-import com.example.lib_common.utils.LogUtils
-import com.example.uitestdemo.data.db.StudentDb
-import java.lang.Exception
+import com.example.lib_common.db.AppDataBase
+import com.example.lib_common.model.Student
+import com.example.uitestdemo.ioThread
 
 
 class JetpackApplication : BaseApplication()  {
@@ -17,24 +15,46 @@ class JetpackApplication : BaseApplication()  {
      * 通过反射，完成了组件 Application 的初始化操作，也实现了组件与化中的解耦需求
      */
     override fun initData(application: Application) {
-//        StudentDb.initData()
-//        for (moduleApp in AppConfig.moduleApps) {
-//            try {
-//                val clazz = Class.forName(moduleApp)
-//                val baseApp = clazz.newInstance() as BaseApplication
-//                baseApp.initData(this)
-//            } catch (e: ClassNotFoundException) {
-//                e.printStackTrace()
-//            } catch (e: IllegalAccessException) {
-//                e.printStackTrace()
-//            } catch (e: InstantiationException) {
-//                e.printStackTrace()
-//            }catch (e:Exception){
-//                LogUtils.d("MainApplication   Exception.e.message()" + e.message)
-//            }
-//        }
-
+        val allStudent = AppDataBase.instance(application).getStudentDao().getAllStudent()
+        val dataSource = allStudent.create()
+        var hadData = false
+        dataSource.map {
+            if (it.name.isNotEmpty()){
+                hadData = true
+            }
+        }
+        if (!hadData){
+            initData()
+        }
     }
 
+    // 默认数据
+    private fun initData(){
+        ioThread {
+            // 单线程池
+            AppDataBase.instance(BaseApplication.context).getStudentDao().insert(
+                CHEESE_DATA.map {
+                    Student(
+                        id = 0,
+                        name = it
+                    )
+                })
+        }
+    }
+    private val CHEESE_DATA = arrayListOf(
+        "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi",
+        "Acorn", "Adelost", "Affidelice au Chablis", "Afuega'l Pitu", "Airag",
+        "Airedale", "Aisy Cendre", "Allgauer Emmentaler", "Alverca", "Ambert",  // 15
+        "American Cheese", "Ami du Chambertin", "Anejo Enchilado", "Anneau du Vic-Bilh", "Anthoriro",
+        "Appenzell", "Aragon", "Ardi Gasna", "Ardrahan", "Armenian String",
+        "Aromes au Gene de Marc", "Asadero", "Asiago", "Aubisque Pyrenees", "Autun", // 30
+        "Avaxtskyr", "Baby Swiss", "Babybel", "Baguette Laonnaise", "Bakers",
+        "Baladi", "Balaton", "Bandal", "Banon", "Barry's Bay Cheddar", "Basing", "Basket Cheese", "Bath Cheese", "Bavarian Bergkase",
+        "Baylough", "Beaufort", "Beauvoorde", "Beenleigh Blue", "Beer Cheese", "Bel Paese",
+        "Bergader", "Bergere Bleue", "Berkswell", "Beyaz Peynir", "Bierkase", "Bishop Kennedy",
+        "Blarney", "Bleu d'Auvergne", "Bleu de Gex", "Bleu de Laqueuille",
+        "Bleu de Septmoncel", "Bleu Des Causses", "Blue", "Blue Castello", "Blue Rathgore",
+        "Blue Vein (Australian)", "Blue Vein Cheeses", "Bocconcini", "Bocconcini (Australian)"
+    )
 
 }

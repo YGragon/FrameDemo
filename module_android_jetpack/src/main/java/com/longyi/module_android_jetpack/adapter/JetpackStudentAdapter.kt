@@ -3,7 +3,7 @@ package com.longyi.module_android_jetpack.adapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.longyi.module_android_jetpack.R
-import com.longyi.module_android_jetpack.data.local.Student
+import com.example.lib_common.model.Student
 
 /**
  * 学生列表

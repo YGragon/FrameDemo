@@ -67,6 +67,7 @@ class UnFinishFragment:BaseFragment(), TodoContract.View {
     override fun setTvTitleBackgroundColor() {}
 
     override fun fragmentShowToUser() {
+        mUnFinishList.clear()
         mPresenter.getList(page = 0,status = 0,type = mType,priority = mPriority)
     }
 

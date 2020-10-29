@@ -1,11 +1,11 @@
 package com.longyi.module_android_jetpack.fragment.home
 
-import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.uitestdemo.data.db.StudentDb
+import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseViewModel
+import com.example.lib_common.db.AppDataBase
 
 /**
  * Created by Aller on 2020/6/6.
@@ -20,7 +20,7 @@ class HomeViewModel(val view:LifecycleOwner): BaseViewModel() {
 //    val mContext = context
 //    val dao = StudentDb.get(mContext).studentDao()
 
-    val dao = StudentDb.get().studentDao()
+    val dao = AppDataBase.instance(BaseApplication.context).getStudentDao()
 
     val allStudents = LivePagedListBuilder(dao.getAllStudent(), PagedList.Config.Builder()
         .setPageSize(PAGE_SIZE)                         //配置分页加载的数量

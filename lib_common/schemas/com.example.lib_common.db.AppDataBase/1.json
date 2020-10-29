@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3c43d5c440ef905f0484fb31ea88bf66",
+    "identityHash": "49cfab216cfc2dee7072feb0bba493c4",
     "entities": [
       {
         "tableName": "shistory",
@@ -141,12 +141,38 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Student",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3c43d5c440ef905f0484fb31ea88bf66')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '49cfab216cfc2dee7072feb0bba493c4')"
     ]
   }
 }

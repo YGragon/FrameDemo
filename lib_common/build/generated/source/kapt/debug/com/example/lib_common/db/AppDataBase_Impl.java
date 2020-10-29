@@ -18,6 +18,8 @@ import com.example.lib_common.db.dao.HotKeyDao;
 import com.example.lib_common.db.dao.HotKeyDao_Impl;
 import com.example.lib_common.db.dao.SearchHistoryDao;
 import com.example.lib_common.db.dao.SearchHistoryDao_Impl;
+import com.example.lib_common.db.dao.StudentDao;
+import com.example.lib_common.db.dao.StudentDao_Impl;
 import com.example.lib_common.db.dao.UserDao;
 import com.example.lib_common.db.dao.UserDao_Impl;
 import java.lang.Override;
@@ -35,6 +37,8 @@ public final class AppDataBase_Impl extends AppDataBase {
 
   private volatile UserDao _userDao;
 
+  private volatile StudentDao _studentDao;
+
   @Override
   protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration configuration) {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
@@ -43,8 +47,9 @@ public final class AppDataBase_Impl extends AppDataBase {
         _db.execSQL("CREATE TABLE IF NOT EXISTS `shistory` (`sId` INTEGER, `key_word` TEXT, PRIMARY KEY(`sId`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `hotkey` (`id` INTEGER NOT NULL, `link` TEXT NOT NULL, `name` TEXT NOT NULL, `order` INTEGER NOT NULL, `visible` INTEGER NOT NULL, PRIMARY KEY(`id`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `user` (`chapterTops` TEXT, `collectIds` TEXT, `email` TEXT NOT NULL, `icon` TEXT NOT NULL, `id` INTEGER NOT NULL, `password` TEXT NOT NULL, `token` TEXT NOT NULL, `type` INTEGER NOT NULL, `username` TEXT NOT NULL, PRIMARY KEY(`id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `Student` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3c43d5c440ef905f0484fb31ea88bf66')");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '49cfab216cfc2dee7072feb0bba493c4')");
       }
 
       @Override
@@ -52,6 +57,7 @@ public final class AppDataBase_Impl extends AppDataBase {
         _db.execSQL("DROP TABLE IF EXISTS `shistory`");
         _db.execSQL("DROP TABLE IF EXISTS `hotkey`");
         _db.execSQL("DROP TABLE IF EXISTS `user`");
+        _db.execSQL("DROP TABLE IF EXISTS `Student`");
         if (mCallbacks != null) {
           for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
             mCallbacks.get(_i).onDestructiveMigration(_db);
@@ -136,9 +142,21 @@ public final class AppDataBase_Impl extends AppDataBase {
                   + " Expected:\n" + _infoUser + "\n"
                   + " Found:\n" + _existingUser);
         }
+        final HashMap<String, TableInfo.Column> _columnsStudent = new HashMap<String, TableInfo.Column>(2);
+        _columnsStudent.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsStudent.put("name", new TableInfo.Column("name", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysStudent = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesStudent = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoStudent = new TableInfo("Student", _columnsStudent, _foreignKeysStudent, _indicesStudent);
+        final TableInfo _existingStudent = TableInfo.read(_db, "Student");
+        if (! _infoStudent.equals(_existingStudent)) {
+          return new RoomOpenHelper.ValidationResult(false, "Student(com.example.lib_common.model.Student).\n"
+                  + " Expected:\n" + _infoStudent + "\n"
+                  + " Found:\n" + _existingStudent);
+        }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "3c43d5c440ef905f0484fb31ea88bf66", "c1dc94402c660550cd3b0628c911381f");
+    }, "49cfab216cfc2dee7072feb0bba493c4", "9c27cfa8603f775023d04a055b0d66b5");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)
@@ -151,7 +169,7 @@ public final class AppDataBase_Impl extends AppDataBase {
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
     HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
-    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "shistory","hotkey","user");
+    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "shistory","hotkey","user","Student");
   }
 
   @Override
@@ -163,6 +181,7 @@ public final class AppDataBase_Impl extends AppDataBase {
       _db.execSQL("DELETE FROM `shistory`");
       _db.execSQL("DELETE FROM `hotkey`");
       _db.execSQL("DELETE FROM `user`");
+      _db.execSQL("DELETE FROM `Student`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
@@ -211,6 +230,20 @@ public final class AppDataBase_Impl extends AppDataBase {
           _userDao = new UserDao_Impl(this);
         }
         return _userDao;
+      }
+    }
+  }
+
+  @Override
+  public StudentDao getStudentDao() {
+    if (_studentDao != null) {
+      return _studentDao;
+    } else {
+      synchronized(this) {
+        if(_studentDao == null) {
+          _studentDao = new StudentDao_Impl(this);
+        }
+        return _studentDao;
       }
     }
   }

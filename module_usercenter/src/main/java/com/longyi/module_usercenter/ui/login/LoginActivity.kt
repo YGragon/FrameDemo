@@ -80,7 +80,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun showLoginSuccess(successMsg: String) {
-        RxBus.postSticky("login_success",LoginEvent(successMsg))
         finish()
     }
 

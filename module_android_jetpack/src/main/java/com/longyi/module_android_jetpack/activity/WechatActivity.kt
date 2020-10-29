@@ -3,7 +3,7 @@ package com.longyi.module_android_jetpack.activity
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.longyi.module_android_jetpack.adapter.JetpackStudentAdapter
-import com.longyi.module_android_jetpack.data.local.Student
+import com.example.lib_common.model.Student
 import kotlinx.android.synthetic.main.activity_wechat.*
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.base.BaseActivity

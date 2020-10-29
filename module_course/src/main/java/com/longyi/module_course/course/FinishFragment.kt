@@ -72,6 +72,7 @@ class FinishFragment : BaseFragment(), TodoContract.View {
     }
 
     override fun fragmentShowToUser() {
+        mUnFinishList.clear()
         mPresenter.getList(page = 0,status = 1,type = mType,priority = mPriority)
     }
 

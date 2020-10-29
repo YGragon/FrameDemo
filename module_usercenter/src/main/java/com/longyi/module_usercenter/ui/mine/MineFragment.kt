@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.framedemo.data.bean.MineItemBean
 import com.longyi.module_usercenter.data.DataSource
 
 import com.longyi.module_usercenter.ui.mine.contract.MineContract
@@ -43,8 +44,8 @@ class MineFragment : BaseFragment(), MineContract.View {
 
     private val TAG = "MineFragment"
     private var mToolBarLayoutTitle = "点击加号按钮登录"
-    private var mMineItems = DataSource.getFunData(false)
-    private var mMineAdapter = MineAdapter(mMineItems)
+    private var mMineItems = mutableListOf<MineItemBean>()
+//    private var mMineAdapter = MineAdapter(mMineItems)
     /**
      * 懒加载Presenter
      */
@@ -74,47 +75,13 @@ class MineFragment : BaseFragment(), MineContract.View {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        // 检测是否登录
+        checkUserLogin()
+    }
+
     override fun initView() {
-//        val baseItemLayout = BaseItemLayout(requireActivity())
-//        val valueList = mutableListOf<String>()
-//        val resIdList = mutableListOf<Int>()
-//        for (i in mMineItems){
-//            valueList.add(i.mName)
-//            resIdList.add(R.mipmap.ic_launcher)
-//        }
-//        val attrs = ConfigAttrs() // 把全部参数的配置，委托给ConfigAttrs类处理。
-//        //参数 使用链式方式配置
-//        attrs.setValueList(valueList)  // 文字 list
-//            .setResIdList(resIdList) // icon list
-//            .setIconWidth(24)  //设置icon 的大小
-//            .setIconHeight(24)
-//            .setItemMode(Mode.NORMAL)
-//        baseItemLayout.setConfigAttrs(attrs)
-//            .create(requireActivity()) //
-//        layout.addView(baseItemLayout)
-//
-//        layout = findViewById(R.id.layout) as BaseItemLayout
-
-
-        val valueList = arrayListOf<String>()
-        val resIdList = arrayListOf<Int>()
-
-        for (i in mMineItems){
-            valueList.add(i.mName)
-            resIdList.add(R.mipmap.ic_launcher)
-        }
-
-        val attrs = ConfigAttrs() // 把全部参数的配置，委托给ConfigAttrs类处理。
-        //参数 使用链式方式配置
-        attrs.setValueList(valueList)  // 文字 list
-            .setResIdList(resIdList) // icon list
-            .setIconWidth(24)  //设置icon 的大小
-            .setIconHeight(24)
-            .setItemMarginTop(10)  //设置 全部item的间距
-            .setItemMode(Mode.NORMAL)
-        layout.setConfigAttrs(attrs)
-            .create() //
-
         // 从gank 组件获取一张图片
         val mineHeadImg = PreferenceUtils.getString("mine_head_img")
         if (mineHeadImg.isNotEmpty()){
@@ -135,38 +102,23 @@ class MineFragment : BaseFragment(), MineContract.View {
             }
         })
 
-        RxBus.receiveSticky(this,"login_success",object :RxBusReceiver<Any>(){
-            override fun receive(data: Any) {
-                val loginData = data as LoginEvent
-                Log.e("222","登录回调："+loginData)
-                checkUserLogin()
-            }
-        })
 
-//        rv_mine_list.layoutManager = LinearLayoutManager(activity)
-//        rv_mine_list.adapter = mMineAdapter
-
-
-
-
-        // 检测是否登录
-        checkUserLogin()
         toolbar_layout.title = mToolBarLayoutTitle
 
-        mMineAdapter.setOnItemClickListener { adapter, view, position ->
-            when(mMineItems[position].mID){
-                DataSource.DOWN_LOAD_APK -> Beta.checkUpgrade()
-                DataSource.DOWN_LOAD_FILE -> ToastUtils.show(BaseApplication.context,"下载文件使用")
-                DataSource.DOWN_UPLOAD_FILE -> ToastUtils.show(BaseApplication.context,"上传文件使用")
-                DataSource.TO_SHARE_MODULE -> ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
-                DataSource.TO_MAP_MODULE -> ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
-                DataSource.TO_GANK_MODULE -> ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
-                DataSource.TO_JETPACK_MODULE ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.CUSTOM_TAB).navigation()
-                DataSource.GET_ALL_SERVICE -> getAllService()
-                DataSource.GET_COLLECT -> ARouter.getInstance().build(RouterPath.UserCenter.COLLECT).navigation()
-                DataSource.LOG_OUT -> mPresenter.loginOut()
-            }
-        }
+//        mMineAdapter.setOnItemClickListener { adapter, view, position ->
+//            when(mMineItems[position].mID){
+//                DataSource.DOWN_LOAD_APK -> Beta.checkUpgrade()
+//                DataSource.DOWN_LOAD_FILE -> ToastUtils.show(BaseApplication.context,"下载文件使用")
+//                DataSource.DOWN_UPLOAD_FILE -> ToastUtils.show(BaseApplication.context,"上传文件使用")
+//                DataSource.TO_SHARE_MODULE -> ARouter.getInstance().build(RouterPath.Share.SHARE_APP).navigation()
+//                DataSource.TO_MAP_MODULE -> ARouter.getInstance().build(RouterPath.Map.MAP_APP).navigation()
+//                DataSource.TO_GANK_MODULE -> ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO).navigation()
+//                DataSource.TO_JETPACK_MODULE ->  ARouter.getInstance().build(RouterPath.AndroidJetPack.CUSTOM_TAB).navigation()
+//                DataSource.GET_ALL_SERVICE -> getAllService()
+//                DataSource.GET_COLLECT -> ARouter.getInstance().build(RouterPath.UserCenter.COLLECT).navigation()
+//                DataSource.LOG_OUT -> mPresenter.loginOut()
+//            }
+//        }
 
         layout.setOnBaseItemClick { position ->
             Log.e(TAG, "----- position = $position")
@@ -204,6 +156,8 @@ class MineFragment : BaseFragment(), MineContract.View {
     }
 
     private fun checkUserLogin() {
+        mMineItems.clear()
+
         if (UserControl.isLogin()) {
             val username = PreferenceUtils.getString(BaseConstant.USER_NAME)
             val user = UserControl.getUserByName(username)
@@ -211,16 +165,18 @@ class MineFragment : BaseFragment(), MineContract.View {
             if (user == null){
                 // 未登录
                 Log.e(TAG,"当前处于未登录状态 user == null ")
-
+                mToolBarLayoutTitle = "点击加号按钮登录"
+                toolbar_layout.title = mToolBarLayoutTitle
+                // 显示登录按钮
+                fabButton.isGone = false
+                mMineItems.addAll(DataSource.getFunData(false))
             }else{
                 mToolBarLayoutTitle = "欢迎你，${user.username}"
                 toolbar_layout.title = mToolBarLayoutTitle
                 // 隐藏登录按钮
                 fabButton.isGone = true
                 // 刷新下方列表
-                mMineItems.clear()
                 mMineItems.addAll(DataSource.getFunData(true))
-                mMineAdapter.notifyDataSetChanged()
             }
         } else {
             // 未登录
@@ -228,11 +184,29 @@ class MineFragment : BaseFragment(), MineContract.View {
             toolbar_layout.title = mToolBarLayoutTitle
             // 显示登录按钮
             fabButton.isGone = false
-            mMineItems.clear()
             mMineItems.addAll(DataSource.getFunData(false))
-            mMineAdapter.notifyDataSetChanged()
             Log.e(TAG,"当前处于未登录状态 user.isLogin == false")
         }
+        Log.e(TAG,"当前处于未登录状态 mMineItems.size:"+mMineItems.size)
+        val valueList = arrayListOf<String>()
+        val resIdList = arrayListOf<Int>()
+
+        for (i in mMineItems){
+            valueList.add(i.mName)
+            resIdList.add(R.mipmap.ic_launcher)
+        }
+        // 移除所有view
+        layout.removeAllViews()
+        val attrs = ConfigAttrs() // 把全部参数的配置，委托给ConfigAttrs类处理。
+        //参数 使用链式方式配置
+        attrs.setValueList(valueList)  // 文字 list
+            .setResIdList(resIdList) // icon list
+            .setIconWidth(24)  //设置icon 的大小
+            .setIconHeight(24)
+            .setItemMarginTop(10)  //设置 全部item的间距
+            .setItemMode(Mode.TEXT)
+        layout.setConfigAttrs(attrs)
+            .create() //
     }
 
     override fun fragmentShowToUser() {}
@@ -256,8 +230,4 @@ class MineFragment : BaseFragment(), MineContract.View {
 
     override fun hideLoading() {}
 
-    override fun onResume() {
-        super.onResume()
-        checkUserLogin()
-    }
 }

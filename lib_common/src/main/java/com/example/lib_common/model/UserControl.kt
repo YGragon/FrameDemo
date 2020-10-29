@@ -22,7 +22,9 @@ object UserControl {
     fun setUser(userInfo: User) {
         PreferenceUtils.saveValue(BaseConstant.IS_LOGIN_KEY, BaseConstant.IS_LOGIN_TRUE)
         PreferenceUtils.saveValue(BaseConstant.USER_NAME, userInfo.username)
-        userDao.insertUser(userInfo)
+        if (getUserByName(userInfo.username)?.username == null){
+            userDao.insertUser(userInfo)
+        }
 
     }
     fun getUserByName(name:String): User? {
