@@ -7,59 +7,107 @@
 		android:layout_height="match_parent"
 		tools:context=".ToDoPublishActivity">
 
+	<FrameLayout
+		android:id="@+id/toolbar_publish"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		<include layout="@layout/layout_toolbar" />
+	</FrameLayout>
+
+
 	<EditText
 			android:id="@+id/et_title"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/bg_spinner_rectangle"
-			android:hint="标题"
-			android:padding="5dp"
-			android:layout_marginTop="5dp"
+			android:background="@null"
+			android:hint="请输入任务标题"
+			android:textColorHint="#888888"
+			android:gravity="top"
+			android:padding="15dp"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
+			app:layout_constraintTop_toBottomOf="@+id/toolbar_publish"/>
+	<View
+		android:id="@+id/view_divider"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="@color/black_999"
+		app:layout_constraintTop_toBottomOf="@+id/et_title"/>
+
 	<EditText
 			android:id="@+id/et_desc"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@drawable/bg_spinner_rectangle"
-			android:hint="描述"
-			android:minLines="3"
-			android:padding="5dp"
+			android:layout_height="200dp"
+			android:background="@null"
+			android:hint="请输入任务内容"
+			android:textColorHint="#888888"
 			android:gravity="top"
-			android:layout_marginTop="5dp"
-			app:layout_constraintTop_toBottomOf="@+id/et_title"
+			android:padding="15dp"
+			app:layout_constraintTop_toBottomOf="@+id/view_divider"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 	/>
+	<View
+		android:id="@+id/view_divider1"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="@color/black_999"
+		app:layout_constraintTop_toBottomOf="@+id/et_desc"/>
 	<TextView
 			android:id="@+id/tv_type"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/bg_spinner_rectangle"
-			android:hint="类型"
-			android:padding="5dp"
-			android:layout_marginTop="5dp"
-			app:layout_constraintTop_toBottomOf="@+id/et_desc"
+			android:hint="点击选择类型"
+			android:textColorHint="#888888"
+			android:gravity="top"
+			android:padding="15dp"
+			app:layout_constraintTop_toBottomOf="@+id/view_divider1"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 			/>
-
+	<View
+		android:id="@+id/view_divider2"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="@color/black_999"
+		app:layout_constraintTop_toBottomOf="@+id/tv_type"/>
 	<TextView
 			android:id="@+id/tv_date"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/bg_spinner_rectangle"
-			android:hint="时间"
-			android:padding="5dp"
-			android:layout_marginTop="5dp"
-			app:layout_constraintTop_toBottomOf="@+id/tv_type"
+			android:hint="点击选择时间"
+			android:textColorHint="#888888"
+			android:gravity="top"
+			android:padding="15dp"
+			app:layout_constraintTop_toBottomOf="@+id/view_divider2"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 	/>
-
-
-
+	<View
+		android:id="@+id/view_divider3"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="@color/black_999"
+		app:layout_constraintTop_toBottomOf="@+id/tv_date"/>
+	<TextView
+		android:id="@+id/tv_priority"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:hint="点击选择紧急度"
+		android:textColorHint="#888888"
+		android:gravity="top"
+		android:padding="15dp"
+		app:layout_constraintTop_toBottomOf="@+id/view_divider3"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"/>
+	<View
+		android:id="@+id/view_divider4"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="@color/black_999"
+		app:layout_constraintTop_toBottomOf="@+id/tv_priority"/>
 	<Button
 			android:id="@+id/btn_publish"
 			android:layout_width="match_parent"

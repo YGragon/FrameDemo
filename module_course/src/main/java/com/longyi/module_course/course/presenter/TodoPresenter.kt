@@ -12,8 +12,8 @@ import com.example.lib_common.http.runRxLambda
 class TodoPresenter:BasePresenter<TodoContract.View>(), TodoContract.Presenter {
 
 
-    override fun getList(page:Int,status:Int,type:Int,priority:Int,orderby:Int) {
-        runRxLambda(RetrofitManager.service.getTodoList(page,status,type,priority,orderby),{
+    override fun getList(page:Int,status:Int,orderby:Int) {
+        runRxLambda(RetrofitManager.service.getTodoList(page,status,orderby),{
             if (it.errorCode == 0) {
                 mRootView?.showList(it.data.curPage,it.data.pageCount,it.data.datas)
             }else{

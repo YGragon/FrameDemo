@@ -5,7 +5,9 @@
 	<application android:theme="@style/AppTheme">
 		<activity android:name=".ToDoDetailActivity">
 		</activity>
-		<activity android:name=".ToDoPublishActivity">
+		<activity
+			android:name=".ToDoPublishActivity"
+			android:windowSoftInputMode="stateVisible|adjustResize">
 		</activity>
 	</application>
 

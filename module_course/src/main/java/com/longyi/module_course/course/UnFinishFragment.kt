@@ -25,8 +25,6 @@ class UnFinishFragment:BaseFragment(), TodoContract.View {
     private lateinit var mAdapter: TodoAdapter
 
     private var mPage = 1
-    private var mType = 1
-    private var mPriority = 1
 
     /**
      * 懒加载Presenter
@@ -49,12 +47,12 @@ class UnFinishFragment:BaseFragment(), TodoContract.View {
         srl_refresh_layout.setOnRefreshListener {
             mUnFinishList.clear()
             mPage = 0
-            mPresenter.getList(page = mPage,status = 0,type = mType,priority = mPriority)
+            mPresenter.getList(page = mPage,status = 0)
         }
 
         mAdapter.setOnLoadMoreListener({
             mPage++
-            mPresenter.getList(page = mPage,status = 0,type = mType,priority = mPriority)
+            mPresenter.getList(page = mPage,status = 0)
         },rv_un_finish)
 
         mAdapter.setOnItemClickListener { _, _, position ->
@@ -68,7 +66,7 @@ class UnFinishFragment:BaseFragment(), TodoContract.View {
 
     override fun fragmentShowToUser() {
         mUnFinishList.clear()
-        mPresenter.getList(page = 0,status = 0,type = mType,priority = mPriority)
+        mPresenter.getList(page = 0,status = 0)
     }
 
     override fun fragmentHideToUser() {}

@@ -9,7 +9,8 @@
 		app:cardCornerRadius="10dp">
 	<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+		android:padding="10dp">
 		<TextView
 				android:id="@+id/tv_date"
 				android:layout_width="wrap_content"
@@ -18,6 +19,34 @@
 				tools:text="2018-08-28"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"/>
+
+		<TextView
+			android:id="@+id/tv_end_date"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="5dp"
+			tools:text="2018-08-28"
+			app:layout_constraintTop_toBottomOf="@+id/tv_date"
+			app:layout_constraintStart_toStartOf="parent"/>
+
+		<TextView
+			android:id="@+id/tv_priority"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="5dp"
+			tools:text="重要"
+			app:layout_constraintTop_toBottomOf="@+id/tv_end_date"
+			app:layout_constraintStart_toStartOf="parent"/>
+
+		<TextView
+			android:id="@+id/tv_type"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="5dp"
+			tools:text="类型"
+			app:layout_constraintTop_toBottomOf="@+id/tv_priority"
+			app:layout_constraintStart_toStartOf="parent"/>
+
 		<ImageView
 				android:id="@+id/iv_more"
 				android:layout_width="wrap_content"
@@ -30,10 +59,9 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:padding="5dp"
-				android:textStyle="bold"
 				tools:text="标题"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/tv_date"/>
+				app:layout_constraintTop_toBottomOf="@+id/tv_type"/>
 		<TextView
 				android:id="@+id/tv_content"
 				android:layout_width="wrap_content"

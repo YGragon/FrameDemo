@@ -25,7 +25,7 @@ interface TodoContract {
         /**
          * 获取列表
          */
-        fun getList(page:Int,status:Int,type:Int,priority:Int,orderby:Int = 4)
+        fun getList(page:Int,status:Int,orderby:Int = 4)
 
 
     }
