@@ -56,7 +56,18 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
         initListener()
 
     }
+    private fun initToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = "发布TODO任务"
+        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
 
+        //设置为ActionBar
+        setSupportActionBar(toolbar)
+        //显示那个箭头
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
+    }
     private fun initListener() {
         // 时间选择器
         tv_date.setOnClickListener { selectDate() }
@@ -75,11 +86,6 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
             val titleValid = t1!!.isNotEmpty()
             val descValid = t2!!.isNotEmpty()
             // 传递检验结果
-            if (titleValid){
-                ToastUtils.show(this,"标题为空")
-            }else if (descValid){
-                ToastUtils.show(this,"内容为空")
-            }
             titleValid && descValid
         }).subscribe {
             // 设置按钮的可用状态
@@ -157,18 +163,7 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
 
     }
 
-    private fun initToolbar() {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.title = "发布TODO任务"
-        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
 
-        //设置为ActionBar
-        setSupportActionBar(toolbar)
-        //显示那个箭头
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
-        toolbar.setNavigationOnClickListener { finish() }
-    }
 
     override fun initData() {
         if (intent.hasExtra(ParameterConstant.ToDo.todoBean)) {

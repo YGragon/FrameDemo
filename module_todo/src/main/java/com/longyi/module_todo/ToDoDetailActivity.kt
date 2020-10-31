@@ -1,5 +1,6 @@
 package com.longyi.module_todo
 
+import androidx.appcompat.widget.Toolbar
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseActivity
@@ -28,6 +29,7 @@ class ToDoDetailActivity : BaseActivity(),ToDoContract.View {
     }
 
     override fun initView() {
+        initToolbar()
         if (intent.hasExtra(ParameterConstant.ToDo.todoBean)){
             todoBean = intent.getSerializableExtra(ParameterConstant.ToDo.todoBean) as Todo
         }else{
@@ -35,7 +37,18 @@ class ToDoDetailActivity : BaseActivity(),ToDoContract.View {
             finish()
         }
     }
+    private fun initToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = "TODO详情"
+        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
 
+        //设置为ActionBar
+        setSupportActionBar(toolbar)
+        //显示那个箭头
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
+    }
     override fun initData() {
         tv_title.text = todoBean.title
         tv_desc.text = todoBean.content
