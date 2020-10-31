@@ -99,11 +99,11 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:text="编辑"
-		android:layout_margin="20dp"
-		app:layout_constraintHorizontal_weight="1"
-		android:background="@drawable/btn_nor_down"
-		app:layout_constraintEnd_toStartOf="@+id/btn_delete"
-		app:layout_constraintBottom_toTopOf="@+id/btn_un_complete"
+			android:layout_margin="20dp"
+			app:layout_constraintHorizontal_weight="1"
+			android:background="@drawable/btn_nor_down"
+			app:layout_constraintEnd_toStartOf="@+id/btn_delete"
+			app:layout_constraintBottom_toTopOf="@+id/btn_un_complete"
 			app:layout_constraintStart_toStartOf="parent"
 			/>
 	<Button
@@ -111,11 +111,11 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:text="删除"
-		android:layout_margin="20dp"
-		app:layout_constraintHorizontal_weight="1"
-		android:background="@drawable/btn_nor_down"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintBottom_toTopOf="@+id/btn_un_complete"
+			android:layout_margin="20dp"
+			app:layout_constraintHorizontal_weight="1"
+			android:background="@drawable/btn_nor_down"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toTopOf="@+id/btn_un_complete"
 			app:layout_constraintStart_toEndOf="@+id/btn_edit"
 			/>
 	<Button
@@ -128,7 +128,7 @@
 			android:background="@drawable/btn_nor_down"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintEnd_toStartOf="@+id/btn_complete"
+			app:layout_constraintEnd_toStartOf="@+id/btn_complete"
 			/>
 	<Button
 			android:id="@+id/btn_complete"
