@@ -3,6 +3,7 @@ package com.longyi.module_usercenter.ui.collect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.BaseAdapter
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -32,6 +33,7 @@ class CollectActivity : BaseActivity(),CollectContract.View {
     }
 
     override fun initView() {
+        initToolbar()
         rv_collect.layoutManager = LinearLayoutManager(this)
         mCollectAdapter = CollectAdapter(mCollects)
         rv_collect.adapter = mCollectAdapter
@@ -40,8 +42,28 @@ class CollectActivity : BaseActivity(),CollectContract.View {
             mPage++
             mPresenter.getCollects(mPage)
         },rv_collect)
-    }
 
+        mCollectAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                R.id.layout_card -> {
+                    val link = mCollects[position].link
+                    mPresenter.toWebDetail(link)
+                }
+            }
+        }
+    }
+    private fun initToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = "我的收藏"
+        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+
+        //设置为ActionBar
+        setSupportActionBar(toolbar)
+        //显示那个箭头
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
+    }
     override fun initData() {
         mPresenter.getCollects(mPage)
     }

@@ -6,8 +6,18 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		tools:context=".ui.collect.CollectActivity">
+	<FrameLayout
+		android:id="@+id/toolbar_publish"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		<include layout="@layout/layout_toolbar" />
+	</FrameLayout>
 	<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/rv_collect"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/toolbar_publish"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

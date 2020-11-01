@@ -20,7 +20,7 @@ data class CollectBean(
 )
 
 data class Collect(
-    val author: String,
+    val author: String?,
     val chapterId: Int,
     val chapterName: String,
     val courseId: Int,

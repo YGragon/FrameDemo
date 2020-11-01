@@ -49,7 +49,5 @@ class TodoAdapter(list:MutableList<Todo>) : BaseQuickAdapter<Todo,BaseViewHolder
         }else{
             helper?.setGone(R.id.tv_end_date, false)
         }
-
-        helper?.addOnClickListener(R.id.iv_more)
     }
 }

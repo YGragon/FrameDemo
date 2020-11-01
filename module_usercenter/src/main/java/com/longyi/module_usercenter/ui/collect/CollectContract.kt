@@ -30,5 +30,7 @@ interface CollectContract {
          * 获取收藏列表
          */
         fun getCollects(page:Int)
+
+        fun toWebDetail(articleUrl: String)
     }
 }
