@@ -116,7 +116,7 @@
 			android:textColor="@color/white"
 			android:textSize="16sp"
 			android:padding="5dp"
-			android:background="@color/colorPrimary"
+			android:background="@color/gray_ea"
 			app:layout_constraintBottom_toBottomOf="parent"
 	/>
 

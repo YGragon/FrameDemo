@@ -64,11 +64,13 @@ class UnFinishFragment:BaseFragment(), TodoContract.View {
 
     override fun setTvTitleBackgroundColor() {}
 
-    override fun fragmentShowToUser() {
+    override fun fragmentShowToUser() {}
+
+    override fun onResume() {
+        super.onResume()
         mUnFinishList.clear()
         mPresenter.getList(page = 0,status = 0)
     }
-
     override fun fragmentHideToUser() {}
 
     override fun showError(errorMsg: String) {

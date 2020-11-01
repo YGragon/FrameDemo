@@ -24,7 +24,7 @@ data class TodoList(
 
 
 data class Todo(
-    val completeDate: Any,
+    val completeDate: Any?,
     val completeDateStr: String,
     val content: String,
     val date: Long,

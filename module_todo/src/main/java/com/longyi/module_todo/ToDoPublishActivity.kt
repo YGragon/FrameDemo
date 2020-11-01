@@ -23,6 +23,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.functions.Function5
 import java.util.concurrent.TimeUnit
 
 
@@ -79,26 +80,15 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
         // 按钮设置默认不可用
         btn_publish.isEnabled = false
         // 监听 editText 变化，这里 textChanges 不能返回 Any
-        val etTitle = RxUtil.textChanges(et_title)
-        val etDesc = RxUtil.textChanges(et_desc)
+        // 监听所有数据，不为空则按钮可点
+        checkData()
 
-        val subscribe7 = Observable.combineLatest(etTitle, etDesc, BiFunction<CharSequence?, CharSequence?, Boolean?> { t1, t2 ->
-            val titleValid = t1!!.isNotEmpty()
-            val descValid = t2!!.isNotEmpty()
-            // 传递检验结果
-            titleValid && descValid
-        }).subscribe {
-            // 设置按钮的可用状态
-            btn_publish.isEnabled = it!!
-
-        }
-        disposables.add(subscribe7)
 
         val subscribe6 = RxUtil.clickView(btn_publish)
             .throttleFirst(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                Log.e("", "连续点击,控制间隔一秒处理一次结果")
+                Log.e("222", "连续点击,控制间隔一秒处理一次结果")
                 if (isEdit) {
                     mPresenter.postEditToDoInfo(
                         todoBean.id,
@@ -119,6 +109,34 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
                 }
             }
         disposables.add(subscribe6)
+    }
+
+    private fun checkData() {
+        val etTitle = RxUtil.textChanges(et_title)
+        val etDesc = RxUtil.textChanges(et_desc)
+        val tvType = RxUtil.textEmpty(tv_type)
+        val tvDate = RxUtil.textEmpty(tv_date)
+        val tvPriority = RxUtil.textEmpty(tv_priority)
+        val subscribe7 = Observable.combineLatest(etTitle,etDesc,tvDate,tvType,tvPriority,
+            Function5<CharSequence?, CharSequence?, CharSequence?, CharSequence?, CharSequence?,Boolean?> { t1, t2, t3, t4, t5 ->
+                val titleValid = t1!!.isNotEmpty()
+                val descValid = t2!!.isNotEmpty()
+                val typeValid = t3!!.isNotEmpty()
+                val dateValid = t4!!.isNotEmpty()
+                val priorityValid = t5!!.isNotEmpty()
+                // 传递检验结果
+                titleValid && descValid && typeValid && dateValid && priorityValid
+            }).subscribe {
+            // 设置按钮的可用状态
+            btn_publish.isEnabled = it!!
+            if(it){
+                btn_publish.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            }else{
+                btn_publish.setBackgroundColor(resources.getColor(R.color.gray_f5))
+            }
+        }
+        disposables.add(subscribe7)
+
     }
 
     private fun selectPriority() {
@@ -159,8 +177,6 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
             OnTimeSelectListener { date, _ ->
                 tv_date.text = DateUtils.getFormatTime(date)
             }).build().show()
-
-
     }
 
 
@@ -172,6 +188,17 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
             et_title.setText(todoBean.title)
             et_desc.setText(todoBean.content)
             tv_date.text = todoBean.dateStr
+            when {
+                todoBean.priority == 1 -> {
+                    tv_priority.text = "重要程度：重要"
+                }
+                todoBean.priority == 2 -> {
+                    tv_priority.text = "重要程度：一般"
+                }
+                else -> {
+                    tv_priority.text = "重要程度：很普通"
+                }
+            }
             priority = todoBean.priority
 
             var publishType = ""
@@ -191,7 +218,7 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
             }
 
             tv_type.text = publishType
-            btn_publish.text = "确认编辑"
+            btn_publish.text = "确认修改"
 
         }
     }
@@ -200,7 +227,7 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
         ToastUtils.show(BaseApplication.context, errorMsg)
     }
 
-    override fun showLoginSuccess(successMsg: String) {
+    override fun showSuccess(successMsg: String) {
         ToastUtils.show(BaseApplication.context, successMsg)
         finish()
     }

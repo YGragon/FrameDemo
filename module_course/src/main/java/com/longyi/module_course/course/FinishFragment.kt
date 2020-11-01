@@ -69,13 +69,9 @@ class FinishFragment : BaseFragment(), TodoContract.View {
     override fun setTvTitleBackgroundColor() {
     }
 
-    override fun fragmentShowToUser() {
-        mUnFinishList.clear()
-        mPresenter.getList(page = 0,status = 1)
-    }
+    override fun fragmentShowToUser() {}
 
-    override fun fragmentHideToUser() {
-    }
+    override fun fragmentHideToUser() {}
 
     override fun showError(errorMsg: String) {
         srl_refresh_layout.isRefreshing = false
@@ -101,6 +97,12 @@ class FinishFragment : BaseFragment(), TodoContract.View {
         LogUtils.d("集合数据："+mUnFinishList.size)
         srl_refresh_layout.isRefreshing = false
         mAdapter.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mUnFinishList.clear()
+        mPresenter.getList(page = 0,status = 1)
     }
 
     override fun showLoading() {

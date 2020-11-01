@@ -38,7 +38,7 @@ class TodoAdapter(list:MutableList<Todo>) : BaseQuickAdapter<Todo,BaseViewHolder
             }
             else -> {
                 helper?.setText(R.id.tv_priority, "重要程度：很普通")
-                helper?.setTextColor(R.id.tv_priority, Color.GRAY)
+                helper?.setTextColor(R.id.tv_priority, Color.GREEN)
             }
         }
 

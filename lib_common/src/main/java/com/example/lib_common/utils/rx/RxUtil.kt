@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
@@ -29,6 +30,13 @@ object RxUtil{
     fun searchViewTextChanges(view: SearchView?): Observable<String> {
         return Observable.create(SearchViewChangeOnSubscribe(view!!)).skip(1)
     }
+
+    // text empty check
+    fun textEmpty(view:TextView?):Observable<String>{
+        return Observable.create(TextEmptyOnSubscribe(view!!))
+    }
+
+
 
     // EditText 搜索
     private class ViewChangeOnSubscribe(val view: EditText) : ObservableOnSubscribe<String> {
@@ -85,6 +93,28 @@ object RxUtil{
                 }
             }
             view.setOnClickListener(onClickListener)
+        }
+
+    }
+
+    // Text Empty Check
+    private class TextEmptyOnSubscribe(val view: TextView) : ObservableOnSubscribe<String> {
+
+        override fun subscribe(emitter: ObservableEmitter<String>) {
+            val textChange = object :TextWatcher{
+                override fun afterTextChanged(s: Editable?) {}
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (!emitter.isDisposed) {
+                        //发送消息
+                        emitter.onNext(s.toString())
+                    }
+                }
+            }
+
+            view.addTextChangedListener(textChange)
         }
 
     }

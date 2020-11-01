@@ -16,7 +16,7 @@ interface ToDoContract {
         /**
          * 显示 注册成功
          */
-        fun showLoginSuccess(successMsg:String)
+        fun showSuccess(successMsg:String)
     }
 
     interface Presenter: IPresenter<View> {

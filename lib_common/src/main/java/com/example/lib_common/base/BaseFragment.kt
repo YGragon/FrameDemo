@@ -2,6 +2,7 @@ package com.example.lib_common.base
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,7 @@ abstract class BaseFragment : Fragment() {
         super.setUserVisibleHint(isVisibleToUser)
         mIsVisibleToUser = isVisibleToUser
 
+        Log.e("333","setUserVisibleHint:$mIsVisibleToUser")
         if (isVisibleToUser) fragmentShowToUser() else fragmentHideToUser()
     }
 
@@ -58,7 +60,7 @@ abstract class BaseFragment : Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         mIsVisibleToUser = hidden
-
+        Log.e("333","onHiddenChanged:$mIsVisibleToUser")
         if (hidden) fragmentHideToUser() else fragmentShowToUser()
     }
 

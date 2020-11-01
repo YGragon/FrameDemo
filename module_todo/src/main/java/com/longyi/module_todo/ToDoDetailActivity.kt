@@ -1,10 +1,13 @@
 package com.longyi.module_todo
 
+import android.graphics.Color
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isGone
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.base.BaseApplication
+import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.Todo
@@ -50,10 +53,38 @@ class ToDoDetailActivity : BaseActivity(),ToDoContract.View {
         toolbar.setNavigationOnClickListener { finish() }
     }
     override fun initData() {
-        tv_title.text = todoBean.title
-        tv_desc.text = todoBean.content
-        tv_date.text = todoBean.dateStr
+        tv_title.text = "标题：\r\n"+todoBean.title
+        tv_desc.text = "内容：\r\n"+todoBean.content
+        tv_date.text = "开始时间："+todoBean.dateStr
 
+        if (todoBean.completeDate != null){
+            tv_end_date?.isGone = false
+            tv_end_date.text = "完成时间："+todoBean.completeDateStr
+
+        }else{
+            tv_end_date?.isGone = true
+        }
+        when {
+            todoBean.type == BaseConstant.TODO_TYPE_WORK -> tv_type.text = "类型：工作"
+            todoBean.type == BaseConstant.TODO_TYPE_LIFE -> tv_type.text = "类型：生活"
+            todoBean.type == BaseConstant.TODO_TYPE_FUN -> tv_type.text = "类型：娱乐"
+            else -> tv_type.text = "类型：未知（${todoBean.type}）"
+        }
+
+        when {
+            todoBean.priority == 1 -> {
+                tv_priority.text = "重要程度：重要"
+                tv_priority.setTextColor(Color.RED)
+            }
+            todoBean.priority == 2 -> {
+                tv_priority.text = "重要程度：一般"
+                tv_priority.setTextColor(Color.BLUE)
+            }
+            else -> {
+                tv_priority.text = "重要程度：很普通"
+                tv_priority.setTextColor(Color.GREEN)
+            }
+        }
         btn_edit.setOnClickListener {
             ARouter.getInstance().build(RouterPath.Todo.TODO_PUBLISH)
                 .withSerializable(ParameterConstant.ToDo.todoBean,todoBean)
@@ -76,8 +107,9 @@ class ToDoDetailActivity : BaseActivity(),ToDoContract.View {
         ToastUtils.show(BaseApplication.context,errorMsg)
     }
 
-    override fun showLoginSuccess(successMsg: String) {
+    override fun showSuccess(successMsg: String) {
         ToastUtils.show(BaseApplication.context,successMsg)
+        finish()
     }
 
     override fun showLoading() {}
