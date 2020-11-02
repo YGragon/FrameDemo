@@ -10,20 +10,19 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 
 /**
- * 使用 RxJava 封装的事件总线
- * 使用：
- * 1. 注册，在 onCreate 方法
- * RxBus.observe<String>()
- * .subscribe { t: String? ->
- * Log.e(TAG,"接收的数据：$t")
- * }
- * .registerInBus(this)
- *
- * 2. 发送
- * RxBus.send("123")
- *
- * 3. 注销，在 onDestroy 方法
- * RxBus.unRegister(this)
+ * 使用 RxJava 封装的事件总线：只需要关心发送、接收
+
+1. 发送数据
+RxBus.postSticky("imagesInfo",ImageEvent(position,mPage,mCount,mList))
+
+2. 接收数据
+RxBus.receiveSticky(this,"imagesInfo",object :RxBusReceiver<Any>(){
+    override fun receive(data: Any) {
+        val imageInfo = data as ImageEvent
+        mCount = imageInfo.count
+        mPage = imageInfo.page
+    }
+})
  */
 object RxBus {
     /**
