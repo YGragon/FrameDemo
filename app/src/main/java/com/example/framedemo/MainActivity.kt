@@ -1,5 +1,7 @@
 package com.example.framedemo
 
+import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.lib_common.base.BaseActivity
@@ -10,12 +12,28 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.jaeger.library.StatusBarUtil
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.constant.RouterPath
+import com.ashokvarma.bottomnavigation.ShapeBadgeItem
+import com.ashokvarma.bottomnavigation.TextBadgeItem
+import com.example.lib_common.constant.ParameterConstant.GankPhoto.position
+import com.example.lib_common.service.home.IHomeService
+import com.example.lib_common.service.user_center.ILoginService
+import com.longyi.module_home.data.HomeDataSource
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
+import java.util.concurrent.TimeUnit
+import java.util.logging.Handler
+import kotlin.collections.ArrayList
+
 
 /**
  * 首页
  */
 class MainActivity : BaseActivity() {
     private val mFragmentList = ArrayList<Fragment>()
+    private val numberBadgeItem = TextBadgeItem()
+    private val shapeBadgeItem = ShapeBadgeItem()
 
     private val mPagerAdapter = object : FragmentPagerAdapter(supportFragmentManager) {
         override fun getItem(position: Int): Fragment { return mFragmentList[position] }
@@ -28,10 +46,19 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
 
+        numberBadgeItem.setBorderWidth(4)
+            .setBackgroundColorResource(R.color.colorPrimary)
+            .show()
+
+        shapeBadgeItem.setShape(ShapeBadgeItem.SHAPE_STAR_5_VERTICES)
+            .setShapeColorResource(R.color.menu_text_color)
+            .setGravity(Gravity.TOP or Gravity.END)
+            .show()
+
 
         bottom_navigation_bar
-            .addItem(BottomNavigationItem(R.mipmap.home_select, "Home"))
-            .addItem(BottomNavigationItem(R.mipmap.course_select, "Course"))
+            .addItem(BottomNavigationItem(R.mipmap.home_select, "Home").setActiveColorResource(R.color.colorAccent).setBadgeItem(numberBadgeItem))
+            .addItem(BottomNavigationItem(R.mipmap.course_select, "Course").setActiveColorResource(R.color.colorPrimary).setBadgeItem(shapeBadgeItem))
             .addItem(BottomNavigationItem(R.mipmap.mine_select, "Mine"))
             .setFirstSelectedPosition(0)
             .initialise()
@@ -51,11 +78,26 @@ class MainActivity : BaseActivity() {
 
         vp_home.adapter = mPagerAdapter
 
+        Observable.intervalRange(0,2,5,0,TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                val homeService = ARouter.getInstance().build("/home_provider/IHomeService").navigation() as IHomeService
+                val count = homeService.getFreshCount()
+                if (count > 0){
+                    numberBadgeItem.setText("$count")
+                }
+        }
+
     }
 
     private fun initListener(){
         bottom_navigation_bar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
-            override fun onTabSelected(position: Int) { vp_home.currentItem = position }
+            override fun onTabSelected(position: Int) {
+                vp_home.currentItem = position
+                Log.e("222","切换$position")
+                numberBadgeItem.hide()
+            }
             override fun onTabUnselected(position: Int) {}
             override fun onTabReselected(position: Int) {}
         })

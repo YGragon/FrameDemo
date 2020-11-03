@@ -59,7 +59,7 @@ static def releaseTime() {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    kapt rootProject.ext.dependencies["room_compiler"]
+//    kapt rootProject.ext.dependencies["room_compiler"]
     implementation project(":lib_common")
     if (!isNeedUserCenterModule.toBoolean()) {
         implementation project(":module_usercenter")
@@ -94,5 +94,5 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    kapt rootProject.ext.dependencies["arouter-compiler"]
+//    kapt rootProject.ext.dependencies["arouter-compiler"]
 }

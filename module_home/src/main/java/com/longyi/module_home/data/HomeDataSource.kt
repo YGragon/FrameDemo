@@ -20,4 +20,8 @@ object HomeDataSource {
     fun setArticles(articles:MutableList<Article>){
         this.mArticles.addAll(articles)
     }
+
+    fun getArticles():MutableList<Article>{
+        return this.mArticles
+    }
 }

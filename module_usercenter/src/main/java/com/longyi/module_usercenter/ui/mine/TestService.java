@@ -23,9 +23,9 @@ public class TestService {
         ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> runServiceList = mActivityManager.getRunningServices(100);
         for (ActivityManager.RunningServiceInfo info : runServiceList) {
-            System.out.println("getClassName:" + info.service.getClassName());
             String name = info.service.getClassName();
-            System.out.println("name:" + name);
+            Log.e("222", "isRun-name-->" + name);
+            Log.e("222", "isRun-getClassName -->" + info.service.getClassName());
 
             if (serviceName.equals(name)) {
                 return true;
@@ -46,9 +46,9 @@ public class TestService {
         List<AccessibilityServiceInfo> serviceInfos = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
 
         List<AccessibilityServiceInfo> installedAccessibilityServiceList = am.getInstalledAccessibilityServiceList();
-        Log.d("222", "installedAccessibilityServiceList -->" + installedAccessibilityServiceList);
+        Log.d("222", "enabled -->" + installedAccessibilityServiceList);
         for (AccessibilityServiceInfo info : installedAccessibilityServiceList) {
-            Log.e("222", "all -->" + info.getId());
+            Log.e("222", "enabled -->" + info.getId());
             if (name.equals(info.getId())) {
                 return true;
             }
@@ -62,7 +62,8 @@ public class TestService {
         List<AccessibilityServiceInfo> accessibilityServices =
                 mAccessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
         for (AccessibilityServiceInfo info : accessibilityServices) {
-            if (info.getId().equals("com.longyi.module_usercenter.ui.mine.MyAccessibilityService")) {
+            Log.e("222","info:"+info);
+            if (info.getId().equals("com.example.framedemo/com.longyi.module_usercenter.ui.mine.MyAccessibilityService")) {
                 return true;
             }
         }

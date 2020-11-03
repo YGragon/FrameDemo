@@ -142,12 +142,11 @@ class MineFragment : BaseFragment(), MineContract.View {
     private fun getAllService(){
         val isCheck = TestService.checkEnabledAccessibilityService(BaseApplication.context)
         if (isCheck){
-            val isRun = TestService.isRun(BaseApplication.context,"")
+            val isRun = TestService.isRun(BaseApplication.context,"com.longyi.module_usercenter.ui.mine.MyAccessibilityService")
             val enabled = TestService.enabled("",BaseApplication.context)
-            Log.e(TAG, "getAllService:$isRun")
-            Log.e(TAG, "getAllService:$enabled")
+            ToastUtils.show(requireActivity(),"已获取权限")
         }else{
-            Log.e(TAG, "getAllService :未获取权限")
+            ToastUtils.show(requireActivity(),"未获取权限")
         }
     }
     override fun setTvTitleBackgroundColor() {
