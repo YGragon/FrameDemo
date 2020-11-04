@@ -2,6 +2,8 @@ package com.example.framedemo
 
 import android.util.Log
 import android.view.Gravity
+import android.view.KeyEvent
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.lib_common.base.BaseActivity
@@ -14,16 +16,12 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.constant.RouterPath
 import com.ashokvarma.bottomnavigation.ShapeBadgeItem
 import com.ashokvarma.bottomnavigation.TextBadgeItem
-import com.example.lib_common.constant.ParameterConstant.GankPhoto.position
 import com.example.lib_common.service.home.IHomeService
-import com.example.lib_common.service.user_center.ILoginService
-import com.longyi.module_home.data.HomeDataSource
+import com.example.lib_common.utils.ActivityManager
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
 import java.util.concurrent.TimeUnit
-import java.util.logging.Handler
 import kotlin.collections.ArrayList
 
 
@@ -78,7 +76,7 @@ class MainActivity : BaseActivity() {
 
         vp_home.adapter = mPagerAdapter
 
-        Observable.intervalRange(0,2,5,0,TimeUnit.SECONDS)
+        Observable.intervalRange(0,2,2,0,TimeUnit.SECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -86,6 +84,8 @@ class MainActivity : BaseActivity() {
                 val count = homeService.getFreshCount()
                 if (count > 0){
                     numberBadgeItem.setText("$count")
+                }else{
+                    numberBadgeItem.hide()
                 }
         }
 
@@ -95,7 +95,6 @@ class MainActivity : BaseActivity() {
         bottom_navigation_bar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabSelected(position: Int) {
                 vp_home.currentItem = position
-                Log.e("222","切换$position")
                 numberBadgeItem.hide()
             }
             override fun onTabUnselected(position: Int) {}
@@ -111,7 +110,23 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setStatusBar() {
-        StatusBarUtil.setTranslucentForImageViewInFragment(this, null)
+        StatusBarUtil.setTranslucentForImageView(this, null)
+    }
+
+    private val TIME_EXIT = 2000
+    private var mBackPressed: Long = 0
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if(mBackPressed + TIME_EXIT > System.currentTimeMillis()){
+                ActivityManager.instance.appExit()
+            }else{
+                Toast.makeText(this,"再点击一次返回退出程序",Toast.LENGTH_SHORT).show()
+                mBackPressed = System.currentTimeMillis()
+            }
+
+            return false
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
 }
