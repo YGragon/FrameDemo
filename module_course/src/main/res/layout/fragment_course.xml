@@ -6,7 +6,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical"
-		tools:context=".ui.course.CourseFragment">
+		tools:context=".CourseFragment">
 	<View
 			android:id="@+id/fake_status_bar"
 			android:layout_width="match_parent"
