@@ -1,51 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/motionLayout"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="false"
+	android:background="@color/contentBackground">
+
 	<com.google.android.material.appbar.AppBarLayout
 		android:id="@+id/app_bar"
 		android:layout_width="match_parent"
-		android:layout_height="300dp"
-		android:fitsSystemWindows="true"
-		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-		android:stateListAnimator="@animator/show_toolbar"
-		android:background="@color/colorPrimary"
-		android:animateLayoutChanges="true">
-		<com.google.android.material.appbar.CollapsingToolbarLayout
-			android:id="@+id/toolbar_layout"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:fitsSystemWindows="true"
-			app:expandedTitleTextAppearance="@android:color/transparent"
-			app:contentScrim="@color/colorPrimary"
-			app:statusBarScrim="@color/colorPrimary"
-			app:collapsedTitleGravity="center"
-			app:layout_scrollFlags="scroll|exitUntilCollapsed"
-			app:toolbarId="@id/toolbar">
+		android:layout_height="@dimen/app_bar_height"
+		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-			<ImageView
-				android:id="@+id/iv_bg"
-				android:layout_width="match_parent"
-				android:layout_height="300dp"
-				android:fitsSystemWindows="true"
-				android:scaleType="centerCrop"
-				android:src="@drawable/placeholder"
-				app:layout_collapseMode="parallax" />
-
-			<androidx.appcompat.widget.Toolbar
-				android:id="@+id/toolbar"
-				android:layout_width="match_parent"
-				android:layout_height="?attr/actionBarSize"
-				android:background="@android:color/transparent"
-				app:titleTextColor="@color/white"
-				app:layout_collapseMode="pin"
-				app:contentInsetStartWithNavigation="0dp"
-				/>
-
-		</com.google.android.material.appbar.CollapsingToolbarLayout>
+		<include layout="@layout/motion_coordinatorlayout_header"/>
 
 	</com.google.android.material.appbar.AppBarLayout>
+
 	<androidx.core.widget.NestedScrollView
 		android:id="@+id/plant_detail_scrollview"
 		android:layout_width="match_parent"
@@ -55,16 +26,6 @@
 		android:paddingTop="36dp"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-<!--		<androidx.recyclerview.widget.RecyclerView-->
-<!--			android:id="@+id/rv_mine_list"-->
-<!--			android:layout_width="match_parent"-->
-<!--			android:layout_height="match_parent"-->
-<!--			android:nestedScrollingEnabled="false"-->
-<!--			/>-->
-<!--		<FrameLayout-->
-<!--			android:id="@+id/layout"-->
-<!--			android:layout_width="match_parent"-->
-<!--			android:layout_height="wrap_content"/>-->
 
 		<com.maiml.library.BaseItemLayout
 			android:id="@+id/layout"

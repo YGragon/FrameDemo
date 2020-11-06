@@ -6,4 +6,5 @@
 	<string name="login">登录</string>
 	<string name="user_register">用户注册</string>
 	<string name="register">注册</string>
+    <string name="default_nick_name">玩Android儿</string>
 </resources>

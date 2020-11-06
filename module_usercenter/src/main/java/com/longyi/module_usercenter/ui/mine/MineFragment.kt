@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.view.isGone
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -32,6 +34,7 @@ import com.maiml.library.config.ConfigAttrs
 import com.maiml.library.config.Mode
 import com.tencent.bugly.beta.Beta
 import kotlinx.android.synthetic.main.fragment_mine.*
+import kotlinx.android.synthetic.main.motion_coordinatorlayout_header.*
 
 
 /**
@@ -46,6 +49,9 @@ class MineFragment : BaseFragment(), MineContract.View {
     private var mToolBarLayoutTitle = "点击加号按钮登录"
     private var mMineItems = mutableListOf<MineItemBean>()
 //    private var mMineAdapter = MineAdapter(mMineItems)
+
+    private lateinit var container: View
+
     /**
      * 懒加载Presenter
      */
@@ -81,11 +87,24 @@ class MineFragment : BaseFragment(), MineContract.View {
         checkUserLogin()
     }
 
+    fun changeState(v: View?) {
+        val motionLayout = container as? MotionLayout ?: return
+        if (motionLayout.progress > 0.5f) {
+            motionLayout.transitionToStart()
+        } else {
+            motionLayout.transitionToEnd()
+        }
+    }
+
     override fun initView() {
+        container = requireActivity().findViewById(R.id.motionLayout)
+        val icon = requireActivity().findViewById<ImageView>(R.id.icon)
+        icon?.clipToOutline = true
+
         // 从gank 组件获取一张图片
         val mineHeadImg = PreferenceUtils.getString("mine_head_img")
         if (mineHeadImg.isNotEmpty()){
-            GlideUtils.showImageView(BaseApplication.context,iv_bg,mineHeadImg)
+            GlideUtils.showImageView(BaseApplication.context,background,mineHeadImg)
         }
         val gankService = ARouter.getInstance().build("/gank/IGankService").navigation() as IGankService
         gankService.getHeaderPhoto(object :IGankPhotoCallBack{
@@ -93,7 +112,7 @@ class MineFragment : BaseFragment(), MineContract.View {
                 PreferenceUtils.saveValue("mine_head_img",imageUrl)
                 if (mineHeadImg.isEmpty()){
                     // 初次进入，显示返回的图片
-                    GlideUtils.showImageView(BaseApplication.context,iv_bg,imageUrl)
+                    GlideUtils.showImageView(BaseApplication.context,background,imageUrl)
                 }
             }
 
@@ -103,7 +122,7 @@ class MineFragment : BaseFragment(), MineContract.View {
         })
 
 
-        toolbar_layout.title = mToolBarLayoutTitle
+        name.text = mToolBarLayoutTitle
 
 //        mMineAdapter.setOnItemClickListener { adapter, view, position ->
 //            when(mMineItems[position].mID){
@@ -165,13 +184,13 @@ class MineFragment : BaseFragment(), MineContract.View {
                 // 未登录
                 Log.e(TAG,"当前处于未登录状态 user == null ")
                 mToolBarLayoutTitle = "点击加号按钮登录"
-                toolbar_layout.title = mToolBarLayoutTitle
+                name.text = mToolBarLayoutTitle
                 // 显示登录按钮
                 fabButton.isGone = false
                 mMineItems.addAll(DataSource.getFunData(false))
             }else{
                 mToolBarLayoutTitle = "欢迎你，${user.username}"
-                toolbar_layout.title = mToolBarLayoutTitle
+                name.text = mToolBarLayoutTitle
                 // 隐藏登录按钮
                 fabButton.isGone = true
                 // 刷新下方列表
@@ -180,7 +199,7 @@ class MineFragment : BaseFragment(), MineContract.View {
         } else {
             // 未登录
             mToolBarLayoutTitle = "点击加号按钮登录"
-            toolbar_layout.title = mToolBarLayoutTitle
+            name.text = mToolBarLayoutTitle
             // 显示登录按钮
             fabButton.isGone = false
             mMineItems.addAll(DataSource.getFunData(false))

@@ -40,7 +40,7 @@ object RetrofitManager {
         val logInterceptor = HttpLoggingInterceptor(HttpLogger())
         logInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
-            .cache(cache)  //添加缓存
+            .cache(cache)  //添加缓存，在无网的时候也能展示上一次的数据
             .connectTimeout(60L, TimeUnit.SECONDS)
             .readTimeout(60L, TimeUnit.SECONDS)
             .writeTimeout(60L, TimeUnit.SECONDS)
