@@ -58,17 +58,17 @@
 
     <TextView
         android:id="@+id/spacemoji_text"
+        style="?attr/textAppearanceHeadline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:alpha="0"
         android:text="@string/about_desc"
-        android:textSize="30sp"
         android:textColor="@color/colorPrimary"
-        style="?attr/textAppearanceHeadline2" />
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/spacemoji_subtext"
@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:alpha="0"
-        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         android:text="@string/about_subdesc"
         android:textSize="20sp"
         android:textColor="@color/colorPrimary"
@@ -190,7 +190,7 @@
                 app:layout_constraintTop_toBottomOf="@id/title2"
                 app:layout_constraintStart_toStartOf="@id/title2"
                 android:layout_marginTop="8dp"
-                android:text="@string/app_version_desc"
+                android:text="@string/about_me_desc"
                 android:textSize="14sp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary"

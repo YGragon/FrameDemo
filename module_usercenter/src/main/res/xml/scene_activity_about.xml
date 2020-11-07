@@ -172,6 +172,14 @@
             android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"
             />
+        <Constraint
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="104dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/spacemoji_text" />
     </ConstraintSet>
     <!-- Each transition uses animateToEnd to combine a sequence of smaller animations into one
     big entrance animation. -->
