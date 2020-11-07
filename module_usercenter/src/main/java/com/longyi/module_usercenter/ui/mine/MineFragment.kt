@@ -152,6 +152,7 @@ class MineFragment : BaseFragment(), MineContract.View {
                 DataSource.GET_ALL_SERVICE -> getAllService()
                 DataSource.GET_COLLECT -> ARouter.getInstance().build(RouterPath.UserCenter.COLLECT).navigation()
                 DataSource.LOG_OUT -> mPresenter.loginOut()
+                DataSource.ABOUT -> ARouter.getInstance().build(RouterPath.UserCenter.ABOUT).navigation()
             }
         }
     }

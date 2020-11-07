@@ -16,6 +16,7 @@ object DataSource {
     const val GET_ALL_SERVICE = 7
     const val GET_COLLECT = 8
     const val LOG_OUT = 9
+    const val ABOUT = 10
 
 
     fun getFunData(isLogin:Boolean):MutableList<MineItemBean>{
@@ -29,6 +30,7 @@ object DataSource {
         list.add(MineItemBean(TO_JETPACK_MODULE,"Android JetPack & 微信朋友圈效果",""))
         list.add(MineItemBean(GET_ALL_SERVICE,"获取所有后台服务",""))
         list.add(MineItemBean(GET_COLLECT,"收藏中心",""))
+        list.add(MineItemBean(ABOUT,"关于中心",""))
         if (isLogin){
             list.add(MineItemBean(LOG_OUT,"退出登录",""))
         }

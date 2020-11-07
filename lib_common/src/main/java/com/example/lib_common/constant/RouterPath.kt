@@ -9,6 +9,7 @@ object RouterPath {
         const val REGISTER = "/user_center/register"
         const val COLLECT = "/user_center/collect"
         const val MINE = "/user_center/mine"
+        const val ABOUT = "/user_center/about"
     }
 
     object Share{

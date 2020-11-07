@@ -1,10 +1,38 @@
 <resources>
-	<string name="app_name">module_usercenter</string>
-	<string name="please_input_username">请输入用户名</string>
-	<string name="please_input_password">请输入密码</string>
-	<string name="goto_register">注册账号</string>
-	<string name="login">登录</string>
-	<string name="user_register">用户注册</string>
-	<string name="register">注册</string>
+    <string name="app_name">module_usercenter</string>
+    <string name="please_input_username">请输入用户名</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="goto_register">注册账号</string>
+    <string name="login">登录</string>
+    <string name="user_register">用户注册</string>
+    <string name="register">注册</string>
     <string name="default_nick_name">玩Android儿</string>
+
+
+    <string name="view_pager">View Pager</string>
+    <string name="entrance">Entrance</string>
+    <string name="toolbar">Toolbar</string>
+    <string name="entrance_secondary_text">Display a complex entrance animation when entering a screen</string>
+    <string name="view">View</string>
+    <string name="toolbar_secondary_text">Display a complex collapsing toolbar with insets</string>
+    <string name="star_background_content_description">Star background</string>
+    <string name="prepare_to_launch">launch</string>
+    <string name="about_app_title">Ringed Planet</string>
+    <string name="about_app_desc">Added in 2019 in Unicode 12.0</string>
+    <string name="about_app_icon">🐯</string>
+    <string name="about_desc">玩Android</string>
+    <string name="about_subdesc">使用鸿洋提供的玩Android站点API实现的Android客户端</string>
+    <string name="about_me_icon">🚀</string>
+    <string name="about_me_title">Rocket</string>
+    <string name="app_version_desc">Added in 2010 in Unicode 6.0</string>
+    <string name="app_version_icon">👾</string>
+    <string name="app_version_title">Space Monster</string>
+    <string name="view_pager_text">View Pager</string>
+    <string name="pager_secondary_text">Display a dynamic header driven by a ViewPager</string>
+    <string name="view_pager_sample_preview">View pager sample preview</string>
+    <string name="entrace_sample_preview">Entrace sample preview</string>
+    <string name="collapsing_toolbar_screen_preview">Collapsing toolbar screen preview</string>
+    <string name="star_background">star background</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

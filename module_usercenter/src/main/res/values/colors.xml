@@ -10,4 +10,5 @@
     <color name="azure">#49A9DF</color>
     <color name="cerulean_blue">#137AE2</color>
     <color name="brown">#643A07</color>
+    <color name="transparent">#00000000</color>
 </resources>
