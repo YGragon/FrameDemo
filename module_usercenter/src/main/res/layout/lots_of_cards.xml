@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="?attr/colorAccent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorPrimary"
+                android:layout_marginTop="16dp"
+                />
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorPrimary"
+                android:layout_marginTop="16dp"
+                />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorPrimary"
+                android:layout_marginTop="16dp"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="?attr/colorPrimary">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorAccent"
+                />
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorAccent"
+                android:layout_marginTop="16dp"
+                />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorAccent"
+                android:layout_marginTop="16dp"
+                />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="?attr/colorAccent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorPrimary"
+                />
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorPrimary"
+                android:layout_marginTop="16dp"
+                />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="5dp"
+                android:alpha="0.5"
+                android:background="?attr/colorPrimary"
+                android:layout_marginTop="16dp"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+</LinearLayout>

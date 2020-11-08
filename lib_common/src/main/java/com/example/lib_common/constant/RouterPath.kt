@@ -10,6 +10,8 @@ object RouterPath {
         const val COLLECT = "/user_center/collect"
         const val MINE = "/user_center/mine"
         const val ABOUT = "/user_center/about"
+        const val ABOUT_APP = "/user_center/about_app"
+        const val ABOUT_ME = "/user_center/about_me"
     }
 
     object Share{

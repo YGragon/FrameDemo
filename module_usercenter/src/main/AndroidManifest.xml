@@ -4,10 +4,12 @@
     package="com.longyi.module_usercenter">
 
     <application android:theme="@style/AppTheme">
-        <activity android:name=".ui.about.AboutActivity"></activity>
-        <activity android:name=".ui.collect.CollectActivity"></activity>
-        <activity android:name=".ui.register.RegisterActivity"></activity>
-        <activity android:name=".ui.login.LoginActivity"></activity>
+        <activity android:name=".ui.about.AboutMeActivity"></activity>
+        <activity android:name=".ui.about.AboutAppActivity" />
+        <activity android:name=".ui.about.AboutActivity" />
+        <activity android:name=".ui.collect.CollectActivity" />
+        <activity android:name=".ui.register.RegisterActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
 
         <service
             android:name=".ui.mine.MyAccessibilityService"

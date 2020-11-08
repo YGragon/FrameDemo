@@ -155,6 +155,7 @@ attr bnbMode
 attr borderWidth
 attr borderlessButtonStyle
 attr bottomAppBarStyle
+attr bottomCut
 attr bottomNavigationStyle
 attr bottomSheetDialogTheme
 attr bottomSheetStyle
@@ -280,6 +281,7 @@ attr customIntegerValue
 attr customNavigationLayout
 attr customPixelDimension
 attr customStringValue
+attr cutoutColor
 attr data
 attr dataPattern
 attr defaultDuration
@@ -320,6 +322,7 @@ attr editTextBackground
 attr editTextColor
 attr editTextStyle
 attr elevation
+attr endCut
 attr enforceMaterialTheme
 attr enforceTextAppearance
 attr enterAnim
@@ -2774,6 +2777,7 @@ styleable ConstraintSet android_alpha android_elevation android_id android_layou
 styleable CoordinatorLayout keylines statusBarBackground
 styleable CoordinatorLayout_Layout android_layout_gravity layout_anchor layout_anchorGravity layout_behavior layout_dodgeInsetEdges layout_insetEdge layout_keyline
 styleable CustomAttribute attributeName customBoolean customColorDrawableValue customColorValue customDimension customFloatValue customIntegerValue customPixelDimension customStringValue
+styleable CutoutImage bottomCut cutoutColor endCut
 styleable DesignTheme bottomSheetDialogTheme bottomSheetStyle textColorError
 styleable DialogFragmentNavigator android_name
 styleable DrawerArrowToggle arrowHeadLength arrowShaftLength barLength color drawableSize gapBetweenBars spinBars thickness

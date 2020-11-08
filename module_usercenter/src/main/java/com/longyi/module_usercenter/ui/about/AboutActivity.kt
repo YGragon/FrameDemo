@@ -2,6 +2,7 @@ package com.longyi.module_usercenter.ui.about
 
 import androidx.appcompat.widget.Toolbar
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.utils.ToastUtils
@@ -9,8 +10,9 @@ import com.jaeger.library.StatusBarUtil
 import com.longyi.module_usercenter.R
 import kotlinx.android.synthetic.main.activity_about.*
 
+
 @Route(path = RouterPath.UserCenter.ABOUT,name = "关于中心")
-class AboutActivity : BaseActivity() {
+class AboutActivity : BaseActivity(){
 
     override fun getLayoutId(): Int {
         return R.layout.activity_about
@@ -20,7 +22,14 @@ class AboutActivity : BaseActivity() {
         initToolbar()
 
         card1.setOnClickListener {
-            ToastUtils.show(this,"card1")
+            ARouter.getInstance()
+                .build(RouterPath.UserCenter.ABOUT_APP)
+                .navigation(this)
+        }
+        card2.setOnClickListener {
+            ARouter.getInstance()
+                .build(RouterPath.UserCenter.ABOUT_ME)
+                .navigation(this)
         }
     }
 
