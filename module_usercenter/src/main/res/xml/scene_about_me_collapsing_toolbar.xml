@@ -176,7 +176,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/inset"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintVertical_bias="0.788" />
         <Constraint
             android:id="@+id/background"
             app:layout_constraintEnd_toEndOf="parent"
@@ -198,5 +200,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:alpha="0.5"
             />
+        <Constraint
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:id="@+id/toolbar" />
     </ConstraintSet>
 </MotionScene>

@@ -5,6 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.utils.AppUtils
 import com.example.lib_common.utils.ToastUtils
 import com.jaeger.library.StatusBarUtil
 import com.longyi.module_usercenter.R
@@ -33,7 +34,11 @@ class AboutActivity : BaseActivity(){
         }
     }
 
-    override fun initData() {}
+    override fun initData() {
+
+        val verName = AppUtils.getVerName(this)
+        subtitle3.text = "V:$verName"
+    }
 
     private fun initToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

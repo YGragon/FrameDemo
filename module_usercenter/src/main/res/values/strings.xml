@@ -34,8 +34,6 @@
     <string name="entrace_sample_preview">Entrace sample preview</string>
     <string name="collapsing_toolbar_screen_preview">Collapsing toolbar screen preview</string>
     <string name="star_background">star background</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="lorem">使用玩Android站点的免费API 实现的 Android 客户端. 项目使用 OkHttp3+Retrofit2+RxJava3 封装忘了请求；使用了 AutoDispose2 解决 RxJava 内存泄漏问题；在表单验证、按钮点击防抖、联想搜索以及无关生命周期的RxBus都使用了RxJava;在动画实现方面使用了MotionLayout，更多内容请去使用App慢慢探索吧  </string>
 </resources>

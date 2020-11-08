@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -12,9 +12,28 @@
         android:layout_height="300dp"
         android:background="#00000000">
 
-        <FrameLayout
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="match_parent"
+            android:minHeight="100dp"
+            app:layoutDescription="@xml/scene_about_me_collapsing_toolbar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <com.example.lib_common.widget.CutoutImage
+                android:id="@+id/background"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/star_parallax"
+                app:bottomCut="120dp"
+                app:cutoutColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/expanded_bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.52" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -29,98 +48,80 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/ToolbarPopupTheme"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-            <androidx.constraintlayout.motion.widget.MotionLayout
-                android:id="@+id/motion_layout"
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/about_me_title"
+                android:textSize="20sp"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@id/icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.24000001" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/about_me_desc"
+                android:textSize="16sp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/collapsed_top"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:minHeight="100dp"
-                app:layoutDescription="@xml/scene_about_me_collapsing_toolbar"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="200dp" />
 
-                <com.example.lib_common.widget.CutoutImage
-                    android:id="@+id/background"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/star_parallax"
-                    app:bottomCut="120dp"
-                    app:cutoutColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@id/expanded_bottom"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.52" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/expanded_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="60dp" />
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/about_me_title"
-                    android:textAppearance="?attr/textAppearanceHeadline5"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toTopOf="@id/icon"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.24000001" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/inset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="0dp" />
 
-                <TextView
-                    android:id="@+id/subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/about_me_desc"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="@color/white"
-                    android:visibility="invisible"
-                    app:layout_constraintStart_toStartOf="@id/title"
-                    app:layout_constraintTop_toBottomOf="@id/title" />
+            <TextView
+                android:id="@+id/icon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="@string/about_me_icon"
+                app:autoSizeTextType="uniform"
+                tools:layout_editor_absoluteX="345dp"
+                tools:layout_editor_absoluteY="197dp" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/collapsed_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_end="100dp" />
+            <View
+                android:id="@+id/systembar_overlay"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:alpha="0.5"
+                android:background="#0E328F"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/collapsed_top" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/expanded_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_end="60dp" />
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/inset"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="0dp" />
-
-                <TextView
-                    android:id="@+id/icon"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:gravity="center"
-                    android:text="@string/about_me_icon"
-                    app:autoSizeTextType="uniform" />
-
-                <View
-                    android:id="@+id/systembar_overlay"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:alpha="0.5"
-                    android:background="#0E328F"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/collapsed_top" />
-
-            </androidx.constraintlayout.motion.widget.MotionLayout>
-
-        </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -1,20 +1,18 @@
 package com.longyi.module_usercenter.ui.about
 
-import android.graphics.Color
-import android.os.Build
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseActivity
+import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.google.android.material.appbar.AppBarLayout
 import com.jaeger.library.StatusBarUtil
 import com.longyi.module_usercenter.R
 import kotlinx.android.synthetic.main.activity_about_me.*
+import kotlinx.android.synthetic.main.lots_of_cards.*
 
 @Route(path = RouterPath.UserCenter.ABOUT_ME,name = "关于me")
 class AboutMeActivity : BaseActivity() {
@@ -24,7 +22,6 @@ class AboutMeActivity : BaseActivity() {
     }
 
     override fun initView() {
-//        window.goEdgeToEdge()
 
         initToolbar()
 
@@ -62,22 +59,30 @@ class AboutMeActivity : BaseActivity() {
 
             insets
         }
+
+        card_csdn.setOnClickListener {
+            ARouter.getInstance()
+                .build(RouterPath.Web.WEB_DETAIL)
+                .withString(ParameterConstant.Web.webUrl,"https://blog.csdn.net/itxiaodong")
+                .navigation()
+        }
+        card_blog.setOnClickListener {
+            ARouter.getInstance()
+                .build(RouterPath.Web.WEB_DETAIL)
+                .withString(ParameterConstant.Web.webUrl,"https://www.cnblogs.com/gdragon/")
+                .navigation()
+        }
+        card_github.setOnClickListener {
+            ARouter.getInstance()
+                .build(RouterPath.Web.WEB_DETAIL)
+                .withString(ParameterConstant.Web.webUrl,"https://github.com/YGragon")
+                .navigation()
+        }
     }
 
     override fun initData() {
     }
 
-    /**
-     * Set various flags to go edge to edge
-     */
-    private fun Window.goEdgeToEdge() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            statusBarColor = Color.TRANSPARENT
-        }
-        // TODO: replace this with non-deprecated edge to edge option
-        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-    }
 
     override fun setStatusBar() {
         StatusBarUtil.setTranslucentForImageView(this, null)

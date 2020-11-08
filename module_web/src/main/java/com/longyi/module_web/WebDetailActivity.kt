@@ -2,16 +2,15 @@ package com.longyi.module_web
 
 
 import android.widget.FrameLayout
-import com.example.lib_common.base.BaseActivity
-import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
+import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.just.agentweb.AgentWeb
 import kotlinx.android.synthetic.main.activity_web_detail.*
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.launcher.ARouter
 
 @Route(path = RouterPath.Web.WEB_DETAIL,name = "网页详情")
 class WebDetailActivity : BaseActivity() {
@@ -19,6 +18,8 @@ class WebDetailActivity : BaseActivity() {
     @JvmField
     @Autowired(name = ParameterConstant.Web.webUrl)
     var webUrl: String?=null
+
+    private var mAgentWeb:AgentWeb?=null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_web_detail
@@ -30,7 +31,7 @@ class WebDetailActivity : BaseActivity() {
         initToolbar()
 
         if (webUrl != null){
-            AgentWeb.with(this)
+            mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(layout_web_detail as FrameLayout, FrameLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .createAgentWeb()
@@ -57,6 +58,19 @@ class WebDetailActivity : BaseActivity() {
         toolbar.setNavigationOnClickListener { finish() }
     }
 
+    override fun onPause() {
+        mAgentWeb?.webLifeCycle?.onPause()
+        super.onPause()
+    }
 
+    override fun onResume() {
+        mAgentWeb?.webLifeCycle?.onResume()
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        mAgentWeb?.webLifeCycle?.onDestroy()
+        super.onDestroy()
+    }
 
 }
