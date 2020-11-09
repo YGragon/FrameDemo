@@ -1,10 +1,13 @@
 package com.longyi.module_home
 
 
+import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_common.model.Article
 import com.example.lib_common.utils.GlideUtils
+import com.example.lib_common.utils.ToastUtils
+import com.longyi.module_home.presenter.HomePresenter
 
 /**
  * 首页 adapter
@@ -32,8 +35,18 @@ class HomeAdapter(list:MutableList<Article>)
         }
 
         helper?.addOnClickListener(R.id.tv_super_chapter_name)
-        helper?.addOnClickListener(R.id.iv_like)
+//        helper?.addOnClickListener(R.id.iv_like)
+        // 点击事件和 motionLayout的点击冲突
+        helper?.getView<ImageView>(R.id.iv_like)?.setOnTouchListener { v, event ->
+            mPresenter.bindLike(item)
+            false
+        }
         helper?.addOnClickListener(R.id.layout_card)
 
+    }
+
+    private lateinit var mPresenter:HomePresenter
+    fun setPresenter(presenter:HomePresenter){
+        this.mPresenter = presenter
     }
 }

@@ -15,8 +15,10 @@ import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.runRxLambdaViewModel
+import com.example.lib_common.model.Article
 import com.longyi.module_home.data.HomeDataSource
 import com.example.lib_common.service.user_center.ILoginService
+import com.example.lib_common.utils.ToastUtils
 
 
 /**
@@ -24,18 +26,16 @@ import com.example.lib_common.service.user_center.ILoginService
  */
 class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContract.View>(), HomeContract.Presenter{
 
-    override fun bindLike(position: Int) {
-
+    override fun bindLike(article: Article) {
         // 是否登录，未登录不可收藏
         val loginService = ARouter.getInstance().build("/provider/ILoginService").navigation() as ILoginService
         val login = loginService.isLogin()
         Log.e("222", "bindLike login:$login")
         if (login){
-            val article = HomeDataSource.mArticles[position]
             if (article.collect){
-                unLike(article.id,position)
+                unLike(article)
             }else{
-                like(article.id,position)
+                like(article)
             }
         }else{
             mRootView?.showError("你还未登录哟")
@@ -44,27 +44,27 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
 
     }
 
-    private fun unLike(articleId:Int,position: Int){
+    private fun unLike(article: Article){
         // runRxLambda 网络请求工具使用
-        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionUnCollect(articleId),{
+        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionUnCollect(article.id),{
             if (it.errorCode == 0){
                 // 成功
-                mRootView?.showBindLikeSuccess("取消收藏成功",false, position)
+                mRootView?.showBindLikeSuccess("取消收藏成功",false, article)
             }else{
                 // 失败
-                mRootView?.showBindLikeFail("取消收藏失败：${it.errorMsg}",position)
+                mRootView?.showBindLikeFail("取消收藏失败：${it.errorMsg}",article)
             }
         })
     }
-    private fun like(articleId:Int,position: Int){
+    private fun like(article: Article){
         // runRxLambda 网络请求工具使用
-        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionCollect(articleId),{
+        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionCollect(article.id),{
             if (it.errorCode == 0){
                 // 成功
-                mRootView?.showBindLikeSuccess("收藏成功",true, position)
+                mRootView?.showBindLikeSuccess("收藏成功",true, article)
             }else{
                 // 失败
-                mRootView?.showBindLikeFail("收藏失败：${it.errorMsg}",position)
+                mRootView?.showBindLikeFail("收藏失败：${it.errorMsg}",article)
             }
         })
     }

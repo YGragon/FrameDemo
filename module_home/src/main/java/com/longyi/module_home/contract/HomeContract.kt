@@ -39,8 +39,8 @@ interface HomeContract {
         /**
          * 点击收藏、取消收藏成功
          */
-        fun showBindLikeSuccess(msg:String, isLike:Boolean,position: Int)
-        fun showBindLikeFail(msg:String,position: Int)
+        fun showBindLikeSuccess(msg:String, isLike:Boolean,article: Article)
+        fun showBindLikeFail(msg:String,article: Article)
     }
 
     interface Presenter: IPresenter<View> {
@@ -70,6 +70,6 @@ interface HomeContract {
         fun toWebDetail(url:String)
 
 
-        fun bindLike(position:Int)
+        fun bindLike(article: Article)
     }
 }

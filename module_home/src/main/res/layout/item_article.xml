@@ -8,70 +8,75 @@
 	android:layout_height="wrap_content"
 	app:cardCornerRadius="10dp"
 	android:layout_margin="10dp">
-	<androidx.constraintlayout.widget.ConstraintLayout
+
+	<androidx.constraintlayout.motion.widget.MotionLayout
+		android:id="@+id/motionLayout"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		app:layoutDescription="@xml/item_article_xml_constraintlayout_scene">
+
 		<TextView
 			android:id="@+id/tv_title"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:textStyle="bold"
 			android:padding="10dp"
-			app:layout_constraintTop_toTopOf="parent"
+			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
-			tools:text="title"/>
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="title" />
+
 		<TextView
 			android:id="@+id/tv_fresh"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginStart="10dp"
 			android:background="@drawable/shape_new"
 			android:textColor="@color/colorAccent"
 			android:visibility="gone"
-			android:layout_marginStart="10dp"
-			app:layout_constraintTop_toBottomOf="@+id/tv_title"
 			app:layout_constraintStart_toStartOf="parent"
-			tools:text="fresh"/>
+			app:layout_constraintTop_toBottomOf="@+id/tv_title"
+			tools:text="fresh" />
+
 		<TextView
 			android:id="@+id/tv_super_chapter_name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginStart="10dp"
 			android:background="@drawable/shape_chapter"
 			android:textColor="@color/colorPrimary"
-			android:layout_marginStart="10dp"
-			app:layout_constraintTop_toBottomOf="@+id/tv_title"
 			app:layout_constraintStart_toEndOf="@+id/tv_fresh"
-			tools:text="super chapter name"
-			/>
+			app:layout_constraintTop_toBottomOf="@+id/tv_title"
+			tools:text="super chapter name" />
 
 		<ImageView
 			android:id="@+id/iv_like"
 			android:layout_width="32dp"
 			android:layout_height="32dp"
-			app:layout_constraintTop_toBottomOf="@+id/tv_title"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/tv_super_chapter_name"
-			app:layout_constraintBottom_toBottomOf="@+id/tv_super_chapter_name"
 			android:layout_marginEnd="10dp"
 			android:src="@mipmap/unlike"
-			/>
+			app:layout_constraintBottom_toBottomOf="@+id/tv_super_chapter_name"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/tv_title"
+			app:layout_constraintTop_toTopOf="@+id/tv_super_chapter_name" />
 
 		<TextView
 			android:id="@+id/tv_author"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:padding="10dp"
-			app:layout_constraintTop_toBottomOf="@+id/tv_super_chapter_name"
 			app:layout_constraintStart_toStartOf="parent"
-			tools:text="author"/>
+			app:layout_constraintTop_toBottomOf="@+id/tv_super_chapter_name"
+			tools:text="author" />
+
 		<TextView
 			android:id="@+id/tv_nice_date"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="20dp"
-			app:layout_constraintTop_toTopOf="@+id/tv_author"
 			app:layout_constraintBottom_toBottomOf="@+id/tv_author"
 			app:layout_constraintStart_toEndOf="@+id/tv_author"
-			tools:text="nice date"/>
-	</androidx.constraintlayout.widget.ConstraintLayout>
+			app:layout_constraintTop_toTopOf="@+id/tv_author"
+			tools:text="nice date" />
+	</androidx.constraintlayout.motion.widget.MotionLayout>
 
 </androidx.cardview.widget.CardView>

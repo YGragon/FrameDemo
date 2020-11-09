@@ -19,6 +19,7 @@ import com.example.lib_common.model.Banner
 import com.example.lib_common.model.Hotkey
 import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.utils.imageloader.GlideImageLoader
+import com.longyi.module_home.data.HomeDataSource
 import com.longyi.module_home.data.HomeDataSource.mArticles
 import com.longyi.module_home.data.HomeDataSource.mBanners
 import com.youth.banner.BannerConfig
@@ -67,6 +68,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         banner = headBanner.findViewById(R.id.banner)
         mAdapter.addHeaderView(headBanner)
         rv_home_list.adapter = mAdapter
+        mAdapter.setPresenter(mPresenter)
 
         initListener(linearLayoutManager)
     }
@@ -88,7 +90,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
                     }
                 }
                 R.id.layout_card -> mPresenter.toWebDetail(mPresenter.getArticleUrl(position))
-                R.id.iv_like -> mPresenter.bindLike(position)
+//                R.id.iv_like -> mPresenter.bindLike(HomeDataSource.mArticles[position])
             }
         }
 
@@ -196,13 +198,13 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun showBindLikeSuccess(msg: String, isLike:Boolean, position: Int) {
+    override fun showBindLikeSuccess(msg: String, isLike:Boolean, article: Article) {
         ToastUtils.show(requireActivity(),msg)
-        mArticles[position].collect = isLike
+        article.collect = isLike
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun showBindLikeFail(msg: String, position: Int) {
+    override fun showBindLikeFail(msg: String, article: Article) {
         ToastUtils.show(requireActivity(),msg)
     }
 
