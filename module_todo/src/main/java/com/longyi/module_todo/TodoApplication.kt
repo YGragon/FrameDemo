@@ -6,7 +6,7 @@ import com.example.lib_common.base.BaseApplication
 /**
  * course app
  */
-class TodoApplication : BaseApplication() {
+class ToDoApplication : BaseApplication() {
     override fun initData(application: Application) {
 
 

@@ -1,5 +1,6 @@
 package com.longyi.module_todo
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -71,6 +72,7 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
         supportActionBar!!.setHomeButtonEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
     }
+    @SuppressLint("AutoDispose")
     private fun initListener() {
         // 时间选择器
         tv_date.setOnClickListener { selectDate() }
@@ -113,6 +115,7 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
         disposables.add(subscribe6)
     }
 
+    @SuppressLint("AutoDispose")
     private fun checkData() {
         val etTitle = RxUtil.textChanges(et_title)
         val etDesc = RxUtil.textChanges(et_desc)
@@ -233,6 +236,8 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
         ToastUtils.show(BaseApplication.context, successMsg)
         finish()
     }
+
+    override fun showList(curPage: Int, totalPage: Int, list: MutableList<Todo>) {}
 
     override fun showLoading() {}
 

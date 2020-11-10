@@ -1,8 +1,6 @@
 package com.longyi.module_todo.ui
 
 import android.view.LayoutInflater
-import com.longyi.module_todo.presenter.TodoPresenter
-import com.longyi.module_todo.contract.TodoContract
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.model.Todo
@@ -14,11 +12,13 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.longyi.module_todo.R
+import com.longyi.module_todo.contract.ToDoContract
+import com.longyi.module_todo.presenter.ToDoPresenter
 
 /**
  * 未完成
  */
-class UnFinishFragment:BaseFragment(), TodoContract.View {
+class UnFinishFragment:BaseFragment(), ToDoContract.View {
 
 
     private var mUnFinishList = mutableListOf<Todo>()
@@ -29,7 +29,7 @@ class UnFinishFragment:BaseFragment(), TodoContract.View {
     /**
      * 懒加载Presenter
      */
-    private val mPresenter by lazy { TodoPresenter() }
+    private val mPresenter by lazy { ToDoPresenter() }
     init {
         mPresenter.attachView(this)
     }
@@ -77,6 +77,8 @@ class UnFinishFragment:BaseFragment(), TodoContract.View {
         srl_refresh_layout.isRefreshing = false
         ToastUtils.show(BaseApplication.context,errorMsg)
     }
+
+    override fun showSuccess(successMsg: String) {}
 
     override fun showList(curPage:Int, totalPage:Int, list: MutableList<Todo>) {
         when (curPage) {

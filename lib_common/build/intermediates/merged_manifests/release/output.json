@@ -1,0 +1,1 @@
+[{"outputType":{"type":"MERGED_MANIFESTS"},"apkData":{"type":"MAIN","splits":[],"versionCode":2,"versionName":"1.0.1","enabled":true,"outputFile":"lib_common-release.aar","fullName":"release","baseName":"release"},"path":"..\\..\\library_manifest\\release\\AndroidManifest.xml","properties":{"packageId":"com.example.lib_common","split":""}}]

@@ -1,17 +1,17 @@
 package com.longyi.module_todo.presenter
 
-import com.longyi.module_todo.contract.TodoContract
 import com.example.lib_common.base.BasePresenter
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.exception.ExceptionHandle
 import com.example.lib_common.http.runRxLambda
 import com.longyi.module_todo.contract.ToDoContract
 
-/**
- * TodoPresenter
- */
-class TodoPresenter:BasePresenter<TodoContract.View>(), TodoContract.Presenter {
 
+/**
+ * TODO发布页面 处理层
+ */
+class ToDoPresenter : BasePresenter<ToDoContract.View>(),
+    ToDoContract.Presenter {
 
     override fun getList(page:Int,status:Int,orderby:Int) {
         runRxLambda(RetrofitManager.service.getTodoList(page,status,orderby),{
@@ -27,13 +27,7 @@ class TodoPresenter:BasePresenter<TodoContract.View>(), TodoContract.Presenter {
             addSubscription(it)
         })
     }
-}
 
-/**
- * TODO发布页面 处理层
- */
-class ToDoPresenter : BasePresenter<ToDoContract.View>(),
-    ToDoContract.Presenter {
     override fun postDeleteToDoInfo(id: Int) {
         runRxLambda(
             RetrofitManager.service.deleteTodo(

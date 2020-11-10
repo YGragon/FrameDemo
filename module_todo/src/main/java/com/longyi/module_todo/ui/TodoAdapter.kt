@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.model.Todo
-import com.longyi.module_course.R
+import com.longyi.module_todo.R
 
 /**
  * TODO列表 adapter

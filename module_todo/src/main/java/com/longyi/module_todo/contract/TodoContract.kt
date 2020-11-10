@@ -5,34 +5,7 @@ import com.example.lib_common.base.IPresenter
 import com.example.lib_common.model.Todo
 
 /**
- * TD
- */
-interface TodoContract {
-    interface View:IBaseView{
-        /**
-         * 显示错误信息
-         */
-        fun showError(errorMsg:String)
-
-        /**
-         * 显示列表
-         */
-        fun showList(curPage:Int, totalPage:Int, list: MutableList<Todo>)
-
-    }
-
-    interface Presenter:IPresenter<View>{
-        /**
-         * 获取列表
-         */
-        fun getList(page:Int,status:Int,orderby:Int = 4)
-
-
-    }
-}
-
-/**
- * 注册
+ * TODO
  */
 interface ToDoContract {
     interface View: IBaseView {
@@ -45,9 +18,21 @@ interface ToDoContract {
          * 显示 注册成功
          */
         fun showSuccess(successMsg:String)
+
+        /**
+         * 显示列表
+         */
+        fun showList(curPage:Int, totalPage:Int, list: MutableList<Todo>)
+
     }
 
     interface Presenter: IPresenter<View> {
+
+        /**
+         * 获取列表
+         */
+        fun getList(page:Int,status:Int,orderby:Int = 4)
+
         /**
          * 提交发布的信息信息
          */

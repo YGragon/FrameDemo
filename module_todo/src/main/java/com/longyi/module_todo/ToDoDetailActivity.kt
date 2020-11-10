@@ -115,6 +115,8 @@ class ToDoDetailActivity : BaseActivity(),
         finish()
     }
 
+    override fun showList(curPage: Int, totalPage: Int, list: MutableList<Todo>) {}
+
     override fun showLoading() {}
 
     override fun hideLoading() {}
