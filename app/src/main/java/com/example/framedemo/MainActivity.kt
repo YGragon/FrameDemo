@@ -1,5 +1,6 @@
 package com.example.framedemo
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
@@ -66,10 +67,11 @@ class MainActivity : BaseActivity() {
 
     }
 
+    @SuppressLint("AutoDispose")
     override fun initData() {
         val mHomeFragment = ARouter.getInstance().build(RouterPath.Home.HOME).navigation() as Fragment
         val mMineFragment = ARouter.getInstance().build(RouterPath.UserCenter.MINE).navigation() as Fragment
-        val mCourseFragment = ARouter.getInstance().build(RouterPath.Course.COURSE).navigation() as Fragment
+        val mCourseFragment = ARouter.getInstance().build(RouterPath.Todo.TODO_LIST).navigation() as Fragment
         mFragmentList.add(mHomeFragment)
         mFragmentList.add(mCourseFragment)
         mFragmentList.add(mMineFragment)

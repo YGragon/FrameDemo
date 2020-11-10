@@ -29,6 +29,7 @@ object RouterPath {
     }
 
     object Todo{
+        const val TODO_LIST = "/todo/list"
         const val TODO_PUBLISH = "/todo/publish"
         const val TODO_DETAIL = "/todo/detail"
     }
@@ -37,9 +38,6 @@ object RouterPath {
         const val HOME = "/home/home"
     }
 
-    object Course{
-        const val COURSE = "/course/course"
-    }
 
     object Web{
         const val WEB_DETAIL = "/web/detail"

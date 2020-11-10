@@ -33,22 +33,43 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField("boolean", "LOG_DEBUG", "false")//配置Log日志
             //是否开启zip优化
             zipAlignEnabled true
             //是否开启混淆
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release//设置签名信息
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
                     outputFileName = "FrameDemo_${releaseTime()}.apk"
                 }
             }
         }
+        debug {// 测试环境
+            buildConfigField("boolean", "LOG_DEBUG", "true")//配置Log日志
+            minifyEnabled false//是否对代码进行混淆
+            signingConfig signingConfigs.debug//设置签名信息
+            debuggable false//是否支持断点调试
+            jniDebuggable false//是否可以调试NDK代码
+            renderscriptDebuggable false//是否开启渲染脚本就是一些c写的渲染方法
+            zipAlignEnabled true//是否对APK包执行ZIP对齐优化，减小zip体积，增加运行效率
+            pseudoLocalesEnabled false//是否在APK中生成伪语言环境，帮助国际化的东西，一般使用的不多
+            applicationIdSuffix 'test'//在applicationId 中添加了一个后缀，一般使用的不多
+            versionNameSuffix 'test'//在applicationId 中添加了一个后缀，一般使用的不多
+        }
     }
     //指定jdk版本
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //目录指向配置
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']//指定lib库目录
+        }
     }
 }
 
@@ -63,9 +84,6 @@ dependencies {
     implementation project(":lib_common")
     if (!isNeedUserCenterModule.toBoolean()) {
         implementation project(":module_usercenter")
-    }
-    if (!isNeedCourseModule.toBoolean()) {
-        implementation project(":module_course")
     }
     if (!isNeedShareModule.toBoolean()) {
         implementation project(":module_share")

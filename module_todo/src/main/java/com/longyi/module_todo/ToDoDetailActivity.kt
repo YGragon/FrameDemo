@@ -12,10 +12,13 @@ import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.Todo
 import com.example.lib_common.utils.ToastUtils
+import com.longyi.module_todo.contract.ToDoContract
+import com.longyi.module_todo.presenter.ToDoPresenter
 import kotlinx.android.synthetic.main.activity_to_do_detail.*
 
 @Route(path = RouterPath.Todo.TODO_DETAIL, name = "ToDo 详情")
-class ToDoDetailActivity : BaseActivity(),ToDoContract.View {
+class ToDoDetailActivity : BaseActivity(),
+    ToDoContract.View {
 
     private lateinit var todoBean: Todo
 
