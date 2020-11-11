@@ -5,32 +5,17 @@
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:orientation="vertical"
-	>
-	<View
-			android:id="@+id/fake_status_bar"
-			android:layout_width="match_parent"
-			android:layout_height="@dimen/statusbar_view_height"
-			app:layout_constraintTop_toTopOf="parent"
-			android:background="@color/colorPrimary"/>
+		android:orientation="vertical">
 
-	<TextView
-			android:id="@+id/tv_title"
-			android:layout_width="match_parent"
-			android:layout_height="56dp"
-			android:background="@color/colorPrimary"
-			android:gravity="center"
-			android:text="TODO清单"
-			android:textColor="@color/white"
-			android:textSize="24sp"
-			app:layout_constraintTop_toBottomOf="@+id/fake_status_bar"/>
+	<include layout="@layout/motion_viewpager_parallax" />
+
 	<com.google.android.material.tabs.TabLayout
 			android:id="@+id/tabLayout"
 			android:layout_width="match_parent"
 			android:layout_height="40dp"
 			app:tabIndicatorFullWidth="false"
 			app:tabMode="fixed"
-			app:layout_constraintTop_toBottomOf="@+id/tv_title">
+			app:layout_constraintTop_toBottomOf="@+id/viewPagerMotionLayout">
 		<com.google.android.material.tabs.TabItem
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -40,6 +25,10 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="已完成"/>
+		<com.google.android.material.tabs.TabItem
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="ToDo 搜索"/>
 	</com.google.android.material.tabs.TabLayout>
 	<androidx.viewpager.widget.ViewPager
 			android:id="@+id/view_pager_course"

@@ -57,7 +57,7 @@ class MainActivity : BaseActivity() {
 
         bottom_navigation_bar
             .addItem(BottomNavigationItem(R.mipmap.home_select, "Home").setActiveColorResource(R.color.colorAccent).setBadgeItem(numberBadgeItem))
-            .addItem(BottomNavigationItem(R.mipmap.course_select, "Course").setActiveColorResource(R.color.colorPrimary).setBadgeItem(shapeBadgeItem))
+            .addItem(BottomNavigationItem(R.mipmap.course_select, "ToDo").setActiveColorResource(R.color.colorPrimary).setBadgeItem(shapeBadgeItem))
             .addItem(BottomNavigationItem(R.mipmap.mine_select, "Mine"))
             .setFirstSelectedPosition(0)
             .initialise()

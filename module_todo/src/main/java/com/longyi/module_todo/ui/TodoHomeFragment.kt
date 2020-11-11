@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.widget.ViewpagerHeader
 import com.google.android.material.tabs.TabLayout
 import com.longyi.module_todo.FragmentAdapter
 import com.longyi.module_todo.R
@@ -37,8 +38,8 @@ class TodoHomeFragment : BaseFragment() {
     override fun initView() {}
 
     override fun setTvTitleBackgroundColor() {
-        tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimary))
-        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+//        tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+//        fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
     }
 
 
@@ -61,14 +62,24 @@ class TodoHomeFragment : BaseFragment() {
 
     override fun fragmentShowToUser() {
         if (isShowToUser){
-            val unFinishFragment = UnFinishFragment()
-            val finishFragment = FinishFragment()
+            val unFinishFragment = UnFinishFragment.newInstance()
+            val finishFragment = FinishFragment.newInstance()
+            val searchFragment = TodoSearchFragment.newInstance()
             mFragments.add(unFinishFragment)
             mFragments.add(finishFragment)
+            mFragments.add(searchFragment)
             mTitles.add("未完成")
             mTitles.add("已完成")
+            mTitles.add("ToDo 筛选")
             mAdapter = FragmentAdapter(childFragmentManager, mFragments, mTitles)
             view_pager_course.adapter = mAdapter
+
+            // 滑动监听
+            val viewPagerHeader = requireActivity().findViewById<ViewpagerHeader>(R.id.viewPagerMotionLayout)
+            if (viewPagerHeader != null) {
+                view_pager_course.addOnPageChangeListener(viewPagerHeader)
+            }
+
             tabLayout.setupWithViewPager(view_pager_course)
             initTabLayoutListener()
             isShowToUser = false

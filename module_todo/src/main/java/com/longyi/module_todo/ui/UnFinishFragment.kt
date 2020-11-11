@@ -26,6 +26,10 @@ class UnFinishFragment:BaseFragment(), ToDoContract.View {
 
     private var mPage = 1
 
+    companion object {
+        @JvmStatic
+        fun newInstance() = UnFinishFragment()
+    }
     /**
      * 懒加载Presenter
      */
