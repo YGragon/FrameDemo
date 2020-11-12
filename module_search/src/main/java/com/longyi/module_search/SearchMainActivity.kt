@@ -1,5 +1,6 @@
 package com.longyi.module_search
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
@@ -62,6 +63,7 @@ class SearchMainActivity : BaseActivity(),SearchContract.View {
         return R.layout.activity_search_main
     }
 
+    @SuppressLint("AutoDispose")
     override fun initView() {
 
         iv_search_back.setOnClickListener { finish() }

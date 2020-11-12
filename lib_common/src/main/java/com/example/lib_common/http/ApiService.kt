@@ -126,10 +126,19 @@ interface ApiService {
     @GET("lg/todo/v2/list/{page}/json")
     fun getTodoList(@Path("page") page:Int,
                     @Query("status") status:Int,//1-完成；0未完成; 默认全部展示
-//                    @Query("type") type:Int,//创建时传入的类型, 默认全部展示
-//                    @Query("priority") priority:Int,//创建时传入的优先级；默认全部展示
                     @Query("orderby") orderby:Int//1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)
                     ):Observable<BaseResponse<TodoList>>
+
+    /**
+     * 获取 搜索的 TODO列表
+     */
+    @GET("lg/todo/v2/list/{page}/json")
+    fun getTodoList(@Path("page") page:Int,
+                    @Query("status") status:Int,//1-完成；0未完成; 默认全部展示
+                    @Query("type") type:Int,//创建时传入的类型, 默认全部展示
+                    @Query("priority") priority:Int,//创建时传入的优先级；默认全部展示
+                    @Query("orderby") orderby:Int//1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)
+    ):Observable<BaseResponse<TodoList>>
     /**
      * 文件上传
      */

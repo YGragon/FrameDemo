@@ -1,14 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.TodoSearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/sp_status"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:text="选择状态"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/shape_text_sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toStartOf="@+id/sp_type"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/sp_type"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:text="选择类型"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/shape_text_sp"
+        app:layout_constraintStart_toEndOf="@+id/sp_status"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_status"
+        app:layout_constraintTop_toTopOf="@+id/sp_status"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toStartOf="@+id/sp_priority"
+        />
+
+    <TextView
+        android:id="@+id/sp_priority"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="选择优先级"
+        android:textColor="@color/white"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_text_sp"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_status"
+        app:layout_constraintTop_toTopOf="@+id/sp_status"
+        app:layout_constraintStart_toEndOf="@+id/sp_type"
+        app:layout_constraintEnd_toStartOf="@+id/sp_time_order"
+        />
+    <TextView
+        android:id="@+id/sp_time_order"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="选择排序"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_text_sp"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sp_priority"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_status"
+        app:layout_constraintTop_toTopOf="@+id/sp_status"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_todo_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_type"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -193,11 +193,11 @@ class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
             et_title.setText(todoBean.title)
             et_desc.setText(todoBean.content)
             tv_date.text = todoBean.dateStr
-            when {
-                todoBean.priority == 1 -> {
+            when (todoBean.priority) {
+                1 -> {
                     tv_priority.text = "重要程度：重要"
                 }
-                todoBean.priority == 2 -> {
+                2 -> {
                     tv_priority.text = "重要程度：一般"
                 }
                 else -> {

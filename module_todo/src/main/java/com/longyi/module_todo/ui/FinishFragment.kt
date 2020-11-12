@@ -26,10 +26,7 @@ class FinishFragment : BaseFragment(), ToDoContract.View {
     private lateinit var mAdapter: TodoAdapter
 
     private var mPage = 1
-    companion object {
-        @JvmStatic
-        fun newInstance() = FinishFragment()
-    }
+
     /**
      * 懒加载Presenter
      */

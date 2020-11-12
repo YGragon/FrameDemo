@@ -23,7 +23,7 @@ class TodoHomeFragment : BaseFragment() {
     private var mTitles = mutableListOf<String>()
 
     private lateinit var mAdapter: FragmentAdapter
-    private var isShowToUser = true
+//    private var isShowToUser = true
 
     companion object {
         fun newInstance() = TodoHomeFragment()
@@ -35,7 +35,30 @@ class TodoHomeFragment : BaseFragment() {
 
     override fun initData() {}
 
-    override fun initView() {}
+    override fun initView() {
+        val unFinishFragment = UnFinishFragment()
+        val finishFragment = FinishFragment()
+        val todoSearchFragment = TodoSearchFragment()
+        mFragments.add(unFinishFragment)
+        mFragments.add(finishFragment)
+        mFragments.add(todoSearchFragment)
+
+        mTitles.add("未完成")
+        mTitles.add("已完成")
+        mTitles.add("ToDo 筛选")
+
+        mAdapter = FragmentAdapter(childFragmentManager, mFragments, mTitles)
+        view_pager_course.adapter = mAdapter
+
+        // 滑动监听
+        val viewPagerHeader = requireActivity().findViewById<ViewpagerHeader>(R.id.viewPagerMotionLayout)
+        if (viewPagerHeader != null) {
+            view_pager_course.addOnPageChangeListener(viewPagerHeader)
+        }
+
+        tabLayout.setupWithViewPager(view_pager_course)
+        initTabLayoutListener()
+    }
 
     override fun setTvTitleBackgroundColor() {
 //        tv_title.setBackgroundColor(resources.getColor(R.color.colorPrimary))
@@ -61,29 +84,10 @@ class TodoHomeFragment : BaseFragment() {
     }
 
     override fun fragmentShowToUser() {
-        if (isShowToUser){
-            val unFinishFragment = UnFinishFragment.newInstance()
-            val finishFragment = FinishFragment.newInstance()
-            val searchFragment = TodoSearchFragment.newInstance()
-            mFragments.add(unFinishFragment)
-            mFragments.add(finishFragment)
-            mFragments.add(searchFragment)
-            mTitles.add("未完成")
-            mTitles.add("已完成")
-            mTitles.add("ToDo 筛选")
-            mAdapter = FragmentAdapter(childFragmentManager, mFragments, mTitles)
-            view_pager_course.adapter = mAdapter
-
-            // 滑动监听
-            val viewPagerHeader = requireActivity().findViewById<ViewpagerHeader>(R.id.viewPagerMotionLayout)
-            if (viewPagerHeader != null) {
-                view_pager_course.addOnPageChangeListener(viewPagerHeader)
-            }
-
-            tabLayout.setupWithViewPager(view_pager_course)
-            initTabLayoutListener()
-            isShowToUser = false
-        }
+//        if (isShowToUser){
+//
+//            isShowToUser = false
+//        }
 
     }
 
