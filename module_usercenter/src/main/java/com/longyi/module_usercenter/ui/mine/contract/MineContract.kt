@@ -1,5 +1,6 @@
 package com.longyi.module_usercenter.ui.mine.contract
 
+import com.example.framedemo.data.bean.MineItemBean
 import com.example.lib_common.base.IBaseView
 import com.example.lib_common.base.IPresenter
 
@@ -39,5 +40,9 @@ interface MineContract {
          * 退出登录
          */
         fun loginOut()
+
+
+        fun getIconList(mineItems: MutableList<MineItemBean>):MutableList<Int>
+        fun getTitleList(mineItems: MutableList<MineItemBean>):MutableList<String>
     }
 }

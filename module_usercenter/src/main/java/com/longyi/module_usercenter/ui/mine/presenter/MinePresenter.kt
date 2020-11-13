@@ -1,6 +1,7 @@
 package com.longyi.module_usercenter.ui.mine.presenter
 
 import android.app.ProgressDialog
+import com.example.framedemo.data.bean.MineItemBean
 import com.example.lib_common.base.BaseApplication
 import com.longyi.module_usercenter.ui.mine.contract.MineContract
 import com.example.lib_common.base.BasePresenter
@@ -10,6 +11,7 @@ import com.example.lib_common.http.runRxLambda
 import com.example.lib_common.utils.LogUtils
 import com.longyi.lib_download.file_upload.ProgressRequestBody
 import com.longyi.lib_download.file_upload.UploadCallbacks
+import com.longyi.module_usercenter.R
 import okhttp3.MultipartBody
 import java.io.File
 
@@ -37,6 +39,24 @@ class MinePresenter : BasePresenter<MineContract.View>(), MineContract.Presenter
         },{
             addSubscription(it)
         })
+    }
+
+    override fun getIconList(mineItems: MutableList<MineItemBean>):MutableList<Int> {
+        val resIdList = arrayListOf<Int>()
+
+        for (i in mineItems) {
+            resIdList.add(i.mIconStr.toInt())
+        }
+        return resIdList
+    }
+
+    override fun getTitleList(mineItems: MutableList<MineItemBean>):MutableList<String> {
+        val titleList = arrayListOf<String>()
+
+        for (i in mineItems) {
+            titleList.add(i.mName)
+        }
+        return titleList
     }
 
     /**
