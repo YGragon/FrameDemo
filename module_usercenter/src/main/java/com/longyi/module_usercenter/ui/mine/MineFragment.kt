@@ -21,6 +21,7 @@ import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.event.LoginEvent
+import com.example.lib_common.manager.ARouterManager
 import com.example.lib_common.model.UserControl
 import com.example.lib_common.service.gank.IGankPhotoCallBack
 import com.example.lib_common.service.gank.IGankService
@@ -140,12 +141,10 @@ class MineFragment : BaseFragment(), MineContract.View {
 //                DataSource.TO_JETPACK_MODULE -> ARouter.getInstance()
 //                    .build(RouterPath.AndroidJetPack.CUSTOM_TAB).navigation()
 //                DataSource.GET_ALL_SERVICE -> getAllService()
-                DataSource.GET_COLLECT -> ARouter.getInstance().build(RouterPath.UserCenter.COLLECT)
-                    .navigation()
-                DataSource.NEW_FUNC -> Beta.checkUpgrade()
+                DataSource.GET_COLLECT -> ARouterManager.toActivity(RouterPath.UserCenter.COLLECT)
+                DataSource.NEW_FUNC -> ARouterManager.toActivity(RouterPath.UserCenter.FUNC)
                 DataSource.LOG_OUT -> mPresenter.loginOut()
-                DataSource.ABOUT -> ARouter.getInstance().build(RouterPath.UserCenter.ABOUT)
-                    .navigation()
+                DataSource.ABOUT -> ARouterManager.toActivity(RouterPath.UserCenter.ABOUT)
             }
         }
     }

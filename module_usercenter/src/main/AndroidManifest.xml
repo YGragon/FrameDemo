@@ -4,7 +4,8 @@
     package="com.longyi.module_usercenter">
 
     <application android:theme="@style/AppTheme">
-        <activity android:name=".ui.about.AboutMeActivity"></activity>
+        <activity android:name=".ui.func.FuncMainActivity"></activity>
+        <activity android:name=".ui.about.AboutMeActivity" />
         <activity android:name=".ui.about.AboutAppActivity" />
         <activity android:name=".ui.about.AboutActivity" />
         <activity android:name=".ui.collect.CollectActivity" />
