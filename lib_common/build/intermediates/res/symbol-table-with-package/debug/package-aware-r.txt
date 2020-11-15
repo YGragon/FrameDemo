@@ -11,8 +11,6 @@ anim abc_slide_out_bottom
 anim abc_slide_out_top
 anim abc_tooltip_enter
 anim abc_tooltip_exit
-anim basepopup_fade_in
-anim basepopup_fade_out
 anim bga_sbl_activity_backward_enter
 anim bga_sbl_activity_backward_exit
 anim bga_sbl_activity_forward_enter
@@ -2093,6 +2091,15 @@ string agentweb_tips
 string agentweb_trickter
 string app_name
 string appbar_scrolling_view_behavior
+string basepopup_error_decorview
+string basepopup_error_destroyed
+string basepopup_error_non_act_context
+string basepopup_error_thread
+string basepopup_has_been_shown
+string basepopup_host
+string basepopup_shown_successful
+string basepopup_window_not_prepare
+string basepopup_window_prepared
 string bottom_sheet_behavior
 string character_counter_content_description
 string character_counter_pattern

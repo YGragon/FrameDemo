@@ -46,6 +46,10 @@ android {
                 }
             }
         }
+
+        // 使用高斯模糊
+        renderscriptTargetApi 18
+        renderscriptSupportModeEnabled true
     }
 
     buildTypes {

@@ -12,7 +12,7 @@ object RouterPath {
         const val ABOUT = "/user_center/about"
         const val ABOUT_APP = "/user_center/about_app"
         const val ABOUT_ME = "/user_center/about_me"
-        const val FUNC = "/user_center/func"
+        const val FUNC = "/user_center/func_main"
     }
 
     object Share{

@@ -1,11 +1,8 @@
 package com.longyi.module_usercenter.ui.mine
 
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.view.isGone
@@ -20,7 +17,6 @@ import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.constant.RouterPath
-import com.example.lib_common.event.LoginEvent
 import com.example.lib_common.manager.ARouterManager
 import com.example.lib_common.model.UserControl
 import com.example.lib_common.service.gank.IGankPhotoCallBack
@@ -28,8 +24,6 @@ import com.example.lib_common.service.gank.IGankService
 import com.example.lib_common.utils.GlideUtils
 import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
-import com.example.lib_common.utils.rxbus.bus.RxBus
-import com.example.lib_common.utils.rxbus.bus.RxBusReceiver
 import com.longyi.module_usercenter.R
 import com.maiml.library.config.ConfigAttrs
 import com.maiml.library.config.Mode
@@ -102,6 +96,25 @@ class MineFragment : BaseFragment(), MineContract.View {
         val icon = requireActivity().findViewById<ImageView>(R.id.icon)
         icon?.clipToOutline = true
 
+        // 展示头部的背景图
+        showHeadBgImage()
+
+
+        name.text = mToolBarLayoutTitle
+
+
+        layout.setOnBaseItemClick { position ->
+            when (mMineItems[position].mID) {
+                DataSource.DOWN_LOAD_APK -> Beta.checkUpgrade()
+                DataSource.GET_COLLECT -> ARouterManager.toActivity(RouterPath.UserCenter.COLLECT)
+                DataSource.NEW_FUNC -> ARouterManager.toActivity(RouterPath.UserCenter.FUNC)
+                DataSource.LOG_OUT -> mPresenter.loginOut()
+                DataSource.ABOUT -> ARouterManager.toActivity(RouterPath.UserCenter.ABOUT)
+            }
+        }
+    }
+
+    private fun showHeadBgImage() {
         // 从gank 组件获取一张图片
         val mineHeadImg = PreferenceUtils.getString("mine_head_img")
         if (mineHeadImg.isNotEmpty()) {
@@ -122,47 +135,6 @@ class MineFragment : BaseFragment(), MineContract.View {
                 ToastUtils.show(BaseApplication.context, msg)
             }
         })
-
-
-        name.text = mToolBarLayoutTitle
-
-
-        layout.setOnBaseItemClick { position ->
-            when (mMineItems[position].mID) {
-//                DataSource.DOWN_LOAD_APK -> Beta.checkUpgrade()
-//                DataSource.DOWN_LOAD_FILE -> ToastUtils.show(BaseApplication.context, "下载文件使用")
-//                DataSource.DOWN_UPLOAD_FILE -> ToastUtils.show(BaseApplication.context, "上传文件使用")
-//                DataSource.TO_SHARE_MODULE -> ARouter.getInstance()
-//                    .build(RouterPath.Share.SHARE_APP).navigation()
-//                DataSource.TO_MAP_MODULE -> ARouter.getInstance().build(RouterPath.Map.MAP_APP)
-//                    .navigation()
-//                DataSource.TO_GANK_MODULE -> ARouter.getInstance().build(RouterPath.Gank.GANK_PHOTO)
-//                    .navigation()
-//                DataSource.TO_JETPACK_MODULE -> ARouter.getInstance()
-//                    .build(RouterPath.AndroidJetPack.CUSTOM_TAB).navigation()
-//                DataSource.GET_ALL_SERVICE -> getAllService()
-                DataSource.GET_COLLECT -> ARouterManager.toActivity(RouterPath.UserCenter.COLLECT)
-                DataSource.NEW_FUNC -> ARouterManager.toActivity(RouterPath.UserCenter.FUNC)
-                DataSource.LOG_OUT -> mPresenter.loginOut()
-                DataSource.ABOUT -> ARouterManager.toActivity(RouterPath.UserCenter.ABOUT)
-            }
-        }
-    }
-
-
-    // TODO 优化展示获取的所有服务
-    private fun getAllService() {
-        val isCheck = TestService.checkEnabledAccessibilityService(BaseApplication.context)
-        if (isCheck) {
-            val isRun = TestService.isRun(
-                BaseApplication.context,
-                "com.longyi.module_usercenter.ui.mine.MyAccessibilityService"
-            )
-            val enabled = TestService.enabled("", BaseApplication.context)
-            ToastUtils.show(requireActivity(), "已获取权限")
-        } else {
-            ToastUtils.show(requireActivity(), "未获取权限")
-        }
     }
 
     override fun setTvTitleBackgroundColor() {

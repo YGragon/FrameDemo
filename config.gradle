@@ -35,7 +35,7 @@ ext {
             swipebacklayout         : "1.2.0",
             bottom_navigation_bar   : "2.1.0",
             easypermissions         : "3.0.0",
-            BasePopup               : "2.2.1",
+            BasePopup               : "2.2.10",
             BRVAH                   : "2.9.30",
             bugly                   : "latest.release",
             banner                  : "1.4.10",
