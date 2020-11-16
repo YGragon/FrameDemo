@@ -6,7 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.CustomTabViewHomeActivity">
-
+    <include layout="@layout/layout_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
     <fragment
         android:id="@+id/home_container"
         android:name="androidx.navigation.fragment.NavHostFragment"

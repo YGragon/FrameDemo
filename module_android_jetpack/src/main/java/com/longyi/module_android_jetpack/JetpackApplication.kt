@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.db.AppDataBase
 import com.example.lib_common.model.Student
+import com.example.lib_common.utils.PreferenceUtils
 import com.example.uitestdemo.ioThread
 
 
@@ -17,19 +18,19 @@ class JetpackApplication : BaseApplication()  {
     override fun initData(application: Application) {
         val allStudent = AppDataBase.instance(application).getStudentDao().getAllStudent()
         val dataSource = allStudent.create()
-        var hadData = false
+        val hasData = PreferenceUtils.getBoolean("initStudentData", false)
         dataSource.map {
-            if (it.name.isNotEmpty()){
-                hadData = true
+            if (!hasData){
+                PreferenceUtils.saveValue("initStudentData", true)
             }
         }
-        if (!hadData){
-            initData()
+        if (!hasData){
+            initStudentData()
         }
     }
 
     // 默认数据
-    private fun initData(){
+    private fun initStudentData(){
         ioThread {
             // 单线程池
             AppDataBase.instance(BaseApplication.context).getStudentDao().insert(

@@ -5,6 +5,7 @@ import com.longyi.module_android_jetpack.widget.custom_bottom_tab.CustomTabView
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.Navigation
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.base.BaseApplication
@@ -27,6 +28,9 @@ class CustomTabViewHomeActivity : AppCompatActivity(), CustomTabView.OnTabCheckL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        initToolbar()
+
         mCustomTabView = findViewById(R.id.custom_tab_container)
         val tabHome = Tab.Builder().setText("首页")
             .setColor(resources.getColor(android.R.color.darker_gray))
@@ -86,6 +90,17 @@ class CustomTabViewHomeActivity : AppCompatActivity(), CustomTabView.OnTabCheckL
             supportFragmentManager.beginTransaction().replace(R.id.home_container, fragment).commit()
         }
     }
+    private fun initToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = "JetpackHome"
+        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
 
+        //设置为ActionBar
+        setSupportActionBar(toolbar)
+        //显示那个箭头
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
+    }
 
 }
