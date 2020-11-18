@@ -108,7 +108,7 @@ class TodoSearchFragment : BaseFragment() {
         val pvOptions = OptionsPickerBuilder(requireContext(),
             OnOptionsSelectListener { options1, options2, options3, v ->
                 val tx = mStatusItems[options1]
-                mStatus = options1 + 1
+                mStatus = options1
                 sp_status.text = tx
 
                 getList(page = mPage, status = mStatus, orderby = mOrderby, type = mType, priority = mPriority)

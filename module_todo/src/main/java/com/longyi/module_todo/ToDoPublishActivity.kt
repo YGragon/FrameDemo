@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit
 class ToDoPublishActivity : BaseActivity(), ToDoContract.View {
 
     private lateinit var todoBean: Todo
-    private var type = 0
+    private var type = 1
     private var isEdit = false
     private var priority = 1
     private val mOptionsItems = listOf("工作","生活","娱乐")
