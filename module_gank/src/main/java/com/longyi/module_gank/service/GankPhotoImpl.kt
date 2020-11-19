@@ -21,7 +21,6 @@ class GankPhotoImpl:IGankService {
         // 从服务器获取
         runRxLambda(RetrofitManager.service.getGankPhotos(1,0),{
             try {
-                iGankPhotoCallBack.success(it.data[0].url)
                 iGankPhotoCallBack.successByList(it.data)
             }catch (e:Exception){
                 iGankPhotoCallBack.fail("请求顶部图片失败")
