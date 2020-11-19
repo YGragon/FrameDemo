@@ -22,6 +22,7 @@ import com.example.lib_common.model.ImageData
 import com.example.lib_common.model.UserControl
 import com.example.lib_common.service.gank.IGankPhotoCallBack
 import com.example.lib_common.service.gank.IGankService
+import com.example.lib_common.service.home.IHomeService
 import com.example.lib_common.utils.GlideUtils
 import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
@@ -122,21 +123,15 @@ class MineFragment : BaseFragment(), MineContract.View {
             GlideUtils.showImageView(BaseApplication.context, background, mineHeadImg)
         }
 
-        // todo 一天获取一次数据
-        val gankService =
-            ARouter.getInstance().build("/gank/IGankService").navigation() as IGankService
-        gankService.getHeaderPhoto(object : IGankPhotoCallBack {
+        val homeService = ARouter.getInstance().build(RouterPath.Home.HOME_SERVICE).navigation() as IHomeService
+        val imageDatas = homeService.getImageDatas()
+        if (imageDatas.isNotEmpty()){
+            val randomIndex = (1+Math.random()*(imageDatas.size-1)).toInt()
+            val imageData = imageDatas[randomIndex]
+            PreferenceUtils.saveValue("mine_head_img", imageData.url)
+        }
 
-            override fun successByList(images: MutableList<ImageData>) {
-                val randomIndex = (1+Math.random()*(images.size-1)).toInt()
-                val imageData = images[randomIndex]
-                PreferenceUtils.saveValue("mine_head_img", imageData.url)
-            }
 
-            override fun fail(msg: String) {
-                ToastUtils.show(BaseApplication.context, msg)
-            }
-        })
     }
 
     override fun setTvTitleBackgroundColor() {

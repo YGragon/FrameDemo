@@ -37,6 +37,7 @@ object RouterPath {
 
     object Home{
         const val HOME = "/home/home"
+        const val HOME_SERVICE = "/home_provider/IHomeService"
     }
 
 

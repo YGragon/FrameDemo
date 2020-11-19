@@ -46,7 +46,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     private lateinit var mAdapter: MultipleItemQuickAdapter
     private lateinit var banner: com.youth.banner.Banner
     private val list = mutableListOf<MultipleItem>()
-    private val imageList = mutableListOf<ImageData>()
 
     /**
      * 懒加载Presenter
@@ -71,7 +70,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         gankService.getHeaderPhoto(object : IGankPhotoCallBack {
 
             override fun successByList(images: MutableList<ImageData>) {
-                imageList.addAll(images)
+                HomeDataSource.setImageDatas(images)
             }
 
             override fun fail(msg: String) {
@@ -217,10 +216,21 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     override fun showLoadCompleteArticles() {
         mAdapter.loadMoreComplete()
+        addData()
+        mAdapter.notifyDataSetChanged()
+    }
 
+    override fun showLoadEndArticles() {
+        mAdapter.loadMoreEnd()
+        addData()
+        mAdapter.notifyDataSetChanged()
+    }
+
+    private fun addData(){
         val artList = HomeDataSource.mArticles
         for (i in artList.indices) {
             if (i % 10 == 0) {
+                val imageList = HomeDataSource.getImageDatas()
                 if (imageList.isNotEmpty()){
                     val randomIndex = (1+Math.random()*(imageList.size-1)).toInt()
                     val imageData = imageList[randomIndex]
@@ -237,24 +247,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
                 list.add(MultipleItem(MultipleItem.TEXT, artList[i],imageData))
             }
         }
-        mAdapter.notifyDataSetChanged()
-    }
-
-    override fun showLoadEndArticles() {
-        mAdapter.loadMoreEnd()
-        val artList = HomeDataSource.mArticles
-        for (i in artList.indices) {
-            if (i % 10 == 0) {
-                val randomIndex = (1+Math.random()*(imageList.size-1+1)).toInt()
-                val imageData = imageList[randomIndex]
-                list.add(MultipleItem(MultipleItem.IMG, artList[i],imageData))
-            } else {
-                val randomIndex = (1+Math.random()*(imageList.size-1+1)).toInt()
-                val imageData = imageList[randomIndex]
-                list.add(MultipleItem(MultipleItem.TEXT, artList[i],imageData))
-            }
-        }
-        mAdapter.notifyDataSetChanged()
     }
 
     override fun showBindLikeSuccess(msg: String, isLike: Boolean, article: Article) {

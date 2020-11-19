@@ -77,6 +77,7 @@ class MainActivity : BaseActivity() {
         mFragmentList.add(mMineFragment)
 
         vp_home.adapter = mPagerAdapter
+        vp_home.offscreenPageLimit = 3
 
         Observable.intervalRange(0,2,2,0,TimeUnit.SECONDS)
             .subscribeOn(Schedulers.io())
