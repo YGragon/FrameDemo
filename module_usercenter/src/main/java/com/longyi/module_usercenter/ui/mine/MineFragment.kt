@@ -18,6 +18,7 @@ import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.BaseConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.manager.ARouterManager
+import com.example.lib_common.model.ImageData
 import com.example.lib_common.model.UserControl
 import com.example.lib_common.service.gank.IGankPhotoCallBack
 import com.example.lib_common.service.gank.IGankService
@@ -120,15 +121,16 @@ class MineFragment : BaseFragment(), MineContract.View {
         if (mineHeadImg.isNotEmpty()) {
             GlideUtils.showImageView(BaseApplication.context, background, mineHeadImg)
         }
+
+        // todo 一天获取一次数据
         val gankService =
             ARouter.getInstance().build("/gank/IGankService").navigation() as IGankService
         gankService.getHeaderPhoto(object : IGankPhotoCallBack {
-            override fun success(imageUrl: String) {
-                PreferenceUtils.saveValue("mine_head_img", imageUrl)
-                if (mineHeadImg.isEmpty()) {
-                    // 初次进入，显示返回的图片
-                    GlideUtils.showImageView(BaseApplication.context, background, imageUrl)
-                }
+
+            override fun successByList(images: MutableList<ImageData>) {
+                val randomIndex = (1+Math.random()*(images.size-1)).toInt()
+                val imageData = images[randomIndex]
+                PreferenceUtils.saveValue("mine_head_img", imageData.url)
             }
 
             override fun fail(msg: String) {

@@ -17,34 +17,42 @@ import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
 import com.example.lib_common.model.Hotkey
+import com.example.lib_common.model.ImageData
+import com.example.lib_common.service.gank.IGankPhotoCallBack
+import com.example.lib_common.service.gank.IGankService
+import com.example.lib_common.utils.GlideUtils
+import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.utils.imageloader.GlideImageLoader
 import com.longyi.module_home.data.HomeDataSource
-import com.longyi.module_home.data.HomeDataSource.mArticles
-import com.longyi.module_home.data.HomeDataSource.mBanners
+import com.longyi.module_home.data.MultipleItem
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.home_fragment.*
+import javax.sql.DataSource
 
 /**
  * 首页 fragment
  *
  */
-@Route(path =  RouterPath.Home.HOME,name = "首页")
+@Route(path = RouterPath.Home.HOME, name = "首页")
 class HomeFragment : BaseFragment(), HomeContract.View {
-
 
 
     private var mPage = 0
     private var isShowToUser = true
 
-    private lateinit var mAdapter:HomeAdapter
-    private lateinit var banner:com.youth.banner.Banner
+    //    private lateinit var mAdapter: HomeAdapter
+    private lateinit var mAdapter: MultipleItemQuickAdapter
+    private lateinit var banner: com.youth.banner.Banner
+    private val list = mutableListOf<MultipleItem>()
+    private val imageList = mutableListOf<ImageData>()
 
     /**
      * 懒加载Presenter
      */
     private val mPresenter by lazy { HomePresenter(this) }
+
     init {
         mPresenter.attachView(this)
     }
@@ -57,14 +65,31 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         return R.layout.home_fragment
     }
 
-    override fun initData() {}
+    override fun initData() {
+        val gankService =
+            ARouter.getInstance().build("/gank/IGankService").navigation() as IGankService
+        gankService.getHeaderPhoto(object : IGankPhotoCallBack {
+
+            override fun successByList(images: MutableList<ImageData>) {
+                imageList.addAll(images)
+            }
+
+            override fun fail(msg: String) {
+                ToastUtils.show(BaseApplication.context, msg)
+            }
+        })
+    }
 
 
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(requireActivity())
         rv_home_list.layoutManager = linearLayoutManager
-        mAdapter = HomeAdapter(mArticles)
-        val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner,null)
+
+        // 显示多布局
+        mAdapter = MultipleItemQuickAdapter(list)
+        // 显示单布局
+//        mAdapter = HomeAdapter(mArticles)
+        val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner, null)
         banner = headBanner.findViewById(R.id.banner)
         mAdapter.addHeaderView(headBanner)
         rv_home_list.adapter = mAdapter
@@ -73,19 +98,19 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         initListener(linearLayoutManager)
     }
 
-    private fun initListener(linearLayoutManager:LinearLayoutManager){
+    private fun initListener(linearLayoutManager: LinearLayoutManager) {
         banner.setOnBannerListener { mPresenter.toWebDetail(mPresenter.getBannerUrl(it)) }
 
         mAdapter.setOnLoadMoreListener({
             mPage++
             mPresenter.getArticles(mPage)
-        },rv_home_list)
+        }, rv_home_list)
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
-            when(view.id){
+            when (view.id) {
                 R.id.tv_super_chapter_name -> {
                     val articleChapterUrl = mPresenter.getArticleChapterUrl(position)
-                    if (articleChapterUrl.isNotEmpty()){
+                    if (articleChapterUrl.isNotEmpty()) {
                         mPresenter.toWebDetail(articleChapterUrl)
                     }
                 }
@@ -95,11 +120,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }
 
         // 滑动监听
-        rv_home_list.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        rv_home_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val scrolledYDistance = getScrolledYDistance(linearLayoutManager)
-                val alpha = scrolledYDistance / (250*1.0f)
+                val alpha = scrolledYDistance / (250 * 1.0f)
                 changeStatusBarColor(alpha)
 
             }
@@ -107,17 +132,17 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     // LinearLayoutManager 获取滑动的高度
-   private fun getScrolledYDistance(layoutManager: LinearLayoutManager): Int {
+    private fun getScrolledYDistance(layoutManager: LinearLayoutManager): Int {
         val position = layoutManager.findFirstVisibleItemPosition()
         val firstVisibleChildView = layoutManager.findViewByPosition(position)
         val itemHeight = firstVisibleChildView!!.height
         return position * itemHeight - firstVisibleChildView.top
     }
 
-    private fun changeStatusBarColor(alpha:Float){
-        if(alpha < 0.5f){
+    private fun changeStatusBarColor(alpha: Float) {
+        if (alpha < 0.5f) {
             layout_status_bar.setBackgroundColor(resources.getColor(R.color.color_30000000))
-        }else{
+        } else {
             layout_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
             layout_status_bar.alpha = alpha
         }
@@ -131,7 +156,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     override fun fragmentShowToUser() {
         mPresenter.getHotkey()
         mPresenter.getBanners()
-        if (isShowToUser){
+        if (isShowToUser) {
             mPresenter.getArticles(mPage)
             isShowToUser = false
         }
@@ -151,14 +176,14 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun showError(errorMsg: String) {
-        ToastUtils.show(BaseApplication.context,errorMsg)
+        ToastUtils.show(BaseApplication.context, errorMsg)
     }
 
     override fun showHotkeys(hotkeys: MutableList<Hotkey>) {
         // 数据库保存 热搜词
         val hotkeyList = mutableListOf<String>()
-        for (i in hotkeys){
-            hotkeyList.add( "热搜 | "+i.name)
+        for (i in hotkeys) {
+            hotkeyList.add("热搜 | " + i.name)
         }
         setData(hotkeyList)
 
@@ -169,8 +194,9 @@ class HomeFragment : BaseFragment(), HomeContract.View {
      */
     private fun setData(data: MutableList<String>) {
         for (text in data) {
-            val itemFlipper = LayoutInflater.from(activity).inflate(R.layout.item_flipper_view,null)
-            itemFlipper.findViewById<TextView>(R.id.tv_flipper_text).text =text
+            val itemFlipper =
+                LayoutInflater.from(activity).inflate(R.layout.item_flipper_view, null)
+            itemFlipper.findViewById<TextView>(R.id.tv_flipper_text).text = text
             mFlipperView.addView(itemFlipper)
         }
         mFlipperView.startFlipping()
@@ -179,7 +205,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }
     }
 
-    override fun showBanners(images: MutableList<String>,titles:MutableList<String>) {
+    override fun showBanners(images: MutableList<String>, titles: MutableList<String>) {
 
         banner.setImages(images)
             .setBannerTitles(titles)
@@ -188,24 +214,57 @@ class HomeFragment : BaseFragment(), HomeContract.View {
             .setImageLoader(GlideImageLoader())
             .start()
     }
+
     override fun showLoadCompleteArticles() {
         mAdapter.loadMoreComplete()
+
+        val artList = HomeDataSource.mArticles
+        for (i in artList.indices) {
+            if (i % 10 == 0) {
+                if (imageList.isNotEmpty()){
+                    val randomIndex = (1+Math.random()*(imageList.size-1)).toInt()
+                    val imageData = imageList[randomIndex]
+                    list.add(MultipleItem(MultipleItem.IMG, artList[i],imageData))
+                }else{
+                    val imageData = ImageData("","","","","",
+                        mutableListOf(),1,"",1,"","","",1)
+                    list.add(MultipleItem(MultipleItem.TEXT, artList[i],imageData))
+                }
+
+            } else {
+                val imageData = ImageData("","","","","",
+                    mutableListOf(),1,"",1,"","","",1)
+                list.add(MultipleItem(MultipleItem.TEXT, artList[i],imageData))
+            }
+        }
         mAdapter.notifyDataSetChanged()
     }
 
     override fun showLoadEndArticles() {
         mAdapter.loadMoreEnd()
+        val artList = HomeDataSource.mArticles
+        for (i in artList.indices) {
+            if (i % 10 == 0) {
+                val randomIndex = (1+Math.random()*(imageList.size-1+1)).toInt()
+                val imageData = imageList[randomIndex]
+                list.add(MultipleItem(MultipleItem.IMG, artList[i],imageData))
+            } else {
+                val randomIndex = (1+Math.random()*(imageList.size-1+1)).toInt()
+                val imageData = imageList[randomIndex]
+                list.add(MultipleItem(MultipleItem.TEXT, artList[i],imageData))
+            }
+        }
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun showBindLikeSuccess(msg: String, isLike:Boolean, article: Article) {
-        ToastUtils.show(requireActivity(),msg)
+    override fun showBindLikeSuccess(msg: String, isLike: Boolean, article: Article) {
+        ToastUtils.show(requireActivity(), msg)
         article.collect = isLike
         mAdapter.notifyDataSetChanged()
     }
 
     override fun showBindLikeFail(msg: String, article: Article) {
-        ToastUtils.show(requireActivity(),msg)
+        ToastUtils.show(requireActivity(), msg)
     }
 
     override fun showLoading() {}
