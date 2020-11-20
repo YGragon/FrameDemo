@@ -1,7 +1,5 @@
 package com.longyi.module_home
 
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,8 +26,13 @@ import com.longyi.module_home.data.HomeDataSource
 import com.longyi.module_home.data.MultipleItem
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.home_fragment.*
-import javax.sql.DataSource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * 首页 fragment
@@ -65,18 +68,21 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun initData() {
-        val gankService =
-            ARouter.getInstance().build("/gank/IGankService").navigation() as IGankService
-        gankService.getHeaderPhoto(object : IGankPhotoCallBack {
+        // 放在子线程处理
+        CoroutineScope(Dispatchers.IO).launch {
+            val gankService =
+                ARouter.getInstance().build("/gank/IGankService").navigation() as IGankService
+            gankService.getHeaderPhoto(object : IGankPhotoCallBack {
 
-            override fun successByList(images: MutableList<ImageData>) {
-                HomeDataSource.setImageDatas(images)
-            }
+                override fun successByList(images: MutableList<ImageData>) {
+                    HomeDataSource.setImageDatas(images)
+                }
 
-            override fun fail(msg: String) {
-                ToastUtils.show(BaseApplication.context, msg)
-            }
-        })
+                override fun fail(msg: String) {
+                    ToastUtils.show(BaseApplication.context, msg)
+                }
+            })
+        }
     }
 
 

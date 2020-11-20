@@ -60,6 +60,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.dependencies["kotlin"]
+    api rootProject.ext.dependencies["kotlinCoroutines"]
     api rootProject.ext.dependencies["appcompat-v7"]
     api rootProject.ext.dependencies["constraintlayout"]
     api rootProject.ext.dependencies["design"]
