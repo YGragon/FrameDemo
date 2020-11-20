@@ -29,12 +29,12 @@ interface HomeContract {
         /**
          * 加载完成显示 article
          */
-        fun showLoadCompleteArticles()
+        fun showLoadCompleteArticles(listArticle: MutableList<Article>)
 
         /**
          * 全部显示 article
          */
-        fun showLoadEndArticles()
+        fun showLoadEndArticles(listArticle: MutableList<Article>)
 
         /**
          * 点击收藏、取消收藏成功
@@ -60,8 +60,6 @@ interface HomeContract {
          * 获取首页文章列表
          */
         fun getArticles(page:Int)
-        fun getArticleUrl(position:Int):String
-        fun getArticleChapterUrl(position:Int):String
 
         /**
          * 跳转网页详情

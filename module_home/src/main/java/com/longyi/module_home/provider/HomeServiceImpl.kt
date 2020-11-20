@@ -5,6 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.model.ImageData
 import com.example.lib_common.service.home.IHomeService
+import com.example.lib_common.utils.LogUtils
 import com.longyi.module_home.data.HomeDataSource
 
 /**
@@ -23,6 +24,7 @@ class HomeServiceImpl: IHomeService {
                 }
             }
         }
+        LogUtils.e("最新的数量：$freshCount")
         return freshCount
     }
 

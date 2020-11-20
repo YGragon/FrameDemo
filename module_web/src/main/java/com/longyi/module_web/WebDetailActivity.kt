@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.utils.LogUtils
 import com.just.agentweb.AgentWeb
 import kotlinx.android.synthetic.main.activity_web_detail.*
 

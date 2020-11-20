@@ -12,6 +12,7 @@ import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Banner
 import com.example.lib_common.model.Hotkey
@@ -113,14 +114,13 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
-                R.id.tv_super_chapter_name -> {
-                    val articleChapterUrl = mPresenter.getArticleChapterUrl(position)
-                    if (articleChapterUrl.isNotEmpty()) {
-                        mPresenter.toWebDetail(articleChapterUrl)
+                R.id.tv_super_chapter_name ->  {
+                    if (list[position].article.tags.isNotEmpty()){
+                        val url = UrlConstant.BASE_URL+list[position].article.tags[0].url
+                        mPresenter.toWebDetail(url)
                     }
                 }
-                R.id.layout_card -> mPresenter.toWebDetail(mPresenter.getArticleUrl(position))
-//                R.id.iv_like -> mPresenter.bindLike(HomeDataSource.mArticles[position])
+                R.id.layout_card -> mPresenter.toWebDetail(list[position].article.link)
             }
         }
 
@@ -220,37 +220,36 @@ class HomeFragment : BaseFragment(), HomeContract.View {
             .start()
     }
 
-    override fun showLoadCompleteArticles() {
+    override fun showLoadCompleteArticles(listArticle: MutableList<Article>) {
         mAdapter.loadMoreComplete()
-        addData()
+        addData(listArticle)
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun showLoadEndArticles() {
+    override fun showLoadEndArticles(listArticle: MutableList<Article>) {
         mAdapter.loadMoreEnd()
-        addData()
+        addData(listArticle)
         mAdapter.notifyDataSetChanged()
     }
 
-    private fun addData(){
-        val artList = HomeDataSource.mArticles
-        for (i in artList.indices) {
+    private fun addData(listArticle: MutableList<Article>){
+        for (i in listArticle.indices) {
             if (i % 10 == 0) {
                 val imageList = HomeDataSource.getImageDatas()
                 if (imageList.isNotEmpty()){
                     val randomIndex = (1+Math.random()*(imageList.size-1)).toInt()
                     val imageData = imageList[randomIndex]
-                    list.add(MultipleItem(MultipleItem.IMG, artList[i],imageData))
+                    list.add(MultipleItem(MultipleItem.IMG, listArticle[i],imageData))
                 }else{
                     val imageData = ImageData("","","","","",
                         mutableListOf(),1,"",1,"","","",1)
-                    list.add(MultipleItem(MultipleItem.TEXT, artList[i],imageData))
+                    list.add(MultipleItem(MultipleItem.TEXT, listArticle[i],imageData))
                 }
 
             } else {
                 val imageData = ImageData("","","","","",
                     mutableListOf(),1,"",1,"","","",1)
-                list.add(MultipleItem(MultipleItem.TEXT, artList[i],imageData))
+                list.add(MultipleItem(MultipleItem.TEXT, listArticle[i], imageData))
             }
         }
     }

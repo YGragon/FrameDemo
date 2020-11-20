@@ -18,6 +18,7 @@ import com.example.lib_common.http.runRxLambdaViewModel
 import com.example.lib_common.model.Article
 import com.longyi.module_home.data.HomeDataSource
 import com.example.lib_common.service.user_center.ILoginService
+import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
 
 
@@ -74,20 +75,8 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
         return HomeDataSource.mBanners[position].url
     }
 
-    override fun getArticleUrl(position:Int): String {
-        return  HomeDataSource.mArticles[position].link
-    }
-
-    override fun getArticleChapterUrl(position:Int): String {
-        val article = HomeDataSource.mArticles[position]
-        return if (article.tags.isNotEmpty()){
-            UrlConstant.BASE_URL+HomeDataSource.mArticles[position].tags[0].url
-        }else{
-            ""
-        }
-    }
-
     override fun toWebDetail(url:String) {
+        LogUtils.e("url:$url")
         ARouter.getInstance()
             .build(RouterPath.Web.WEB_DETAIL)
             .withString(ParameterConstant.Web.webUrl,url)
@@ -124,11 +113,11 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
     override fun getArticles(page:Int) {
         runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.getArticles(page),{
             if (it.data.curPage == it.data.pageCount) {
-                HomeDataSource.setArticles(it.data.datas)
-                mRootView?.showLoadEndArticles()
+                mRootView?.showLoadEndArticles(it.data.datas)
             } else {
+                // 用于给 app 传递当前最新的数量值
                 HomeDataSource.setArticles(it.data.datas)
-                mRootView?.showLoadCompleteArticles()
+                mRootView?.showLoadCompleteArticles(it.data.datas)
             }
         },{
             mRootView?.showError(ExceptionHandle.handleException(it))
