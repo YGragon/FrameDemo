@@ -24,7 +24,6 @@ class HomeServiceImpl: IHomeService {
                 }
             }
         }
-        LogUtils.e("最新的数量：$freshCount")
         return freshCount
     }
 

@@ -1,6 +1,9 @@
 package com.longyi.module_web
 
 
+import android.net.http.SslError
+import android.webkit.SslErrorHandler
+import android.webkit.WebView
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -11,6 +14,7 @@ import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.utils.LogUtils
 import com.just.agentweb.AgentWeb
+import com.just.agentweb.WebViewClient
 import kotlinx.android.synthetic.main.activity_web_detail.*
 
 @Route(path = RouterPath.Web.WEB_DETAIL,name = "网页详情")
