@@ -31,16 +31,12 @@
 			android:id="@+id/layout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			app:text_size  = "14"
+			app:text_size  = "16"
 			app:text_color = "@color/black_999"
 			app:icon_margin_left = "10"
 			app:icon_text_margin = "10"
-			app:margin_right = "10"
-			app:item_height = "44"
+			app:item_height = "70"
 			app:line_color = "@color/black_999"
-			app:right_text_size = "12"
-			app:right_text_color  = "@color/black_999"
-			app:right_text_margin = "10"
 			>
 
 		</com.maiml.library.BaseItemLayout>

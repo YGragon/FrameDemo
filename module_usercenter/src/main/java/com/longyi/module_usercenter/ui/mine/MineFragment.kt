@@ -165,14 +165,11 @@ class MineFragment : BaseFragment(), MineContract.View {
         // 移除所有view
         layout.removeAllViews()
         val attrs = ConfigAttrs() // 把全部参数的配置，委托给ConfigAttrs类处理。
-        //参数 使用链式方式配置
+//        //参数 使用链式方式配置
         attrs.setValueList(mPresenter.getTitleList(mMineItems))  // 文字 list
             .setResIdList(mPresenter.getIconList(mMineItems)) // icon list
-            .setIconWidth(24)  //设置icon 的大小
-            .setIconHeight(24)
-            .setItemHeight(56)
-            .setLineColor(R.color.white)
-            .setItemMarginTop(10)  //设置 全部item的间距
+            .setIconWidth(40)  //设置icon 的大小
+            .setIconHeight(40)
             .setItemMode(Mode.TEXT)
         layout.setConfigAttrs(attrs)
             .create() //
