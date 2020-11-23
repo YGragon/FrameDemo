@@ -6,30 +6,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.longyi.module_home.contract.HomeContract
-import com.longyi.module_home.presenter.HomePresenter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
-import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
 import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.model.Article
-import com.example.lib_common.model.Banner
 import com.example.lib_common.model.Hotkey
 import com.example.lib_common.model.ImageData
 import com.example.lib_common.service.gank.IGankPhotoCallBack
 import com.example.lib_common.service.gank.IGankService
-import com.example.lib_common.utils.GlideUtils
-import com.example.lib_common.utils.PreferenceUtils
 import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.utils.imageloader.GlideImageLoader
+import com.longyi.module_home.contract.HomeContract
 import com.longyi.module_home.data.HomeDataSource
 import com.longyi.module_home.data.MultipleItem
+import com.longyi.module_home.presenter.HomePresenter
+import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +45,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     //    private lateinit var mAdapter: HomeAdapter
     private lateinit var mAdapter: MultipleItemQuickAdapter
-    private lateinit var banner: com.youth.banner.Banner
+    private lateinit var banner: Banner
     private val list = mutableListOf<MultipleItem>()
 
     /**
@@ -134,6 +131,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
             }
         })
+        smart_refresh_layout.setOnRefreshListener {
+            mPage = 0
+            list.clear()
+            mPresenter.getArticles(mPage)
+        }
     }
 
     // LinearLayoutManager 获取滑动的高度
@@ -147,8 +149,10 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     private fun changeStatusBarColor(alpha: Float) {
         if (alpha < 0.5f) {
             layout_status_bar.setBackgroundColor(resources.getColor(R.color.color_30000000))
+            fake_status_bar.setBackgroundColor(resources.getColor(R.color.color_30000000))
         } else {
             layout_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
+            fake_status_bar.setBackgroundColor(resources.getColor(R.color.colorAccent))
             layout_status_bar.alpha = alpha
         }
     }
@@ -181,6 +185,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun showError(errorMsg: String) {
+        smart_refresh_layout.finishRefresh()
         ToastUtils.show(BaseApplication.context, errorMsg)
     }
 
@@ -221,12 +226,14 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun showLoadCompleteArticles(listArticle: MutableList<Article>) {
+        smart_refresh_layout.finishRefresh()
         mAdapter.loadMoreComplete()
         addData(listArticle)
         mAdapter.notifyDataSetChanged()
     }
 
     override fun showLoadEndArticles(listArticle: MutableList<Article>) {
+        smart_refresh_layout.finishRefresh()
         mAdapter.loadMoreEnd()
         addData(listArticle)
         mAdapter.notifyDataSetChanged()

@@ -82,6 +82,8 @@ dependencies {
     api rootProject.ext.dependencies["swipebacklayout"]
     api rootProject.ext.dependencies["bottom_navigation_bar"]
     api rootProject.ext.dependencies["arouter-api"]
+    api rootProject.ext.dependencies["smart_refresh_core"]
+    api rootProject.ext.dependencies["smart_refresh_header"]
 //    api rootProject.ext.dependencies["easypermissions"]
     api rootProject.ext.dependencies["BasePopup"]
     api rootProject.ext.dependencies["BRVAH"]

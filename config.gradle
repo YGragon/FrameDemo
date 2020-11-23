@@ -43,6 +43,7 @@ ext {
             agentweb                : "4.1.4",
             room                    : "2.1.0",
             number_progress         : "1.4@aar",
+            smart_refresh           : "2.0.1",
     ]
 
     dependencies = [
@@ -88,5 +89,7 @@ ext {
             "room"                     : "androidx.room:room-runtime:${version["room"]}",
             "room_compiler"            : "androidx.room:room-compiler:${version["room"]}",
             "number_progress"          : "com.daimajia.numberprogressbar:library:${version["number_progress"]}",
+            "smart_refresh_core"       : "com.scwang.smart:refresh-layout-kernel:${version["smart_refresh"]}",
+            "smart_refresh_header"     : "com.scwang.smart:refresh-header-classics:${version["smart_refresh"]}",
     ]
 }
