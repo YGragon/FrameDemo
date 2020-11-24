@@ -36,14 +36,18 @@
                     <ViewFlipper
                         android:id="@+id/mFlipperView"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/flipper_height"
+                        android:layout_height="0dp"
                         android:layout_gravity="center_horizontal"
                         android:flipInterval="3000"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/shape_search_bg"
                         android:inAnimation="@anim/bottom_in"
                         android:outAnimation="@anim/bottom_out"
                         app:layout_constraintEnd_toStartOf="@+id/layout_right_menu"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
                     <LinearLayout
                         android:id="@+id/layout_right_menu"
                         android:layout_width="wrap_content"
@@ -54,7 +58,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent">
                         <include layout="@layout/menu_action_scan"/>
-                        <include layout="@layout/menu_action_message"/>
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

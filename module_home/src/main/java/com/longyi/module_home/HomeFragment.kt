@@ -28,6 +28,7 @@ import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.menu_action_scan.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -131,10 +132,16 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
             }
         })
+        // 下拉刷新
         smart_refresh_layout.setOnRefreshListener {
             mPage = 0
             list.clear()
             mPresenter.getArticles(mPage)
+        }
+
+        // 扫码
+        layout_scan.setOnClickListener {
+            ToastUtils.show(requireContext(),"开发中")
         }
     }
 
