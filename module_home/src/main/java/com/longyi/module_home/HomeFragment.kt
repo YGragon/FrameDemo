@@ -1,14 +1,15 @@
 package com.longyi.module_home
 
+import android.Manifest
+import android.content.Intent
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.RouterPath
@@ -18,12 +19,19 @@ import com.example.lib_common.model.Hotkey
 import com.example.lib_common.model.ImageData
 import com.example.lib_common.service.gank.IGankPhotoCallBack
 import com.example.lib_common.service.gank.IGankService
+import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
+import com.example.lib_common.utils.WXHelper
 import com.example.lib_common.utils.imageloader.GlideImageLoader
+import com.king.zxing.CaptureActivity
+import com.king.zxing.Intents
 import com.longyi.module_home.contract.HomeContract
 import com.longyi.module_home.data.HomeDataSource
 import com.longyi.module_home.data.MultipleItem
 import com.longyi.module_home.presenter.HomePresenter
+import com.longyi.module_home.ui.ScanPopup
+import com.longyi.module_home.ui.ScanPopupCallBack
+import com.permissionx.guolindev.PermissionX
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
@@ -32,6 +40,7 @@ import kotlinx.android.synthetic.main.menu_action_scan.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import razerdp.basepopup.BasePopupWindow
 
 /**
  * 首页 fragment
@@ -112,9 +121,9 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
-                R.id.tv_super_chapter_name ->  {
-                    if (list[position].article.tags.isNotEmpty()){
-                        val url = UrlConstant.BASE_URL+list[position].article.tags[0].url
+                R.id.tv_super_chapter_name -> {
+                    if (list[position].article.tags.isNotEmpty()) {
+                        val url = UrlConstant.BASE_URL + list[position].article.tags[0].url
                         mPresenter.toWebDetail(url)
                     }
                 }
@@ -141,8 +150,45 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
         // 扫码
         layout_scan.setOnClickListener {
-            ToastUtils.show(requireContext(),"开发中")
+            checkCameraPermission()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val result = data?.getStringExtra(Intents.Scan.RESULT)
+        // TODO 可以获取到，但是不优雅，可以考虑把库源码获取到，通过 callback 返回
+        if (result != null && result.isNotEmpty() && (result.startsWith("http") || result.startsWith("https"))) {
+            mPresenter.toWebDetail(result)
+        }
+    }
+
+    private fun checkCameraPermission() {
+
+        PermissionX.init(this)
+            .permissions(Manifest.permission.CAMERA)
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted) {
+                    // 拥有权限
+                    showScanSelectPopup()
+                } else {
+                    Toast.makeText(requireActivity(), "These permissions are denied: $deniedList", Toast.LENGTH_LONG).show()
+                }
+            }
+    }
+    private fun showScanSelectPopup(){
+        ScanPopup(requireActivity(),object :ScanPopupCallBack{
+            override fun clickCustom() {
+                requireActivity().startActivityForResult(Intent(requireActivity(), CaptureActivity::class.java), 100)
+            }
+
+            override fun clickWeChat() {
+                WXHelper.openScanner(requireActivity())
+            }
+        }).setPopupGravity(
+            BasePopupWindow.GravityMode.RELATIVE_TO_ANCHOR,
+            Gravity.BOTTOM
+        ).showPopupWindow(layout_right_menu)
     }
 
     // LinearLayoutManager 获取滑动的高度
@@ -246,23 +292,27 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         mAdapter.notifyDataSetChanged()
     }
 
-    private fun addData(listArticle: MutableList<Article>){
+    private fun addData(listArticle: MutableList<Article>) {
         for (i in listArticle.indices) {
             if (i % 10 == 0) {
                 val imageList = HomeDataSource.getImageDatas()
-                if (imageList.isNotEmpty()){
-                    val randomIndex = (1+Math.random()*(imageList.size-1)).toInt()
+                if (imageList.isNotEmpty()) {
+                    val randomIndex = (1 + Math.random() * (imageList.size - 1)).toInt()
                     val imageData = imageList[randomIndex]
-                    list.add(MultipleItem(MultipleItem.IMG, listArticle[i],imageData))
-                }else{
-                    val imageData = ImageData("","","","","",
-                        mutableListOf(),1,"",1,"","","",1)
-                    list.add(MultipleItem(MultipleItem.TEXT, listArticle[i],imageData))
+                    list.add(MultipleItem(MultipleItem.IMG, listArticle[i], imageData))
+                } else {
+                    val imageData = ImageData(
+                        "", "", "", "", "",
+                        mutableListOf(), 1, "", 1, "", "", "", 1
+                    )
+                    list.add(MultipleItem(MultipleItem.TEXT, listArticle[i], imageData))
                 }
 
             } else {
-                val imageData = ImageData("","","","","",
-                    mutableListOf(),1,"",1,"","","",1)
+                val imageData = ImageData(
+                    "", "", "", "", "",
+                    mutableListOf(), 1, "", 1, "", "", "", 1
+                )
                 list.add(MultipleItem(MultipleItem.TEXT, listArticle[i], imageData))
             }
         }

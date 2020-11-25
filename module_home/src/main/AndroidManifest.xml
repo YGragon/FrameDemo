@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.longyi.module_home">
 
-    <application
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
+    <application android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity"/>
+
+        <!-- 扫描界面-->
+        <activity
+            android:name="com.king.zxing.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CaptureTheme" />
     </application>
 
 </manifest>

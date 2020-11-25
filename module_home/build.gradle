@@ -68,5 +68,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":lib_common")
     implementation 'com.github.giswangsj:RvParallaxImageView:1.0.1'
+    implementation 'com.king.zxing:zxing-lite:1.1.9-androidx'
+    api 'com.google.zxing:core:3.3.3'
     kapt rootProject.ext.dependencies["arouter-compiler"]
 }

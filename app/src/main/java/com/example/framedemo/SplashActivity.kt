@@ -1,5 +1,6 @@
 package com.example.framedemo
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class SplashActivity : AppCompatActivity() {
 
+    @SuppressLint("AutoDispose")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Observable.timer(2, TimeUnit.SECONDS)

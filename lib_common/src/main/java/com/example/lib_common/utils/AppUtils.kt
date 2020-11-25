@@ -3,9 +3,11 @@ package com.example.lib_common.utils
 import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import java.security.MessageDigest
+
 
 /**
  * 应用工具类
@@ -155,5 +157,17 @@ class AppUtils private constructor() {
          */
         val sdkVersion: Int
             get() = android.os.Build.VERSION.SDK_INT
+
+
+        // 判断当前包名的App是否已安装
+        fun isAppExist(context: Context,pkgName: String?): Boolean {
+            var info: ApplicationInfo? = null
+            try {
+                info = context.packageManager.getApplicationInfo(pkgName, 0)
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+            }
+            return info != null
+        }
     }
 }

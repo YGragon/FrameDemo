@@ -1,6 +1,7 @@
 package com.example.framedemo
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
@@ -19,6 +20,7 @@ import com.ashokvarma.bottomnavigation.ShapeBadgeItem
 import com.ashokvarma.bottomnavigation.TextBadgeItem
 import com.example.lib_common.service.home.IHomeService
 import com.example.lib_common.utils.ActivityManager
+import com.example.lib_common.utils.LogUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -132,4 +134,9 @@ class MainActivity : BaseActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val mHomeFragment = ARouter.getInstance().build(RouterPath.Home.HOME).navigation() as Fragment
+        mHomeFragment.onActivityResult(requestCode,resultCode,data)
+    }
 }
