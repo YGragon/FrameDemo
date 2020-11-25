@@ -67,5 +67,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":lib_common")
+    implementation 'com.github.dongxi346:MarqueeLib:1.0.0'
     kapt rootProject.ext.dependencies["arouter-compiler"]
 }

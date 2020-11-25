@@ -8,7 +8,35 @@
 		android:layout_height="match_parent"
 		android:orientation="vertical"
 		tools:context="com.longyi.module_web.WebDetailActivity">
-	<include layout="@layout/layout_toolbar" />
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/colorAccent"
+		app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+		app:popupTheme="@style/ToolbarPopupTheme"
+		app:elevation = "0dp"
+		android:minHeight="?attr/actionBarSize">
+		<com.dong.marqueelib.MarqueeTextviewNofocus
+			android:id="@+id/tv_marquee"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textSize="16sp"
+			/>
+<!--		<TextView-->
+<!--			android:id="@+id/tv_toolbar_title"-->
+<!--			android:textSize="@dimen/abc_text_size_title_material_toolbar"-->
+<!--			android:layout_width="wrap_content"-->
+<!--			android:layout_height="wrap_content"-->
+<!--			android:ellipsize="marquee"-->
+<!--			android:textColor="@color/white"-->
+<!--			android:marqueeRepeatLimit="marquee_forever"-->
+<!--			android:scrollHorizontally="true"-->
+<!--			android:focusable="true"-->
+<!--			android:focusableInTouchMode="true"-->
+<!--			android:singleLine="true" />-->
+
+	</androidx.appcompat.widget.Toolbar>
 	<FrameLayout
 		android:id="@+id/layout_web_detail"
 		android:layout_width="match_parent"

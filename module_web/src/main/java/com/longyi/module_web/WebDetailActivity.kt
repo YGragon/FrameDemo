@@ -1,30 +1,29 @@
 package com.longyi.module_web
 
 
-import android.net.http.SslError
-import android.webkit.SslErrorHandler
+import android.text.TextUtils
 import android.webkit.WebView
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.dong.marqueelib.MarqueeTextviewNofocus
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
-import com.example.lib_common.utils.LogUtils
 import com.just.agentweb.AgentWeb
-import com.just.agentweb.WebViewClient
+import com.just.agentweb.WebChromeClient
 import kotlinx.android.synthetic.main.activity_web_detail.*
 
-@Route(path = RouterPath.Web.WEB_DETAIL,name = "网页详情")
+@Route(path = RouterPath.Web.WEB_DETAIL, name = "网页详情")
 class WebDetailActivity : BaseActivity() {
 
     @JvmField
     @Autowired(name = ParameterConstant.Web.webUrl)
-    var webUrl: String?=null
+    var webUrl: String? = null
 
-    private var mAgentWeb:AgentWeb?=null
+    private var mAgentWeb: AgentWeb? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_web_detail
@@ -35,14 +34,34 @@ class WebDetailActivity : BaseActivity() {
         ARouter.getInstance().inject(this)
         initToolbar()
 
-        if (webUrl != null){
+        if (webUrl != null) {
             mAgentWeb = AgentWeb.with(this)
-                .setAgentWebParent(layout_web_detail as FrameLayout, FrameLayout.LayoutParams(-1, -1))
+                .setAgentWebParent(
+                    layout_web_detail as FrameLayout,
+                    FrameLayout.LayoutParams(-1, -1)
+                )
                 .useDefaultIndicator()
                 .createAgentWeb()
                 .ready()
                 .go(webUrl)
-        }else{
+
+            //获取网页的标题
+            mAgentWeb?.webCreator?.webView?.webChromeClient = object : WebChromeClient() {
+                override fun onReceivedTitle(
+                    view: WebView?,
+                    title: String
+                ) {
+                    if (!TextUtils.isEmpty(title)) {
+                        // 滚动标题
+                        tv_marquee.text = title
+                        tv_marquee.init(windowManager)
+                        tv_marquee.setScrollDirection(MarqueeTextviewNofocus.RIGHT_TO_LEFT)
+                        tv_marquee.setScrollMode(MarqueeTextviewNofocus.SCROLL_FAST)
+                    }
+                    super.onReceivedTitle(view, title)
+                }
+            }
+        } else {
             finish()
         }
 
