@@ -68,9 +68,13 @@ class FinishFragment : BaseFragment(), ToDoContract.View {
     override fun setTvTitleBackgroundColor() {
     }
 
-    override fun fragmentShowToUser() {
+    override fun onResume() {
+        super.onResume()
         mUnFinishList.clear()
         mPresenter.getList(page = 0,status = 1)
+    }
+    override fun fragmentShowToUser() {
+
     }
 
     override fun fragmentHideToUser() {}
