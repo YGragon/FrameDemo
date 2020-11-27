@@ -65,6 +65,10 @@ class WebDetailActivity : BaseActivity() {
             finish()
         }
 
+        floatActionButton.setOnClickListener {
+
+        }
+
     }
 
     override fun initData() {}
