@@ -39,8 +39,8 @@ interface HomeContract {
         /**
          * 点击收藏、取消收藏成功
          */
-        fun showBindLikeSuccess(msg:String, isLike:Boolean,article: Article)
-        fun showBindLikeFail(msg:String,article: Article)
+        fun showBindLikeSuccess(msg:String)
+        fun showBindLikeFail(msg:String)
     }
 
     interface Presenter: IPresenter<View> {
@@ -65,9 +65,9 @@ interface HomeContract {
          * 跳转网页详情
          * url 网址
          */
-        fun toWebDetail(url:String)
+        fun toWebDetail(url:String,id:Int,collect: Boolean)
 
 
-        fun bindLike(article: Article)
+        fun bindLike(id:Int,collect:Boolean)
     }
 }

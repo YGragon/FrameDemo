@@ -46,7 +46,7 @@ class MultipleItemQuickAdapter(list:MutableList<MultipleItem>): BaseMultiItemQui
                 helper.addOnClickListener(R.id.tv_super_chapter_name)
                 // 点击事件和 motionLayout的点击冲突
                 helper.getView<ImageView>(R.id.iv_like).setOnTouchListener { v, event ->
-                    mPresenter.bindLike(item)
+                    mPresenter.bindLike(item.id,item.collect)
                     false
                 }
                 helper.addOnClickListener(R.id.layout_card)

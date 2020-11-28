@@ -1,10 +1,13 @@
 package com.longyi.module_web
 
 
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.text.TextUtils
 import android.webkit.WebView
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -12,9 +15,11 @@ import com.dong.marqueelib.MarqueeTextviewNofocus
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.utils.ToastUtils
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
 import kotlinx.android.synthetic.main.activity_web_detail.*
+
 
 @Route(path = RouterPath.Web.WEB_DETAIL, name = "网页详情")
 class WebDetailActivity : BaseActivity() {
@@ -22,6 +27,14 @@ class WebDetailActivity : BaseActivity() {
     @JvmField
     @Autowired(name = ParameterConstant.Web.webUrl)
     var webUrl: String? = null
+
+    @JvmField
+    @Autowired(name = ParameterConstant.Web.webID)
+    var webID: Int? = null
+
+    @JvmField
+    @Autowired(name = ParameterConstant.Web.webCollected)
+    var webCollected: Boolean = false
 
     private var mAgentWeb: AgentWeb? = null
 
@@ -65,8 +78,27 @@ class WebDetailActivity : BaseActivity() {
             finish()
         }
 
-        floatActionButton.setOnClickListener {
+        if (webID == -1){
+            floatActionButton.hide()
+        }else{
+            floatActionButton.show()
+            if (webCollected) {
+                val colorStateList: ColorStateList? =
+                    ContextCompat.getColorStateList(applicationContext, R.color.colorAccent)
+                floatActionButton.backgroundTintMode = PorterDuff.Mode.SRC_ATOP
+                floatActionButton.backgroundTintList = colorStateList
+            } else {
+                val colorStateList: ColorStateList? =
+                    ContextCompat.getColorStateList(applicationContext, R.color.white)
+                floatActionButton.backgroundTintMode = PorterDuff.Mode.SRC_ATOP
+                floatActionButton.backgroundTintList = colorStateList
+            }
 
+        }
+
+        floatActionButton.setOnClickListener {
+            //todo 动画
+            ToastUtils.show(this,"收藏")
         }
 
     }

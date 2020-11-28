@@ -38,7 +38,7 @@ class HomeAdapter(list:MutableList<Article>)
 //        helper?.addOnClickListener(R.id.iv_like)
         // 点击事件和 motionLayout的点击冲突
         helper?.getView<ImageView>(R.id.iv_like)?.setOnTouchListener { v, event ->
-            mPresenter.bindLike(item)
+            mPresenter.bindLike(item.id,item.collect)
             false
         }
         helper?.addOnClickListener(R.id.layout_card)

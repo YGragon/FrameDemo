@@ -112,7 +112,9 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     private fun initListener(linearLayoutManager: LinearLayoutManager) {
-        banner.setOnBannerListener { mPresenter.toWebDetail(mPresenter.getBannerUrl(it)) }
+        banner.setOnBannerListener {
+            mPresenter.toWebDetail(mPresenter.getBannerUrl(it),-1,false)
+        }
 
         mAdapter.setOnLoadMoreListener({
             mPage++
@@ -120,14 +122,19 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }, rv_home_list)
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
+            val article = list[position].article
             when (view.id) {
                 R.id.tv_super_chapter_name -> {
                     if (list[position].article.tags.isNotEmpty()) {
-                        val url = UrlConstant.BASE_URL + list[position].article.tags[0].url
-                        mPresenter.toWebDetail(url)
+                        val url = UrlConstant.BASE_URL + article.tags[0].url
+                        mPresenter.toWebDetail(url, article.id, article.collect)
                     }
                 }
-                R.id.layout_card -> mPresenter.toWebDetail(list[position].article.link)
+                R.id.layout_card -> mPresenter.toWebDetail(
+                    article.link,
+                    article.id,
+                    article.collect
+                )
             }
         }
 
@@ -158,8 +165,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         super.onActivityResult(requestCode, resultCode, data)
         val result = data?.getStringExtra(Intents.Scan.RESULT)
         // TODO 可以获取到，但是不优雅，可以考虑把库源码获取到，通过 callback 返回
-        if (result != null && result.isNotEmpty() && (result.startsWith("http") || result.startsWith("https"))) {
-            mPresenter.toWebDetail(result)
+        if (result != null && result.isNotEmpty() && (result.startsWith("http") || result.startsWith(
+                "https"
+            ))
+        ) {
+            mPresenter.toWebDetail(result, -1, false)
         }
     }
 
@@ -172,14 +182,24 @@ class HomeFragment : BaseFragment(), HomeContract.View {
                     // 拥有权限
                     showScanSelectPopup()
                 } else {
-                    Toast.makeText(requireActivity(), "These permissions are denied: $deniedList", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireActivity(),
+                        "These permissions are denied: $deniedList",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
     }
-    private fun showScanSelectPopup(){
-        ScanPopup(requireActivity(),object :ScanPopupCallBack{
+
+    private fun showScanSelectPopup() {
+        ScanPopup(requireActivity(), object : ScanPopupCallBack {
             override fun clickCustom() {
-                requireActivity().startActivityForResult(Intent(requireActivity(), CaptureActivity::class.java), 100)
+                requireActivity().startActivityForResult(
+                    Intent(
+                        requireActivity(),
+                        CaptureActivity::class.java
+                    ), 100
+                )
             }
 
             override fun clickWeChat() {
@@ -318,13 +338,12 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }
     }
 
-    override fun showBindLikeSuccess(msg: String, isLike: Boolean, article: Article) {
+    override fun showBindLikeSuccess(msg: String) {
         ToastUtils.show(requireActivity(), msg)
-        article.collect = isLike
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun showBindLikeFail(msg: String, article: Article) {
+    override fun showBindLikeFail(msg: String) {
         ToastUtils.show(requireActivity(), msg)
     }
 

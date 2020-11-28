@@ -27,16 +27,16 @@ import com.example.lib_common.utils.ToastUtils
  */
 class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContract.View>(), HomeContract.Presenter{
 
-    override fun bindLike(article: Article) {
+    override fun bindLike(id:Int,collect:Boolean) {
         // 是否登录，未登录不可收藏
         val loginService = ARouter.getInstance().build("/provider/ILoginService").navigation() as ILoginService
         val login = loginService.isLogin()
         Log.e("222", "bindLike login:$login")
         if (login){
-            if (article.collect){
-                unLike(article)
+            if (collect){
+                unLike(id)
             }else{
-                like(article)
+                like(id)
             }
         }else{
             mRootView?.showError("你还未登录哟")
@@ -45,27 +45,27 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
 
     }
 
-    private fun unLike(article: Article){
+    private fun unLike(id:Int){
         // runRxLambda 网络请求工具使用
-        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionUnCollect(article.id),{
+        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionUnCollect(id),{
             if (it.errorCode == 0){
                 // 成功
-                mRootView?.showBindLikeSuccess("取消收藏成功",false, article)
+                mRootView?.showBindLikeSuccess("取消收藏成功")
             }else{
                 // 失败
-                mRootView?.showBindLikeFail("取消收藏失败：${it.errorMsg}",article)
+                mRootView?.showBindLikeFail("取消收藏失败：${it.errorMsg}")
             }
         })
     }
-    private fun like(article: Article){
+    private fun like(id:Int){
         // runRxLambda 网络请求工具使用
-        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionCollect(article.id),{
+        runRxLambdaViewModel(AndroidLifecycleScopeProvider.from(view),RetrofitManager.service.regionCollect(id),{
             if (it.errorCode == 0){
                 // 成功
-                mRootView?.showBindLikeSuccess("收藏成功",true, article)
+                mRootView?.showBindLikeSuccess("收藏成功")
             }else{
                 // 失败
-                mRootView?.showBindLikeFail("收藏失败：${it.errorMsg}",article)
+                mRootView?.showBindLikeFail("收藏失败：${it.errorMsg}")
             }
         })
     }
@@ -75,11 +75,13 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
         return HomeDataSource.mBanners[position].url
     }
 
-    override fun toWebDetail(url:String) {
+    override fun toWebDetail(url:String,id:Int,collect: Boolean) {
         LogUtils.e("url:$url")
         ARouter.getInstance()
             .build(RouterPath.Web.WEB_DETAIL)
             .withString(ParameterConstant.Web.webUrl,url)
+            .withString(ParameterConstant.Web.webID,url)
+            .withString(ParameterConstant.Web.webCollected,url)
             .navigation()
     }
 

@@ -13,6 +13,8 @@ object ParameterConstant {
 
     object Web{
         const val webUrl = "web_url"
+        const val webID= "web_id"
+        const val webCollected= "web_collected"
     }
 
     object GankPhoto{
