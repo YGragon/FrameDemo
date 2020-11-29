@@ -77,11 +77,13 @@ class HomePresenter(private val view:LifecycleOwner) : BasePresenter<HomeContrac
 
     override fun toWebDetail(url:String,id:Int,collect: Boolean) {
         LogUtils.e("url:$url")
+        LogUtils.e("id:$id")
+        LogUtils.e("collect:$collect")
         ARouter.getInstance()
             .build(RouterPath.Web.WEB_DETAIL)
             .withString(ParameterConstant.Web.webUrl,url)
-            .withString(ParameterConstant.Web.webID,url)
-            .withString(ParameterConstant.Web.webCollected,url)
+            .withInt(ParameterConstant.Web.webID,id)
+            .withBoolean(ParameterConstant.Web.webCollected,collect)
             .navigation()
     }
 
