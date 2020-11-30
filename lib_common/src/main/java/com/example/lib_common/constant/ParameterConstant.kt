@@ -14,6 +14,7 @@ object ParameterConstant {
     object Web{
         const val webUrl = "web_url"
         const val webID= "web_id"
+        const val webPosition= "web_position"
         const val webCollected= "web_collected"
     }
 

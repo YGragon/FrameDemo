@@ -145,7 +145,7 @@ class MineFragment : BaseFragment(), MineContract.View {
         if (UserControl.isLogin()) {
             val username = PreferenceUtils.getString(BaseConstant.USER_NAME)
             val user = UserControl.getUserByName(username)
-            Log.e(TAG, "当前user：$user")
+//            Log.e(TAG, "当前user：$user")
             if (user == null) {
                 // 未登录
                 showUnLoginState()

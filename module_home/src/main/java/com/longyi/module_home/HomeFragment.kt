@@ -1,7 +1,10 @@
 package com.longyi.module_home
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
@@ -13,13 +16,13 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.event.CollectEvent
 import com.example.lib_common.http.UrlConstant
 import com.example.lib_common.model.Article
 import com.example.lib_common.model.Hotkey
 import com.example.lib_common.model.ImageData
 import com.example.lib_common.service.gank.IGankPhotoCallBack
 import com.example.lib_common.service.gank.IGankService
-import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
 import com.example.lib_common.utils.WXHelper
 import com.example.lib_common.utils.imageloader.GlideImageLoader
@@ -40,7 +43,11 @@ import kotlinx.android.synthetic.main.menu_action_scan.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import razerdp.basepopup.BasePopupWindow
+
 
 /**
  * 首页 fragment
@@ -53,7 +60,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     private var mPage = 0
     private var isShowToUser = true
 
-    //    private lateinit var mAdapter: HomeAdapter
     private lateinit var mAdapter: MultipleItemQuickAdapter
     private lateinit var banner: Banner
     private val list = mutableListOf<MultipleItem>()
@@ -95,16 +101,19 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
 
     override fun initView() {
+        EventBus.getDefault().register(this)
+
         val linearLayoutManager = LinearLayoutManager(requireActivity())
         rv_home_list.layoutManager = linearLayoutManager
 
         // 显示多布局
         mAdapter = MultipleItemQuickAdapter(list)
         // 显示单布局
-//        mAdapter = HomeAdapter(mArticles)
         val headBanner = LayoutInflater.from(activity).inflate(R.layout.head_home_banner, null)
         banner = headBanner.findViewById(R.id.banner)
         mAdapter.addHeaderView(headBanner)
+        // 优化notifyDataChange 闪烁问题
+        mAdapter.setHasStableIds(true)
         rv_home_list.adapter = mAdapter
         mAdapter.setPresenter(mPresenter)
 
@@ -113,7 +122,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     private fun initListener(linearLayoutManager: LinearLayoutManager) {
         banner.setOnBannerListener {
-            mPresenter.toWebDetail(mPresenter.getBannerUrl(it),-1,false)
+            mPresenter.toWebDetail(-1,mPresenter.getBannerUrl(it),-1,false)
         }
 
         mAdapter.setOnLoadMoreListener({
@@ -127,10 +136,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
                 R.id.tv_super_chapter_name -> {
                     if (list[position].article.tags.isNotEmpty()) {
                         val url = UrlConstant.BASE_URL + article.tags[0].url
-                        mPresenter.toWebDetail(url, article.id, article.collect)
+                        mPresenter.toWebDetail(position,url, article.id, article.collect)
                     }
                 }
                 R.id.layout_card -> mPresenter.toWebDetail(
+                    position,
                     article.link,
                     article.id,
                     article.collect
@@ -161,6 +171,15 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onGetMessage(message: CollectEvent) {
+        val position = message.position
+        val collect = message.collect
+
+        list[position].article.collect = collect
+        mAdapter.notifyDataSetChanged()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val result = data?.getStringExtra(Intents.Scan.RESULT)
@@ -169,7 +188,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
                 "https"
             ))
         ) {
-            mPresenter.toWebDetail(result, -1, false)
+            mPresenter.toWebDetail(-1,result, -1, false)
         }
     }
 
@@ -340,7 +359,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     override fun showBindLikeSuccess(msg: String) {
         ToastUtils.show(requireActivity(), msg)
-        mAdapter.notifyDataSetChanged()
     }
 
     override fun showBindLikeFail(msg: String) {
@@ -353,6 +371,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     override fun onDestroy() {
         mPresenter.detachView()
+        EventBus.getDefault().unregister(this)
         super.onDestroy()
     }
 }

@@ -65,9 +65,9 @@ interface HomeContract {
          * 跳转网页详情
          * url 网址
          */
-        fun toWebDetail(url:String,id:Int,collect: Boolean)
+        fun toWebDetail(position:Int,url:String,id:Int,collect: Boolean)
 
 
-        fun bindLike(id:Int,collect:Boolean)
+        fun bindLike(position: Int,id:Int,collect:Boolean)
     }
 }

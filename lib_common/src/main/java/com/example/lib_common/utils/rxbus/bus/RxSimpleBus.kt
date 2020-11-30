@@ -1,5 +1,6 @@
 package com.example.lib_common.utils.rxbus.bus
 
+import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -22,6 +23,7 @@ object RxSimpleBus {
     }
 
     fun sendStickyMessage(rxMsg: RxBusMessage?) {
+        Log.e("222","sendStickyMessage rxmsg :$rxMsg")
         if (rxMsg?.msg == null) {
             return
         }

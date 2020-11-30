@@ -1,10 +1,10 @@
 package com.longyi.module_home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.example.lib_common.model.Article
 import com.longyi.module_home.data.MultipleItem
 import com.longyi.module_home.presenter.HomePresenter
 import per.wsj.lib.RvParallaxImageView
@@ -46,9 +46,10 @@ class MultipleItemQuickAdapter(list:MutableList<MultipleItem>): BaseMultiItemQui
                 helper.addOnClickListener(R.id.tv_super_chapter_name)
                 // 点击事件和 motionLayout的点击冲突
                 helper.getView<ImageView>(R.id.iv_like).setOnTouchListener { v, event ->
-                    mPresenter.bindLike(item.id,item.collect)
+                    mPresenter.bindLike(helper.adapterPosition-1, item.id,item.collect)
                     false
                 }
+//                helper.addOnClickListener(R.id.iv_like)
                 helper.addOnClickListener(R.id.layout_card)
             }
             MultipleItem.IMG ->{

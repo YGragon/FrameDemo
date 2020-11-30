@@ -3,7 +3,6 @@ package com.longyi.module_web
 
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
-import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.webkit.WebView
@@ -11,21 +10,22 @@ import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
-import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.dong.marqueelib.MarqueeTextviewNofocus
 import com.example.lib_common.base.BaseActivity
 import com.example.lib_common.constant.ParameterConstant
 import com.example.lib_common.constant.RouterPath
+import com.example.lib_common.event.CollectEvent
 import com.example.lib_common.http.RetrofitManager
 import com.example.lib_common.http.runRxLambdaViewModel
 import com.example.lib_common.service.user_center.ILoginService
-import com.example.lib_common.utils.LogUtils
 import com.example.lib_common.utils.ToastUtils
+import com.example.lib_common.utils.rxbus.bus.RxBus
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
 import kotlinx.android.synthetic.main.activity_web_detail.*
+import org.greenrobot.eventbus.EventBus
 
 
 @Route(path = RouterPath.Web.WEB_DETAIL, name = "网页详情")
@@ -38,6 +38,7 @@ class WebDetailActivity : BaseActivity() {
     //    @JvmField
 //    @Autowired(name = ParameterConstant.Web.webID)
     var webID: Int? = null
+    var webPosition: Int? = null
 
     //    @JvmField
 //    @Autowired(name = ParameterConstant.Web.webCollected)
@@ -57,6 +58,7 @@ class WebDetailActivity : BaseActivity() {
 
         webUrl = intent.getStringExtra(ParameterConstant.Web.webUrl)
         webID = intent.getIntExtra(ParameterConstant.Web.webID, -1)
+        webPosition = intent.getIntExtra(ParameterConstant.Web.webPosition, -1)
         webCollected = intent.getBooleanExtra(ParameterConstant.Web.webCollected, false)
 
         if (webUrl != null) {
@@ -151,6 +153,7 @@ class WebDetailActivity : BaseActivity() {
                 if (it.errorCode == 0) {
                     // 成功
                     showUnCollectIcon()
+                    EventBus.getDefault().postSticky(CollectEvent(webPosition!!, false))
                     ToastUtils.show(this, "取消收藏成功")
                 } else {
                     // 失败
@@ -167,6 +170,7 @@ class WebDetailActivity : BaseActivity() {
                 if (it.errorCode == 0) {
                     // 成功
                     showCollectIcon()
+                    EventBus.getDefault().postSticky(CollectEvent(webPosition!!, true))
                     ToastUtils.show(this, "收藏成功")
                 } else {
                     // 失败
