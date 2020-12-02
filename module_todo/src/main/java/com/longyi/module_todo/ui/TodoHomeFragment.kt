@@ -83,12 +83,14 @@ class TodoHomeFragment : BaseFragment() {
         }
     }
 
-    override fun fragmentShowToUser() {
-//        if (isShowToUser){
-//
-//            isShowToUser = false
-//        }
+    fun showFloatActionButton(){
+        floatActionButton?.show()
+    }
+    fun hideFloatActionButton(){
+        floatActionButton?.hide()
+    }
 
+    override fun fragmentShowToUser() {
     }
 
     override fun fragmentHideToUser() {}

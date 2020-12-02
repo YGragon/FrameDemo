@@ -1,8 +1,10 @@
 package com.longyi.module_todo.ui
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib_common.base.BaseApplication
 import com.example.lib_common.base.BaseFragment
@@ -43,7 +45,8 @@ class FinishFragment : BaseFragment(), ToDoContract.View {
     }
 
     override fun initView() {
-        rv_finish.layoutManager = LinearLayoutManager(activity)
+        val linearLayoutManager = LinearLayoutManager(activity)
+        rv_finish.layoutManager = linearLayoutManager
         mAdapter = TodoAdapter(mUnFinishList)
         rv_finish.adapter = mAdapter
 
@@ -63,6 +66,29 @@ class FinishFragment : BaseFragment(), ToDoContract.View {
                 .withSerializable(ParameterConstant.ToDo.todoBean,mUnFinishList[position])
                 .navigation()
         }
+
+        rv_finish.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (parentFragment is TodoHomeFragment) {
+                    val todoHomeFragment = parentFragment as TodoHomeFragment
+                    if (dy > 0) {
+                        todoHomeFragment.hideFloatActionButton()
+                    } else {
+                        todoHomeFragment.showFloatActionButton()
+                    }
+                }
+            }
+        })
+    }
+
+    // LinearLayoutManager 获取滑动的高度
+    private fun getScrolledYDistance(layoutManager: LinearLayoutManager): Int {
+        val position = layoutManager.findFirstVisibleItemPosition()
+        val firstVisibleChildView = layoutManager.findViewByPosition(position)
+        val itemHeight = firstVisibleChildView!!.height
+        return position * itemHeight - firstVisibleChildView.top
     }
 
     override fun setTvTitleBackgroundColor() {
