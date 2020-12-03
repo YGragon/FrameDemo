@@ -36,12 +36,12 @@ android {
             buildConfigField("boolean", "LOG_DEBUG", "false")//配置Log日志
             //是否开启zip优化
             zipAlignEnabled true
-            //是否开启混淆
+            //是否开启混淆, 开启两个优化   能压缩一半的apk大小
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "FrameDemo_V${rootProject.ext.android['versionName']}.apk"
+                    outputFileName = "玩Android_V${rootProject.ext.android['versionName']}.apk"
                 }
             }
         }

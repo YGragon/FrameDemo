@@ -21,6 +21,7 @@ import com.ashokvarma.bottomnavigation.TextBadgeItem
 import com.example.lib_common.service.home.IHomeService
 import com.example.lib_common.utils.ActivityManager
 import com.example.lib_common.utils.LogUtils
+import com.longyi.module_home.HomeFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -47,6 +48,13 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
 
+        val mHomeFragment = ARouter.getInstance().build(RouterPath.Home.HOME).navigation() as Fragment
+        val mMineFragment = ARouter.getInstance().build(RouterPath.UserCenter.MINE).navigation() as Fragment
+        val mCourseFragment = ARouter.getInstance().build(RouterPath.Todo.TODO_LIST).navigation() as Fragment
+        mFragmentList.add(mHomeFragment)
+        mFragmentList.add(mCourseFragment)
+        mFragmentList.add(mMineFragment)
+
         numberBadgeItem.setBorderWidth(4)
             .setBackgroundColorResource(R.color.colorPrimary)
             .show()
@@ -71,12 +79,7 @@ class MainActivity : BaseActivity() {
 
     @SuppressLint("AutoDispose")
     override fun initData() {
-        val mHomeFragment = ARouter.getInstance().build(RouterPath.Home.HOME).navigation() as Fragment
-        val mMineFragment = ARouter.getInstance().build(RouterPath.UserCenter.MINE).navigation() as Fragment
-        val mCourseFragment = ARouter.getInstance().build(RouterPath.Todo.TODO_LIST).navigation() as Fragment
-        mFragmentList.add(mHomeFragment)
-        mFragmentList.add(mCourseFragment)
-        mFragmentList.add(mMineFragment)
+
 
         vp_home.adapter = mPagerAdapter
         vp_home.offscreenPageLimit = 3
@@ -137,6 +140,7 @@ class MainActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val mHomeFragment = ARouter.getInstance().build(RouterPath.Home.HOME).navigation() as Fragment
-        mHomeFragment.onActivityResult(requestCode,resultCode,data)
+        val homeFragment = mHomeFragment as HomeFragment
+        homeFragment?.onActivityResult(requestCode,resultCode,data)
     }
 }
