@@ -1,12 +1,17 @@
 package com.example.lib_common.manager
 
+import android.app.Application
 import com.alibaba.android.arouter.launcher.ARouter
-import com.example.lib_common.constant.RouterPath
 
 /**
- * Created by Aller on 2020/11/14.
+ * 路由管理类
  */
 object ARouterManager {
+
+    fun init(application: Application){
+        // 初始化 ARouter
+        ARouter.init(application)
+    }
 
     fun toActivity(routerPath:String){
         ARouter.getInstance().build(routerPath).navigation()

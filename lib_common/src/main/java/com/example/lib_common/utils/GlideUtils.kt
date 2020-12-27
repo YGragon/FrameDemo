@@ -22,7 +22,7 @@ object GlideUtils {
     /**
      * 显示图片-placeholder 自定义占位图
      */
-    fun showImageView(context: Context, mImageView: ImageView, url: String,placeholder:Int) {
+    private fun showImageView(context: Context, mImageView: ImageView, url: String,placeholder:Int) {
         showImageView(
             context,
             mImageView,
@@ -34,7 +34,7 @@ object GlideUtils {
     /**
      * 显示图片-placeholder 自定义占位图 -error自定义异常占位图
      */
-    fun showImageView(context: Context, mImageView: ImageView, url: String,placeholder:Int,error:Int) {
+    private fun showImageView(context: Context, mImageView: ImageView, url: String,placeholder:Int,error:Int) {
         val options = RequestOptions()
             .placeholder(placeholder)
             .error(error)
@@ -61,7 +61,7 @@ object GlideUtils {
     /**
      * 显示圆形图片-placeholder 自定义占位图
      */
-    fun showCircleImage(context: Context, mImageView: ImageView, url: String,placeholder:Int) {
+    private fun showCircleImage(context: Context, mImageView: ImageView, url: String,placeholder:Int) {
         showCircleImage(
             context,
             mImageView,
@@ -73,7 +73,7 @@ object GlideUtils {
     /**
      * 显示圆形图片-placeholder 自定义占位图 -error自定义异常占位图
      */
-    fun showCircleImage(context: Context, mImageView: ImageView, url: String, placeholder:Int, error:Int) {
+    private fun showCircleImage(context: Context, mImageView: ImageView, url: String, placeholder:Int, error:Int) {
         val options = RequestOptions()
             .placeholder(placeholder)
             .error(error)
