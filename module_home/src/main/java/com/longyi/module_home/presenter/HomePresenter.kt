@@ -1,7 +1,5 @@
 package com.longyi.module_home.presenter
 
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
@@ -33,7 +31,6 @@ class HomePresenter(private val view: LifecycleOwner) : BasePresenter<HomeContra
         val loginService =
             ARouter.getInstance().build("/provider/ILoginService").navigation() as ILoginService
         val login = loginService.isLogin()
-        Log.e("222", "bindLike login:$login")
         if (login) {
             if (collect) {
                 unLike(position, id)
